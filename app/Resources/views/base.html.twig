@@ -17,6 +17,24 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-8">
+                    <a href="{{ path('index') }}" alt="Pokemon Go">
+                        <img src="{{ asset('images/logo.png') }}" />
+                    </a>
+                </div>
+                <div class="col-xs-4 text-right">
+                    {% if app.user %}
+                        <a href="{{ path('logout') }}">Se déconnecter</a>
+                    {% else %}
+                        <a href="{{ path('login') }}">Se connecter</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </header>
     <div class="container">
         {% for label, flashes in app.session.flashbag.all %}
             {% for flash in flashes %}
@@ -28,10 +46,7 @@
         {% block body %}{% endblock %}
     </div>
     <footer class="text-center">
-        &copy; Tiloweb.com & &copy; Pokemon
-        {% if app.user %}
-           | <a href="{{ path('logout') }}">Se déconnecter</a>
-        {% endif %}
+        &copy; <a href="https://www.tiloweb.com/" target="_blank">Tiloweb.com</a> & &copy; Pokemon
     </footer>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>

@@ -17,13 +17,14 @@ class DefaultController extends Controller
      * @Route("/", name="index")
      */
     public function indexAction(Request $request) {
-        if($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
-            return $this->redirectToRoute("player", array(
-                'username' => $this->getUser()->getUsername()
-            ));
-        } else {
-            return $this->redirectToRoute('login');
-        }
+        $listUser = $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->ranking(
+            $request->request->getInt('page', 1),
+            10
+        );
+
+        return $this->render('default/index.html.twig', array(
+            'listUser' => $listUser
+        ));
     }
 
     /**
