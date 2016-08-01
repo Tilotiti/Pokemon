@@ -40,4 +40,7 @@ security:
             role: IS_AUTHENTICATED_ANONYMOUSLY
         user:
             path: ^/
+            role: IS_AUTHENTICATED_ANONYMOUSLY
+        refresh:
+            path: ^/refresh
             role: ROLE_USER

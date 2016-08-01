@@ -27,9 +27,10 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/player/{username}", name="player")
+     * @Route("/player/{username}", name="player", defaults={"username":"me"})
      */
     public function playerAction(Request $request, $username) {
+
         // Classement général
         $listUser = $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->ranking(
             $request->request->getInt('page', 1),
@@ -37,9 +38,13 @@ class DefaultController extends Controller
         );
 
         // Utilisateur
-        $user = $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->findOneBy(array(
-            'username' => $username
-        ));
+        if($username == "me") {
+            $user = $this->getUser();
+        } else {
+            $user = $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->findOneBy(array(
+                'username' => $username
+            ));
+        }
 
         if(!$user) {
             $this->addFlash('danger', "Cet utilisateur n'existe pas.");
