@@ -1,7 +1,5 @@
 const pogobuf = require('pogobuf');
 
-console.log(process.argv);
-
 var username = process.argv[2];
 var password = process.argv[3];
 var provider = 'google';
