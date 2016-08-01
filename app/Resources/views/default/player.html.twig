@@ -72,7 +72,7 @@
                                         {{ loop.index + (( app.request.get('page', 1) - 1) * 10) }}
                                     </td>
                                     <td>
-                                        <a href="{{ path('player', {username: user.username}) }}">
+                                        <a href="{{ path('player', {username: player.username}) }}">
                                             {% if player.name is not empty %}
                                                 <strong>{{ player.name }}</strong>
                                                 <span class="hidden-md hidden-xs">({{ player.username }})</span>
