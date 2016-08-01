@@ -14,6 +14,7 @@
                     <th>#</th>
                     <th>Joueur</th>
                     <th class="text-center">Points</th>
+                    <th class="text-center">Km parcourus</th>
                     <th class="text-center">Pokédex</th>
                     <th class="text-center">Pokémons</th>
                     <th class="text-center">Captures</th>
@@ -21,42 +22,43 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for player in listUser %}
-                    <tr class="team_{{ player.team }}">
-                        <td>
-                            {{ loop.index + (( app.request.get('page', 1) - 1) * 10) }}
-                        </td>
-                        <td>
-                            <img src="{{ asset('images/team_'~ player.team ~'.png') }}" class="team">
-                            <a href="{{ path('player', {username: player.username}) }}">
-                                {% if player.name is not empty %}
-                                    <strong>{{ player.name }}</strong>
-                                    <span class="hidden-md hidden-xs">({{ player.username }})</span>
-                                {% else %}
-                                    <strong>{{ player.username }}</strong>
-                                {% endif %}
-                            </a>
-                        </td>
-                        <td class="text-center">{{ player.xp | number_format(0, ',', ' ') }}</td>
-                        <td class="text-center">{{ player.discovered }}</td>
-                        <td class="text-center">{{ player.pokedex | length }}</td>
-                        <td class="text-center">{{ player.catched }}</td>
-                        <td class="text-center">{{ player.evolved }}</td>
-                    </tr>
-                {% else %}
-                    <tr>
-                        <td class="text-center" colspan="7">
-                            <em>Aucun joueur trouvé</em>
-                        </td>
-                    </tr>
+                    {% for player in listUser %}
+                        <tr class="team_{{ player.team }}">
+                            <td>
+                                {{ loop.index + (( app.request.get('page', 1) - 1) * 10) }}
+                            </td>
+                            <td>
+                                <img src="{{ asset('images/team_'~ player.team ~'.png') }}" class="team">
+                                <a href="{{ path('player', {username: player.username}) }}">
+                                    {% if player.name is not empty %}
+                                        <strong>{{ player.name }}</strong>
+                                        <span class="hidden-md hidden-xs">({{ player.username }})</span>
+                                    {% else %}
+                                        <strong>{{ player.username }}</strong>
+                                    {% endif %}
+                                </a>
+                            </td>
+                            <td class="text-center">{{ player.km | number_format(0, ',', ' ') }}</td>
+                            <td class="text-center">{{ player.xp | number_format(0, ',', ' ') }}</td>
+                            <td class="text-center">{{ player.discovered }}</td>
+                            <td class="text-center">{{ player.pokedex | length }}</td>
+                            <td class="text-center">{{ player.catched }}</td>
+                            <td class="text-center">{{ player.evolved }}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td class="text-center" colspan="8">
+                                <em>Aucun joueur trouvé</em>
+                            </td>
+                        </tr>
                 {% endfor %}
                 </tbody>
                 <tfoot>
-                <tr>
-                    <td colspan="7" class="text-center">
-                        {{ pagination(listUser) }}
-                    </td>
-                </tr>
+                    <tr>
+                        <td colspan="8" class="text-center">
+                            {{ pagination(listUser) }}
+                        </td>
+                    </tr>
                 </tfoot>
             </table>
         </div>
