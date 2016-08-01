@@ -27,7 +27,7 @@ class User implements UserInterface {
     private $id;
 
     /**
-     * @ORM\Column
+     * @ORM\Column(nullable=true)
      */
     private $name;
 
