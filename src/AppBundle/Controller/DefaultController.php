@@ -22,8 +22,33 @@ class DefaultController extends Controller
             10
         );
 
+        $listStats = $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->teamStats();
+
+        $teamStats = array(array(
+            'name' => "Sans équipe",
+            'xp' => 0,
+            'color' => '#F1F3F6'
+        ), array(
+            'name' => "Team bleu",
+            'xp' => 0,
+            'color' => '#94DBEE'
+        ), array(
+            'name' => "Team rouge",
+            'xp' => 0,
+            'color' => '#EC8484'
+        ), array(
+            'name' => "Team Jaune",
+            'xp' => 0,
+            'color' => '#FFFF99'
+        ));
+
+        foreach($listStats as $stats) {
+            $teamStats[$stats['team']]['xp'] = $stats["points"];
+        }
+
         return $this->render('default/index.html.twig', array(
-            'listUser' => $listUser
+            'listUser' => $listUser,
+            'teamStats' => $teamStats
         ));
     }
 

@@ -45,4 +45,15 @@ class User extends EntityRepository
         }
         return $paginator;
     }
+
+    public function teamStats() {
+        $dql = $this->createQueryBuilder('user');
+        $dql->select('SUM(user.xp) AS points');
+        $dql->addSelect('user.team');
+        $dql->groupBy('user.team');
+
+        $query = $dql->getQuery();
+
+        return $query->getResult();
+    }
 }

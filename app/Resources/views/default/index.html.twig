@@ -3,66 +3,125 @@
 {% block title %}Pokemon Stats{% endblock %}
 
 {% block body %}
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            Classement
-        </div>
-        <div class="panel-body">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Joueur</th>
-                    <th class="text-center">Niveau</th>
-                    <th class="text-center">Points</th>
-                    <th class="text-center">Km parcourus</th>
-                    <th class="text-center">Pokédex</th>
-                    <th class="text-center">Pokémons</th>
-                    <th class="text-center">Captures</th>
-                    <th class="text-center">Evolutions</th>
-                </tr>
-                </thead>
-                <tbody>
-                    {% for player in listUser %}
-                        <tr class="team_{{ player.team }}">
-                            <td>
-                                {{ loop.index + (( app.request.get('page', 1) - 1) * 10) }}
-                            </td>
-                            <td>
-                                <img src="{{ asset('images/team_'~ player.team ~'.png') }}" class="team">
-                                <a href="{{ path('player', {username: player.username}) }}">
-                                    {% if player.name is not empty %}
-                                        <strong>{{ player.name }}</strong>
-                                        <span class="hidden-md hidden-xs">({{ player.username }})</span>
-                                    {% else %}
-                                        <strong>{{ player.username }}</strong>
-                                    {% endif %}
-                                </a>
-                            </td>
-                            <td class="text-center">{{ player.level }}</td>
-                            <td class="text-center">{{ player.xp | number_format(0, ',', ' ') }}</td>
-                            <td class="text-center">{{ player.km | number_format(0, ',', ' ') }}</td>
-                            <td class="text-center">{{ player.discovered }}</td>
-                            <td class="text-center">{{ player.pokedex | length }}</td>
-                            <td class="text-center">{{ player.catched }}</td>
-                            <td class="text-center">{{ player.evolved }}</td>
-                        </tr>
-                    {% else %}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Classement
+                </div>
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
                         <tr>
-                            <td class="text-center" colspan="9">
-                                <em>Aucun joueur trouvé</em>
-                            </td>
+                            <th>#</th>
+                            <th>Joueur</th>
+                            <th class="text-center">Niveau</th>
+                            <th class="text-center">Points</th>
+                            <th class="text-center">Km parcourus</th>
+                            <th class="text-center">Pokédex</th>
+                            <th class="text-center">Pokémons</th>
+                            <th class="text-center">Captures</th>
+                            <th class="text-center">Evolutions</th>
                         </tr>
-                {% endfor %}
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="9" class="text-center">
-                            {{ pagination(listUser) }}
-                        </td>
-                    </tr>
-                </tfoot>
-            </table>
+                        </thead>
+                        <tbody>
+                            {% for player in listUser %}
+                                <tr class="team_{{ player.team }}">
+                                    <td>
+                                        {{ loop.index + (( app.request.get('page', 1) - 1) * 10) }}
+                                    </td>
+                                    <td>
+                                        <img src="{{ asset('images/team_'~ player.team ~'.png') }}" class="team">
+                                        <a href="{{ path('player', {username: player.username}) }}">
+                                            {% if player.name is not empty %}
+                                                <strong>{{ player.name }}</strong>
+                                                <span class="hidden-md hidden-xs">({{ player.username }})</span>
+                                            {% else %}
+                                                <strong>{{ player.username }}</strong>
+                                            {% endif %}
+                                        </a>
+                                    </td>
+                                    <td class="text-center">{{ player.level }}</td>
+                                    <td class="text-center">{{ player.xp | number_format(0, ',', ' ') }}</td>
+                                    <td class="text-center">{{ player.km | number_format(0, ',', ' ') }}</td>
+                                    <td class="text-center">{{ player.discovered }}</td>
+                                    <td class="text-center">{{ player.pokedex | length }}</td>
+                                    <td class="text-center">{{ player.catched }}</td>
+                                    <td class="text-center">{{ player.evolved }}</td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td class="text-center" colspan="9">
+                                        <em>Aucun joueur trouvé</em>
+                                    </td>
+                                </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="text-center">
+                        {{ pagination(listUser) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">Experience par équipe</div>
+                <div class="panel-body">
+                    <div id="teamStats" style="height: 300px;"></div>
+                </div>
+            </div>
         </div>
     </div>
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        $(function() {
+            $('#teamStats').css('height', function() {
+                return $(this).width();
+            })
+
+            google.charts.load('current', {'packages':['corechart']});
+            google.charts.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+
+                var data = google.visualization.arrayToDataTable([
+                    ['Team', 'XP']
+                    {% for team in teamStats %}
+                        , ["{{ team.name }}", {{ team.xp }}]
+                    {% endfor %}
+                ]);
+
+                var formatter = new google.visualization.NumberFormat({
+                    pattern: '### ### ### ###'
+                });
+                formatter.format(data, 1);
+
+                var options = {
+                    legend: 'none',
+                    slices: {
+                        {% for team in teamStats %}
+                            {{ loop.index0 }}: { color: '{{ team.color }}' },
+                        {% endfor %}
+                    },
+                    chartArea: {
+                        width: '100%',
+                        height: '100%',
+                        left: 0,
+                        top: 0
+                    },
+                    pieSliceTextStyle: {
+                        color: '#6a6c6f'
+                    }
+                };
+
+                var chart = new google.visualization.PieChart(document.getElementById('teamStats'));
+
+                chart.draw(data, options);
+            }
+        });
+    </script>
 {% endblock %}
