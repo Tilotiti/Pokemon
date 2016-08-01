@@ -27,6 +27,7 @@ class DefaultController extends Controller
         ));
     }
 
+
     /**
      * @Route("/player/{username}", name="player", defaults={"username":"me"})
      */
@@ -98,7 +99,7 @@ class DefaultController extends Controller
 
             if(!$user) {
                 // Erreur de connexion
-                $this->addFlash('danger', "Une erreur de connexion s'est produite. Vos identifiants Google ne sont pas valides ou les serveurs de Pokemon Go sont hors-ligne.");
+                $this->addFlash('danger', "Une erreur de connexion s'est produite. Vos identifiants Google ne sont pas valides ou les serveurs de Pokemon Go sont hors-ligne. Si ce n'est pas le cas, rendez-vous ici pour valider l'accès à votre compte Google : https://g.co/allowaccess.");
 
                 return $this->redirectToRoute("login");
             }

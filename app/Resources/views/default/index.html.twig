@@ -27,7 +27,7 @@
                             {{ loop.index + (( app.request.get('page', 1) - 1) * 10) }}
                         </td>
                         <td>
-                            <img src="{{ asset('images/team_'~ player.team~'.png') }}" class="team">
+                            <img src="{{ asset('images/team_'~ player.team ~'.png') }}" class="team">
                             <a href="{{ path('player', {username: player.username}) }}">
                                 {% if player.name is not empty %}
                                     <strong>{{ player.name }}</strong>

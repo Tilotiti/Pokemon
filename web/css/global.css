@@ -16,6 +16,9 @@ header {
   margin-bottom: 20px; }
   header img {
     height: 50px; }
+  header a {
+    display: inline-block;
+    margin-left: 20px; }
 
 a {
   color: inherit; }

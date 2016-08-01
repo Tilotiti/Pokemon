@@ -27,6 +27,7 @@
                 </div>
                 <div class="col-xs-4 text-right">
                     {% if app.user %}
+                        <a href="{{ path('player') }}">Mon profil</a>
                         <a href="{{ path('logout') }}">Se déconnecter</a>
                     {% else %}
                         <a href="{{ path('login') }}">Se connecter</a>
