@@ -30,6 +30,7 @@ class User extends EntityRepository
         $dql = $this->createQueryBuilder('user');
 
         $dql->andWhere('user.username IS NOT NULL');
+        $dql->orderBy("user.xp", 'DESC');
 
         $firstResult = ($page - 1) * $max;
 
