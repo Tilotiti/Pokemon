@@ -113,7 +113,8 @@ class DefaultController extends Controller
             $this->get('session')->set('_security_app', serialize($token));
 
             $this->addFlash('success', "Vous êtes maintenant connecté et vos informations sont à jour.");
-            return $this->redirectToRoute("index");
+
+            return $this->redirectToRoute("player");
         }
 
         return $this->render('default/login.html.twig');
