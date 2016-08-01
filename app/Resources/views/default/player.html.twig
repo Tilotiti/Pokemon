@@ -62,6 +62,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Joueur</th>
+                                <th class="text-center">Niveau</th>
                                 <th class="text-center">Points</th>
                                 <th class="text-center">Pokédex</th>
                             </tr>
@@ -83,12 +84,13 @@
                                             {% endif %}
                                         </a>
                                     </td>
+                                    <td class="text-center">{{ player.level }}</td>
                                     <td class="text-center">{{ player.xp | number_format(0, ',', ' ') }}</td>
                                     <td class="text-center">{{ player.discovered }}</td>
                                 </tr>
                             {% else %}
                                 <tr>
-                                    <td class="text-center" colspan="4">
+                                    <td class="text-center" colspan="5">
                                         <em>Aucun joueur trouvé</em>
                                     </td>
                                 </tr>
@@ -96,7 +98,7 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="4" class="text-center">
+                                <td colspan="5" class="text-center">
                                     {{ pagination(listUser) }}
                                 </td>
                             </tr>
