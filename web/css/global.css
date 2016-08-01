@@ -116,4 +116,9 @@ tr.team_3 td {
       margin-right: 5px;
       vertical-align: baseline; }
 
+img.team {
+  width: 13px;
+  display: inline-block;
+  margin-right: 10px; }
+
 /*# sourceMappingURL=global.css.map */

@@ -60,9 +60,6 @@
                                 <th>Joueur</th>
                                 <th class="text-center">Points</th>
                                 <th class="text-center">Pokédex</th>
-                                <th class="text-center">Pokémons</th>
-                                <th class="text-center">Captures</th>
-                                <th class="text-center">Evolutions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -72,6 +69,7 @@
                                         {{ loop.index + (( app.request.get('page', 1) - 1) * 10) }}
                                     </td>
                                     <td>
+                                        <img src="{{ asset('images/team_'~ player.team~'.png') }}" class="team">
                                         <a href="{{ path('player', {username: player.username}) }}">
                                             {% if player.name is not empty %}
                                                 <strong>{{ player.name }}</strong>
@@ -83,13 +81,10 @@
                                     </td>
                                     <td class="text-center">{{ player.xp | number_format(0, ',', ' ') }}</td>
                                     <td class="text-center">{{ player.discovered }}</td>
-                                    <td class="text-center">{{ player.pokedex | length }}</td>
-                                    <td class="text-center">{{ player.catched }}</td>
-                                    <td class="text-center">{{ player.evolved }}</td>
                                 </tr>
                             {% else %}
                                 <tr>
-                                    <td class="text-center" colspan="7">
+                                    <td class="text-center" colspan="4">
                                         <em>Aucun joueur trouvé</em>
                                     </td>
                                 </tr>
@@ -97,7 +92,7 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="7" class="text-center">
+                                <td colspan="4" class="text-center">
                                     {{ pagination(listUser) }}
                                 </td>
                             </tr>
