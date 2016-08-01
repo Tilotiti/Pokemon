@@ -35,9 +35,8 @@ security:
         login:
             path: ^/login
             role: IS_AUTHENTICATED_ANONYMOUSLY
-
-        login:
-            path: ^/register
+        player:
+            path: ^/player
             role: IS_AUTHENTICATED_ANONYMOUSLY
         user:
             path: ^/
