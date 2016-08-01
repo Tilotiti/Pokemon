@@ -1,0 +1,28 @@
+{
+  "name": "pokemon",
+  "version": "1.0.0",
+  "description": "PokemonGO Stats ===============",
+  "main": "bin/update.js",
+  "bin": {
+    "pokemon": "update.js"
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tilotiti/Pokemon.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Tilotiti/Pokemon/issues"
+  },
+  "homepage": "https://github.com/Tilotiti/Pokemon#readme",
+  "dependencies": {
+    "pogobuf": "^1.4.0"
+  }
+}
