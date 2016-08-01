@@ -9,14 +9,15 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class User
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\User")
  * @ORM\Table(name="user")
  */
-class User {
+class User implements UserInterface {
 
     /**
      * @ORM\Id
@@ -24,6 +25,11 @@ class User {
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @ORM\Column
+     */
+    private $name;
 
     /**
      * @ORM\column(nullable=true)
@@ -73,7 +79,7 @@ class User {
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $evolution;
+    private $evolved;
 
     /**
      * @ORM\OneToMany(targetEntity="Pokedex", mappedBy="user")
@@ -96,6 +102,22 @@ class User {
     public function setId($id)
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param mixed $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
     }
 
     /**
@@ -255,11 +277,11 @@ class User {
      */
     public function getDiscovered()
     {
-        return $this->discoveedr;
+        return $this->discovered;
     }
 
     /**
-     * @param mixed $discover
+     * @param mixed $discovered
      */
     public function setDiscovered($discovered)
     {
@@ -285,16 +307,43 @@ class User {
     /**
      * @return mixed
      */
-    public function getEvolution()
+    public function getEvolved()
     {
-        return $this->evolution;
+        return $this->evolved;
     }
 
     /**
-     * @param mixed $evolution
+     * @param mixed $evolved
      */
-    public function setEvolution($evolution)
+    public function setEvolved($evolved)
     {
-        $this->evolution = $evolution;
+        $this->evolved = $evolved;
+    }
+
+    public function setPassword($password) {
+        $this->encryptGooglePassword($password);
+    }
+
+    public function getPassword() {
+        return $this->decryptGooglePassword();
+    }
+
+    public function getRoles()
+    {
+        return array('ROLE_USER');
+    }
+
+    public function getSalt()
+    {
+        return null;
+    }
+
+    public function eraseCredentials()
+    {
+        return null;
+    }
+
+    public function getAvatar() {
+        return 'https://www.gravatar.com/avatar/'.md5($this->getGoogleAccount());
     }
 }

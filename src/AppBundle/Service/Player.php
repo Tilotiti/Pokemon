@@ -35,10 +35,14 @@ class Player
 
         // executes after the command finishes
         if (!$process->isSuccessful()) {
-            throw new ProcessFailedException($process);
+            return false;
         }
 
         $data = json_decode($process->getOutput());
+
+        if(!isset($data->player->username)) {
+            return false;
+        }
 
         // Update User
         $user->setUsername($data->player->username);
@@ -48,7 +52,7 @@ class Player
         $user->setKm($data->player->km);
         $user->setLevel($data->player->level);
         $user->setXp($data->player->xp);
-        $user->setEvolution($data->player->evolution);
+        $user->setEvolved($data->player->evolved);
 
         $this->em->persist($user);
         $this->em->flush();
@@ -89,6 +93,6 @@ class Player
 
         $this->em->flush();
 
-        return null;
+        return $user;
     }
 }

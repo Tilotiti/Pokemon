@@ -2,10 +2,16 @@
 # http://symfony.com/doc/current/book/security.html
 security:
 
+    encoders:
+        AppBundle\Entity\User:
+            algorithm: plaintext
+
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory:
-            memory: ~
+        database:
+            entity:
+                class: AppBundle:User
+                property: googleAccount
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -13,12 +19,26 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
+        app:
+            provider: database
+            anonymous: ~
+            pattern: ^/
+            logout:
+                path: logout
+                target: login
+                invalidate_session: true
+
         main:
             anonymous: ~
-            # activate different ways to authenticate
 
-            # http_basic: ~
-            # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
+    access_control:
+        login:
+            path: ^/login
+            role: IS_AUTHENTICATED_ANONYMOUSLY
 
-            # form_login: ~
-            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+        login:
+            path: ^/register
+            role: IS_AUTHENTICATED_ANONYMOUSLY
+        user:
+            path: ^/
+            role: ROLE_USER

@@ -40,7 +40,7 @@ login.login(username, password)
             km: Math.round(parseInt(inventory.player.km_walked)),
             discovered: inventory.player.unique_pokedex_entries,
             catched: inventory.player.pokemons_captured,
-            evolution: inventory.player.evolutions
+            evolved: inventory.player.evolutions
         };
 
 

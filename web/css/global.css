@@ -1,0 +1,109 @@
+@import url("http://fonts.googleapis.com/css?family=Open+Sans:200,300,400,600,700");
+body {
+  background-color: #F1F3F6;
+  color: #6a6c6f;
+  font-family: "Open Sans";
+  font-weight: normal;
+  font-size: 11px;
+  font-weight: 600; }
+
+a {
+  color: inherit; }
+
+.panel {
+  background-color: transparent;
+  border: none;
+  box-shadow: none; }
+  .panel .panel-heading {
+    font-weight: 600;
+    padding: 10px 4px;
+    border: solid 1px transparent;
+    transition: all .3s;
+    background-image: none;
+    background-color: transparent;
+    font-size: 13px;
+    box-sizing: border-box;
+    color: #6a6c6f; }
+    .panel .panel-heading .tools {
+      float: right; }
+      .panel .panel-heading .tools a {
+        display: inline-block;
+        color: inherit;
+        margin-left: 10px; }
+  .panel .panel-body {
+    background-color: #fff;
+    border: 1px solid #e4e5e7;
+    border-radius: 2px;
+    padding: 20px;
+    position: relative; }
+  .panel .panel-footer {
+    border: 1px solid #e4e5e7;
+    border-top: none;
+    background-color: #f7f9fa;
+    background-image: none;
+    padding: 10px 15px; }
+
+tr.team_1 td {
+  background-color: #94DBEE; }
+
+tr.team_2 td {
+  background-color: #EC8484; }
+
+tr.team_3 td {
+  background-color: #FFFF99; }
+
+#refresh {
+  cursor: pointer; }
+  #refresh.loading {
+    animation: spin 4s infinite linear;
+    cursor: progress; }
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg); }
+  to {
+    transform: rotate(360deg); } }
+#listPokemon > .col-xs-12 > .panel {
+  margin-bottom: 0px; }
+
+.pokemon {
+  text-align: center;
+  position: relative; }
+  .pokemon img {
+    max-width: 100%; }
+  .pokemon .panel-body {
+    height: 162px; }
+  .pokemon .title {
+    display: block;
+    text-align: center;
+    font-weight: bold; }
+  .pokemon .cp {
+    position: absolute;
+    left: 10px;
+    top: 10px; }
+    .pokemon .cp:before {
+      content: '';
+      display: inline-block;
+      background-image: url("../images/strength.png");
+      background-repeat: no-repeat;
+      width: 8px;
+      height: 8px;
+      background-size: contain;
+      margin-right: 5px;
+      vertical-align: baseline; }
+  .pokemon .pokeball {
+    position: absolute;
+    top: 10px;
+    right: 10px; }
+    .pokemon .pokeball:before {
+      content: '';
+      display: inline-block;
+      background-image: url("../images/pokeball.png");
+      background-repeat: no-repeat;
+      width: 8px;
+      height: 8px;
+      background-size: contain;
+      margin-right: 5px;
+      vertical-align: baseline; }
+
+/*# sourceMappingURL=global.css.map */

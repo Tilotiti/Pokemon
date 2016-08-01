@@ -1,0 +1,153 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row animated-panel">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {% if app.user == user %}
+                        <div class="tools">
+                            <a href="{{ path('account') }}" title="Modifier mon profil">
+                                <i class="glyphicon glyphicon-edit"></i>
+                            </a>
+                            <a href="#" id="refresh">
+                                <i class="glyphicon glyphicon-refresh"></i>
+                            </a>
+                        </div>
+                    {% endif %}
+                    {{ user.username }}
+                    {% if user.name is not empty %}
+                        - {{ user.name }}
+                    {% endif %}
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-2">
+                            <img src="{{ user.avatar }}" class="img-responsive" />
+                        </div>
+                        <div class="col-xs-4">
+                            <dl class="dl-horizontal">
+                                <div><strong>Compte Google</strong></div>
+                                <div><strong>Niveau</strong></div>
+                                <div><strong>Expérience</strong></div>
+                            </dl>
+                        </div>
+                        <div class="col-xs-4">
+                            <div>{{ user.googleAccount }}</div>
+                            <div>{{ user.level }}</div>
+                            <div>{{ user.xp | number_format(0, ',', ' ') }} xp</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Classement
+                </div>
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Joueur</th>
+                                <th class="text-center">Points</th>
+                                <th class="text-center">Pokédex</th>
+                                <th class="text-center">Pokémons</th>
+                                <th class="text-center">Captures</th>
+                                <th class="text-center">Evolutions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for player in listUser %}
+                                <tr class="team_{{ player.team }}">
+                                    <td>
+                                        {{ loop.index + (( app.request.get('page', 1) - 1) * 10) }}
+                                    </td>
+                                    <td>
+                                        <a href="{{ path('player', {username: user.username}) }}">
+                                            {% if player.name is not empty %}
+                                                <strong>{{ player.name }}</strong>
+                                                <span class="hidden-md hidden-xs">({{ player.username }})</span>
+                                            {% else %}
+                                                <strong>{{ player.username }}</strong>
+                                            {% endif %}
+                                        </a>
+                                    </td>
+                                    <td class="text-center">{{ player.xp | number_format(0, ',', ' ') }}</td>
+                                    <td class="text-center">{{ player.discovered }}</td>
+                                    <td class="text-center">{{ player.pokedex | length }}</td>
+                                    <td class="text-center">{{ player.catched }}</td>
+                                    <td class="text-center">{{ player.evolved }}</td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td class="text-center" colspan="7">
+                                        <em>Aucun joueur trouvé</em>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="7" class="text-center">
+                                    {{ pagination(listUser) }}
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="row" id="listPokemon">
+                <div class="col-xs-12">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            Pokedex
+                        </div>
+                    </div>
+                </div>
+                {% for pokemon in listPokemon %}
+                    <div class="col-sm-4 col-xs-6">
+                        <div class="panel pokemon">
+                            <div class="panel-body">
+                                <img src="{{ pokemon.pokemon.image }}" />
+                                <span class="cp">{{ pokemon.cp }}</span>
+                                <span class="pokeball">{{ pokemon.pokeball }}</span>
+                            </div>
+                            <div class="panel-footer">
+                                <span class="title">{{ pokemon.pokemon.name }}</span>
+                                <span class="type">{{ pokemon.pokemon.type }}</span>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="col-sm-12 text-center">
+                        <em>Aucun Pokémon</em>
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        $(function() {
+           $('#refresh').on('click', function() {
+               console.log($(this));
+                if($(this).hasClass('loading')) {
+                    return alert('Patience ...');
+                } else {
+                    $(this).addClass('loading');
+                    $.get('{{ path('refresh') }}', function() {
+                        $(this).removeClass('loading');
+                        document.location.href = "{{ path('index') }}";
+                    });
+                }
+           });
+        });
+    </script>
+{% endblock %}

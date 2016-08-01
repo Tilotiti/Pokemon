@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8a4f83da0d6ebec4ea9c8d13e2a8622b",
-    "content-hash": "4be3c063eb6331a8a3de74d3393dee92",
+    "hash": "ffdeeaadaf8f7df34b12d97f773d8d0f",
+    "content-hash": "abe9c0af72ed6b796e81f2e3594ffb06",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -877,16 +877,16 @@
         },
         {
             "name": "monolog/monolog",
-            "version": "1.20.0",
+            "version": "1.21.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "55841909e2bcde01b5318c35f2b74f8ecc86e037"
+                "reference": "f42fbdfd53e306bda545845e4dbfd3e72edb4952"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/55841909e2bcde01b5318c35f2b74f8ecc86e037",
-                "reference": "55841909e2bcde01b5318c35f2b74f8ecc86e037",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/f42fbdfd53e306bda545845e4dbfd3e72edb4952",
+                "reference": "f42fbdfd53e306bda545845e4dbfd3e72edb4952",
                 "shasum": ""
             },
             "require": {
@@ -951,7 +951,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2016-07-02 14:02:10"
+            "time": "2016-07-29 03:23:52"
         },
         {
             "name": "paragonie/random_compat",
@@ -1885,6 +1885,50 @@
                 "framework"
             ],
             "time": "2016-07-30 09:31:00"
+        },
+        {
+            "name": "tiloweb/pagination-bundle",
+            "version": "1.1.2",
+            "target-dir": "Tiloweb/PaginationBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Tiloweb/SymfonyPaginationBundle.git",
+                "reference": "1000374dafea59185227e52a1bf2b0a0b7bbcee2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Tiloweb/SymfonyPaginationBundle/zipball/1000374dafea59185227e52a1bf2b0a0b7bbcee2",
+                "reference": "1000374dafea59185227e52a1bf2b0a0b7bbcee2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "symfony/framework-bundle": "~2.3|~3.0",
+                "twig/twig": "~1.12|~2"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "Tiloweb\\PaginationBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Thibault HENRY",
+                    "homepage": "http://www.tiloweb.com"
+                }
+            ],
+            "description": "/",
+            "keywords": [
+                "Symfony2",
+                "bundle",
+                "pager",
+                "pagination",
+                "paginator",
+                "tiloweb"
+            ],
+            "time": "2016-04-05 13:16:53"
         },
         {
             "name": "twig/twig",

@@ -1,9 +1,0 @@
-{% extends 'base.html.twig' %}
-
-{% block body %}
-    <ul>
-        {% for pokemon in user.pokedex %}
-            <li>{{ pokemon.pokemon.name }} (lvl {{ pokemon.cp }})</li>
-        {% endfor %}
-    </ul>
-{% endblock %}
