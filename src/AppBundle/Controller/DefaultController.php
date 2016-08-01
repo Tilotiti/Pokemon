@@ -18,7 +18,7 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request) {
         $listUser = $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->ranking(
-            $request->request->getInt('page', 1),
+            $request->query->getInt('page', 1),
             10
         );
 
@@ -35,7 +35,7 @@ class DefaultController extends Controller
 
         // Classement général
         $listUser = $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->ranking(
-            $request->request->getInt('page', 1),
+            $request->query->getInt('page', 1),
             10
         );
 
