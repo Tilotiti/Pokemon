@@ -1,11 +1,10 @@
 PokemonGO Stats
 ===============
 
-# Requirement
-
-- NodeJS > v2
-
-		- https://github.com/mysqljs/mysql
-		- https://github.com/cyraxx/pogobuf
-		
-		
+    git clone git@github.com:Tilotiti/Pokemon.git pokemongo
+    cd pokemongo
+    composer install
+    npm install
+    bin/console doctrine:schema:update --force
+    bin/console pokemon:import
+    
