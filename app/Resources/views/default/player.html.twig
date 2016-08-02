@@ -161,8 +161,10 @@
                     $(this).addClass('loading');
                     $.get('{{ path('refresh') }}', function() {
                         $(this).removeClass('loading');
-                        document.location.href = "{{ path('index') }}";
+                        document.location.reload();
                     });
+
+                    return false;
                 }
            });
         });
