@@ -5,19 +5,19 @@
         <div class="col-md-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    {% if app.user == user %}
                         <div class="tools">
                             <a href="{{ path('index') }}" title="Classement général">
                                 <i class="glyphicon glyphicon-list"></i>
                             </a>
-                            <a href="{{ path('account') }}" title="Modifier mon profil">
-                                <i class="glyphicon glyphicon-edit"></i>
-                            </a>
-                            <a href="#" id="refresh">
-                                <i class="glyphicon glyphicon-refresh"></i>
-                            </a>
+                            {% if app.user == user %}
+                                <a href="{{ path('account') }}" title="Modifier mon profil">
+                                    <i class="glyphicon glyphicon-edit"></i>
+                                </a>
+                                <a href="#" id="refresh">
+                                    <i class="glyphicon glyphicon-refresh"></i>
+                                </a>
+                            {% endif %}
                         </div>
-                    {% endif %}
                     {{ user.username }}
                     {% if user.name is not empty %}
                         - {{ user.name }}
