@@ -135,15 +135,15 @@ class DefaultController extends Controller
         if($request->isMethod('POST')) {
             // Inscription ou Connexion
             $user = $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->findOneBy(array(
-                'googleAccount' => $request->get('login')
+                'email' => $request->get('login')
             ));
 
             if(!$user) {
                 $user = new User();
             }
 
-            $user->setGoogleAccount($request->get('login'));
-            $user->encryptGooglePassword($request->get('password'));
+            $user->setEmail($request->get('login'));
+            $user->encryptPassword($request->get('password'));
 
             $user = $this->get('player')->refresh($user);
 

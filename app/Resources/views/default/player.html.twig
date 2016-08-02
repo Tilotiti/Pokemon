@@ -28,7 +28,7 @@
                         <div class="col-xs-4">
                             <dl class="dl-horizontal">
                                 {% if app.user == user %}
-                                    <div><strong>Compte Google</strong></div>
+                                    <div><strong>Email</strong></div>
                                 {% endif %}
                                 <div><strong>Niveau</strong></div>
                                 <div><strong>Expérience</strong></div>
@@ -40,7 +40,7 @@
                         </div>
                         <div class="col-xs-4">
                             {% if app.user == user %}
-                                <div>{{ user.googleAccount }}</div>
+                                <div>{{ user.email }}</div>
                             {% endif %}
                             <div>{{ user.level }}</div>
                             <div>{{ user.xp | number_format(0, ',', ' ') }} xp</div>

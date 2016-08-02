@@ -1,18 +1,29 @@
 const pogobuf = require('pogobuf');
 
 if(!process.argv[2])
-    return console.error("Argument 1 must be the Google Login");
+    return console.error("Argument 1 must be the Login");
 
 if(!process.argv[3])
-    return console.error("Argument 2 must be the Google Password");
+    return console.error("Argument 2 must be the Password");
+
+var type = 'ptc';
+
+if(process.argv[2].indexOf('@') != -1) {
+    type = 'google';
+}
 
 var username = process.argv[2];
 var password = process.argv[3];
 var lat      = 48.856614;
 var lng      = 2.3522219000000177;
-
-var login = new pogobuf.GoogleLogin();
 var client = new pogobuf.Client();
+var login;
+
+if(type == "google") {
+    login = new pogobuf.GoogleLogin();
+} else {
+    login = new pogobuf.PTCLogin();
+}
 
 var callback = {
     player: {},
@@ -21,7 +32,7 @@ var callback = {
 
 login.login(username, password)
     .then(function(token) {
-        client.setAuthInfo('google', token);
+        client.setAuthInfo(type, token);
         client.setPosition(lat, lng);
         return client.init();
     })

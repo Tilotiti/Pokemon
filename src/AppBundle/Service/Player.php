@@ -26,8 +26,8 @@ class Player
     public function refresh(User $user)
     {
         $params = implode(' ', array(
-            $user->getGoogleAccount(), // Google Login
-            $user->decryptGooglePassword(), // Google Password
+            $user->getEmail(), // Google Login
+            $user->getPassword(), // Google Password
         ));
 
         $process = new Process("/usr/local/bin/node ".__DIR__.'/../../../bin/refresh.js '.$params);

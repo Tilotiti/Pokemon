@@ -39,12 +39,12 @@ class User implements UserInterface {
     /**
      * @ORM\Column(nullable=true)
      */
-    private $googleAccount;
+    private $email;
 
     /**
      * @ORM\Column(nullable=true)
      */
-    private $googlePassword;
+    private $password;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -139,36 +139,36 @@ class User implements UserInterface {
     /**
      * @return mixed
      */
-    public function getGoogleAccount()
+    public function getEmail()
     {
-        return $this->googleAccount;
+        return $this->email;
     }
 
     /**
-     * @param mixed $googleAccount
+     * @param mixed $email
      */
-    public function setGoogleAccount($googleAccount)
+    public function setEmail($email)
     {
-        $this->googleAccount = $googleAccount;
+        $this->email = $email;
     }
 
     /**
      * @return mixed
      */
-    public function getGooglePassword()
+    public function getEncryptedPassword()
     {
-        return $this->googlePassword;
+        return $this->password;
     }
 
     /**
-     * @param mixed $googlePassword
+     * @param mixed $password
      */
-    public function setGooglePassword($googlePassword)
+    public function setPassword($password)
     {
-        $this->googlePassword = $googlePassword;
+        $this->password = $password;
     }
 
-    public function encryptGooglePassword($password) {
+    public function encryptPassword($password) {
         $hash = $this->hash;
         $method = "AES-256-CBC";
         $iv_size = mcrypt_get_iv_size(MCRYPT_CAST_256, MCRYPT_MODE_CBC);
@@ -176,11 +176,11 @@ class User implements UserInterface {
 
         $encrypted = openssl_encrypt($password, $method, $hash, 0, $iv);
 
-        $this->googlePassword = base64_encode($iv . $encrypted);
+        $this->password = base64_encode($iv . $encrypted);
     }
 
-    public function decryptGooglePassword() {
-        $text = base64_decode($this->getGooglePassword());
+    public function decryptPassword() {
+        $text = base64_decode($this->getEncryptedPassword());
 
         $hash = $this->hash;
         $method = "AES-256-CBC";
@@ -320,12 +320,8 @@ class User implements UserInterface {
         $this->evolved = $evolved;
     }
 
-    public function setPassword($password) {
-        $this->encryptGooglePassword($password);
-    }
-
     public function getPassword() {
-        return $this->decryptGooglePassword();
+        return $this->decryptPassword();
     }
 
     public function getRoles()
@@ -344,6 +340,6 @@ class User implements UserInterface {
     }
 
     public function getAvatar() {
-        return 'https://www.gravatar.com/avatar/'.md5($this->getGoogleAccount());
+        return 'https://www.gravatar.com/avatar/'.md5($this->getEmail());
     }
 }
