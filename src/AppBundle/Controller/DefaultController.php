@@ -148,8 +148,17 @@ class DefaultController extends Controller
     /**
      * @Route("/refresh", name="refresh")
      */
-    public function refreshAction() {
-        $this->get('player')->refresh($this->getUser());
+    public function refreshAction(Request $request) {
+
+        if(!$request->query->get('user')) {
+            $user = $this->getUser();
+        } else {
+            $user = $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->findOneBy(array(
+                'username' => $request->query->get('user')
+            ));
+        }
+
+        $this->get('player')->refresh($user);
 
         return new Response('ok');
     }
