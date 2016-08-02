@@ -22,9 +22,9 @@ class DefaultController extends Controller
             20
         );
 
-        $listStats = $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->teamStats();
+        $listStats = $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->teamXpStats();
 
-        $teamStats = array(array(
+        $teamXpStats = array(array(
             'name' => "Sans équipe",
             'xp' => 0,
             'color' => '#F1F3F6'
@@ -43,12 +43,37 @@ class DefaultController extends Controller
         ));
 
         foreach($listStats as $stats) {
-            $teamStats[$stats['team']]['xp'] = $stats["points"];
+            $teamXpStats[$stats['team']]['xp'] = $stats["points"];
+        }
+
+        $listStats = $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->teamKmStats();
+
+        $teamKmStats = array(array(
+            'name' => "Sans équipe",
+            'km' => 0,
+            'color' => '#F1F3F6'
+        ), array(
+            'name' => "Team bleu",
+            'km' => 0,
+            'color' => '#94DBEE'
+        ), array(
+            'name' => "Team rouge",
+            'km' => 0,
+            'color' => '#EC8484'
+        ), array(
+            'name' => "Team Jaune",
+            'km' => 0,
+            'color' => '#FFFF99'
+        ));
+
+        foreach($listStats as $stats) {
+            $teamKmStats[$stats['team']]['km'] = $stats["kilometre"];
         }
 
         return $this->render('default/index.html.twig', array(
             'listUser' => $listUser,
-            'teamStats' => $teamStats
+            'teamXpStats' => $teamXpStats,
+            'teamKmStats' => $teamKmStats
         ));
     }
 

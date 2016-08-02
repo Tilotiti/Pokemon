@@ -68,7 +68,14 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Experience par équipe</div>
                 <div class="panel-body">
-                    <div id="teamStats" style="height: 300px;"></div>
+                    <div id="teamXpStats" class="stats"></div>
+                </div>
+            </div>
+        </div><div class="col-sm-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">Kilomètres parcourus par équipe</div>
+                <div class="panel-body">
+                    <div id="teamKmStats" class="stats"></div>
                 </div>
             </div>
         </div>
@@ -79,7 +86,7 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script>
         $(function() {
-            $('#teamStats').css('height', function() {
+            $('.stats').css('height', function() {
                 return $(this).width();
             })
 
@@ -90,8 +97,8 @@
 
                 var data = google.visualization.arrayToDataTable([
                     ['Team', 'XP']
-                    {% for team in teamStats %}
-                        , ["{{ team.name }}", {{ team.xp }}]
+                    {% for team in teamXpStats %}
+                    , ["{{ team.name }}", {{ team.xp }}]
                     {% endfor %}
                 ]);
 
@@ -103,22 +110,56 @@
                 var options = {
                     legend: 'none',
                     slices: {
-                        {% for team in teamStats %}
+                        {% for team in teamXpStats %}
                             {{ loop.index0 }}: { color: '{{ team.color }}' },
                         {% endfor %}
                     },
                     chartArea: {
                         width: '100%',
-                        height: '100%',
-                        left: 0,
-                        top: 0
+                                height: '100%',
+                                left: 0,
+                                top: 0
                     },
                     pieSliceTextStyle: {
                         color: '#6a6c6f'
                     }
                 };
 
-                var chart = new google.visualization.PieChart(document.getElementById('teamStats'));
+                var chart = new google.visualization.PieChart(document.getElementById('teamXpStats'));
+
+                chart.draw(data, options);
+
+                var data = google.visualization.arrayToDataTable([
+                    ['Team', 'KM']
+                    {% for team in teamKmStats %}
+                        , ["{{ team.name }}", {{ team.km }}]
+                    {% endfor %}
+                ]);
+
+                var formatter = new google.visualization.NumberFormat({
+                    pattern: '### ### ### ###'
+                });
+                formatter.format(data, 1);
+
+                var options = {
+                    legend: 'none',
+                    slices: {
+                {% for team in teamKmStats %}
+                    {{ loop.index0 }}: { color: '{{ team.color }}' },
+                {% endfor %}
+            },
+                chartArea: {
+                    width: '100%',
+                            height: '100%',
+                            left: 0,
+                            top: 0
+                },
+                pieSliceTextStyle: {
+                    color: '#6a6c6f'
+                }
+            };
+
+                var chart = new google.visualization.PieChart(document.getElementById('teamKmStats'));
 
                 chart.draw(data, options);
             }
