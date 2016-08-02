@@ -19,7 +19,7 @@ class DefaultController extends Controller
     public function indexAction(Request $request) {
         $listUser = $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->ranking(
             $request->query->getInt('page', 1),
-            10
+            20
         );
 
         $listStats = $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->teamStats();

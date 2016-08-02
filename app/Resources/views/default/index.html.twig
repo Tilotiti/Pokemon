@@ -28,7 +28,7 @@
                             {% for player in listUser %}
                                 <tr class="team_{{ player.team }}">
                                     <td>
-                                        {{ loop.index + (( app.request.get('page', 1) - 1) * 10) }}
+                                        {{ loop.index + (( app.request.get('page', 1) - 1) * 20) }}
                                     </td>
                                     <td>
                                         <img src="{{ asset('images/team_'~ player.team ~'.png') }}" class="team">
