@@ -1,4 +1,4 @@
-PokemonGO Stats
+Poke Rank - https://www.poke-rank.com
 ===============
 
     git clone git@github.com:Tilotiti/Pokemon.git pokemongo
