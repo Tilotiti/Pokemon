@@ -49,6 +49,7 @@
                                     <div><strong>Email</strong></div>
                                 {% endif %}
                                 <div><strong>Expérience</strong></div>
+                                <div><strong>Km</strong></div>
                                 <div><strong>Date d'inscription</strong></div>
                                 <div><strong>Date de mise à jour</strong></div>
                                 <div><strong>Pokédex</strong></div>
@@ -62,6 +63,7 @@
                                 <div>{{ user.email }}</div>
                             {% endif %}
                             <div>{{ user.xp }}</div>
+                            <div>{{ user.km }}</div>
                             <div>
                                 {% if user.sign is not null %}
                                     {{ user.sign | date('d/m/Y') }}
