@@ -14,7 +14,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class User extends EntityRepository
 {
-    public function ranking($page = 1, $max = 10, $order) {
+    public function ranking($page = 1, $max = 10, $order = 'xp') {
         if(!is_numeric($page)) {
             throw new \InvalidArgumentException(
                 '$page must be an integer ('.gettype($page).' : '.$page.')'
