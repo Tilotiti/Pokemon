@@ -47,9 +47,8 @@
                                     <div><strong>Email</strong></div>
                                 {% endif %}
                                 <div><strong>Expérience</strong></div>
-                                {% if user.sign %}
-                                    <div><strong>Date d'inscription</strong></div>
-                                {% endif %}
+                                <div><strong>Date d'inscription</strong></div>
+                                <div><strong>Date de mise à jour</strong></div>
                                 <div><strong>Pokémons rencontrés</strong></div>
                                 <div><strong>Pokémons possédés</strong></div>
                                 <div><strong>Pokémons capturés</strong></div>
@@ -61,9 +60,8 @@
                                 <div>{{ user.email }}</div>
                             {% endif %}
                             <div>{{ user.xp }}</div>
-                            {% if user.sign %}
-                                <div>{{ user.sign | date('d/m/Y') }}</div>
-                            {% endif %}
+                            <div>{{ user.sign | date('d/m/Y') }}</div>
+                            <div>{{ user.lastUpdate | date('d/m/Y H:i') }}</div>
                             <div>{{ user.discovered }}</div>
                             <div>{{ user.pokedex | length }}</div>
                             <div>{{ user.catched }}</div>
