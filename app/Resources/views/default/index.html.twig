@@ -80,14 +80,31 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Experience par équipe</div>
                 <div class="panel-body">
-                    <div id="teamXpStats" class="stats"></div>
+                    <div id="teamStats_xp" class="stats"></div>
                 </div>
             </div>
-        </div><div class="col-sm-3">
+        </div>
+        <div class="col-sm-3">
             <div class="panel panel-default">
                 <div class="panel-heading">Kilomètres parcourus par équipe</div>
                 <div class="panel-body">
-                    <div id="teamKmStats" class="stats"></div>
+                    <div id="teamStats_km" class="stats"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">Pokémons découverts par équipe</div>
+                <div class="panel-body">
+                    <div id="teamStats_discovered" class="stats"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">Pokémons capturés par équipe</div>
+                <div class="panel-body">
+                    <div id="teamStats_catched" class="stats"></div>
                 </div>
             </div>
         </div>
@@ -109,75 +126,51 @@
             google.charts.load('current', {'packages':['corechart']});
             google.charts.setOnLoadCallback(drawChart);
 
-            function drawChart() {
-
-                var data = google.visualization.arrayToDataTable([
-                    ['Team', 'XP']
-                    {% for team in teamXpStats %}
-                    , ["{{ team.name }}", {{ team.xp }}]
-                    {% endfor %}
-                ]);
-
-                var formatter = new google.visualization.NumberFormat({
-                    pattern: '### ### ### ###'
-                });
-                formatter.format(data, 1);
-
-                var options = {
-                    legend: 'none',
-                    slices: {
-                        {% for team in teamXpStats %}
-                            {{ loop.index0 }}: { color: '{{ team.color }}' },
-                        {% endfor %}
+            var options = {
+                legend: 'none',
+                slices: {
+                    0: {
+                        color: '#F1F3F6'
                     },
-                    chartArea: {
-                        width: '100%',
-                                height: '100%',
-                                left: 0,
-                                top: 0
+                    1: {
+                        color: '#94DBEE'
                     },
-                    pieSliceTextStyle: {
-                        color: '#6a6c6f'
+                    2: {
+                        color: '#EC8484'
+                    },
+                    3: {
+                        color: '#FFFF99'
                     }
-                };
-
-                var chart = new google.visualization.PieChart(document.getElementById('teamXpStats'));
-
-                chart.draw(data, options);
-
-                var data = google.visualization.arrayToDataTable([
-                    ['Team', 'KM']
-                    {% for team in teamKmStats %}
-                        , ["{{ team.name }}", {{ team.km }}]
-                    {% endfor %}
-                ]);
-
-                var formatter = new google.visualization.NumberFormat({
-                    pattern: '### ### ### ###'
-                });
-                formatter.format(data, 1);
-
-                var options = {
-                    legend: 'none',
-                    slices: {
-                {% for team in teamKmStats %}
-                    {{ loop.index0 }}: { color: '{{ team.color }}' },
-                {% endfor %}
-            },
+                },
                 chartArea: {
                     width: '100%',
-                            height: '100%',
-                            left: 0,
-                            top: 0
+                    height: '100%',
+                    left: 0,
+                    top: 0
                 },
                 pieSliceTextStyle: {
                     color: '#6a6c6f'
                 }
             };
 
-                var chart = new google.visualization.PieChart(document.getElementById('teamKmStats'));
+            function drawChart() {
+                {% for type, stats in statsTeam %}
+                    var data = google.visualization.arrayToDataTable([
+                        ['Equipe', '{{ type }}']
+                        {% for team in stats %}
+                            , ["{{ team.name }}", {{ team.points }}]
+                        {% endfor %}
+                    ]);
 
-                chart.draw(data, options);
+                    var formatter = new google.visualization.NumberFormat({
+                        pattern: '### ### ### ###'
+                    });
+                    formatter.format(data, 1);
+
+                    var chart = new google.visualization.PieChart(document.getElementById('teamStats_{{  type }}'));
+
+                    chart.draw(data, options);
+                {% endfor %}
             }
         });
     </script>

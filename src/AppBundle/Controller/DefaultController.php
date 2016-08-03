@@ -26,58 +26,36 @@ class DefaultController extends Controller
             $request->query->get('order', 'xp')
         );
 
-        $listStats = $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->teamXpStats();
+        $statsTeam = array();
 
-        $teamXpStats = array(array(
-            'name' => "Sans équipe",
-            'xp' => 0,
-            'color' => '#F1F3F6'
-        ), array(
-            'name' => "Team bleu",
-            'xp' => 0,
-            'color' => '#94DBEE'
-        ), array(
-            'name' => "Team rouge",
-            'xp' => 0,
-            'color' => '#EC8484'
-        ), array(
-            'name' => "Team Jaune",
-            'xp' => 0,
-            'color' => '#FFFF99'
-        ));
+        // Pokedex
+        foreach(array('xp', 'km', 'discovered', 'catched') as $stats) {
+            $listStats = $this->getDoctrine()
+                ->getRepository('AppBundle:User')
+                ->statsTeam($stats);
 
-        foreach($listStats as $stats) {
-            $teamXpStats[$stats['team']]['xp'] = $stats["points"];
-        }
+            $statsTeam[$stats] = array(array(
+                'name' => "Sans équipe",
+                'points' => 0
+            ), array(
+                'name' => "Team bleu",
+                'points' => 0
+            ), array(
+                'name' => "Team rouge",
+                'points' => 0
+            ), array(
+                'name' => "Team Jaune",
+                'points' => 0
+            ));
 
-        $listStats = $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->teamKmStats();
-
-        $teamKmStats = array(array(
-            'name' => "Sans équipe",
-            'km' => 0,
-            'color' => '#F1F3F6'
-        ), array(
-            'name' => "Team bleu",
-            'km' => 0,
-            'color' => '#94DBEE'
-        ), array(
-            'name' => "Team rouge",
-            'km' => 0,
-            'color' => '#EC8484'
-        ), array(
-            'name' => "Team Jaune",
-            'km' => 0,
-            'color' => '#FFFF99'
-        ));
-
-        foreach($listStats as $stats) {
-            $teamKmStats[$stats['team']]['km'] = $stats["kilometre"];
+            foreach ($listStats as $points) {
+                $statsTeam[$stats][$points['team']]['points'] = $points["points"];
+            }
         }
 
         return $this->render('default/index.html.twig', array(
             'listUser' => $listUser,
-            'teamXpStats' => $teamXpStats,
-            'teamKmStats' => $teamKmStats
+            'statsTeam' => $statsTeam,
         ));
     }
 

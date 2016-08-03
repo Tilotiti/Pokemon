@@ -48,21 +48,9 @@ class User extends EntityRepository
         return $paginator;
     }
 
-    public function teamXpStats() {
+    public function statsTeam($param) {
         $dql = $this->createQueryBuilder('user');
-        $dql->select('SUM(user.xp) AS points');
-        $dql->addSelect('user.team');
-        $dql->andWhere('user.cheater = FALSE');
-        $dql->groupBy('user.team');
-
-        $query = $dql->getQuery();
-
-        return $query->getResult();
-    }
-
-    public function teamKmStats() {
-        $dql = $this->createQueryBuilder('user');
-        $dql->select('SUM(user.km) AS kilometre');
+        $dql->select('SUM(user.'.$param.') AS points');
         $dql->addSelect('user.team');
         $dql->andWhere('user.cheater = FALSE');
         $dql->groupBy('user.team');
