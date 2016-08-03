@@ -39,7 +39,7 @@ twig:
     form_themes:
         - 'bootstrap_3_horizontal_layout.html.twig'
     globals:
-        google_analytics: "%%google_analytics%%"
+        google_analytics: "%google_analytics%"
 
 # Doctrine Configuration
 doctrine:
