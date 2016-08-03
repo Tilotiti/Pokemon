@@ -38,6 +38,8 @@ twig:
     strict_variables: "%kernel.debug%"
     form_themes:
         - 'bootstrap_3_horizontal_layout.html.twig'
+    globals:
+        google_analytics: "%%google_analytics%%"
 
 # Doctrine Configuration
 doctrine:
