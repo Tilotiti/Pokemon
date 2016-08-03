@@ -379,4 +379,26 @@ class User implements UserInterface {
     public function getAvatar() {
         return 'https://www.gravatar.com/avatar/'.md5($this->getEmail());
     }
+
+    public function getMaxCP() {
+        $maxCP = 0;
+
+        foreach($this->getPokedex() as $pokedex) {
+            if($pokedex->getCP() > $maxCP) {
+                $maxCP = $pokedex->getCP();
+            }
+        }
+
+        return $maxCP;
+    }
+
+    public function getTotalCP() {
+        $totalCP = 0;
+
+        foreach($this->getPokedex() as $pokedex) {
+            $totalCP += $pokedex->getCP();
+        }
+
+        return $totalCP;
+    }
 }

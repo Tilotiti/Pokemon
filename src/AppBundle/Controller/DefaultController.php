@@ -233,7 +233,6 @@ class DefaultController extends Controller
             )
         ));
 
-
         $form->add('submit', SubmitType::class, array(
             'label' => "Modifier",
             'attr' => array(

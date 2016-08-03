@@ -22,6 +22,8 @@
                             <th class="text-center">Pokémons</th>
                             <th class="text-center">Captures</th>
                             <th class="text-center">Evolutions</th>
+                            <th class="text-center">CP Max</th>
+                            <th class="text-center">CP Total</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -42,16 +44,18 @@
                                         </a>
                                     </td>
                                     <td class="text-center">{{ player.level }}</td>
-                                    <td class="text-center">{{ player.xp | number_format(0, ',', ' ') }}</td>
-                                    <td class="text-center">{{ player.km | number_format(0, ',', ' ') }}</td>
+                                    <td class="text-center">{{ player.xp }}</td>
+                                    <td class="text-center">{{ player.km }}</td>
                                     <td class="text-center">{{ player.discovered }}</td>
                                     <td class="text-center">{{ player.pokedex | length }}</td>
                                     <td class="text-center">{{ player.catched }}</td>
                                     <td class="text-center">{{ player.evolved }}</td>
+                                    <td class="text-center">{{ player.maxCP }}</td>
+                                    <td class="text-center">{{ player.totalCP }}</td>
                                 </tr>
                             {% else %}
                                 <tr>
-                                    <td class="text-center" colspan="9">
+                                    <td class="text-center" colspan="11">
                                         <em>Aucun joueur trouvé</em>
                                     </td>
                                 </tr>
