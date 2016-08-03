@@ -70,14 +70,16 @@ a {
     display: inline-block;
     letter-spacing: normal; }
     .pagination li.active a {
-      background-color: #6a6c6f !important; }
+      background-color: #6a6c6f !important;
+      border-left: solid 1px #6a6c6f !important;
+      border-right: solid 1px #6a6c6f !important; }
     .pagination li a {
       float: none;
       border-top: none;
       border-bottom: none;
-      border-left: solid 1px #6a6c6f !important;
-      border-right: solid 1px #6a6c6f !important;
       border-radius: 0px !important;
+      border-left: solid 1px #e4e5e7 !important;
+      border-right: solid 1px #e4e5e7 !important;
       display: inline-block;
       height: 32px;
       line-height: 32px;

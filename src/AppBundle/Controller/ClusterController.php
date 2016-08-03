@@ -198,6 +198,14 @@ class ClusterController extends Controller
                 'cluster' => $cluster->getId()
             ));
         } else {
+            if($cluster->hasRequestFrom($this->getUser())) {
+                $this->addFlash('error', "Votre demande est déjà en attente.");
+
+                return $this->redirectToRoute("cluster_view", array(
+                    'cluster' => $cluster->getId()
+                ));
+            }
+
             // Make a request
             $this->addFlash('warning', "Une demande a été envoyée à l'administrateur du groupe.");
 
