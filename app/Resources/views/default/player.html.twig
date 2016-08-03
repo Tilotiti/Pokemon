@@ -13,9 +13,11 @@
                                 <a href="{{ path('account') }}" title="Modifier mon profil">
                                     <i class="glyphicon glyphicon-edit"></i>
                                 </a>
-                                <a href="#" id="refresh">
-                                    <i class="glyphicon glyphicon-refresh"></i>
-                                </a>
+                                {% if not is_granted('ROLE_PREVIOUS_ADMIN') %}
+                                    <a href="#" id="refresh">
+                                        <i class="glyphicon glyphicon-refresh"></i>
+                                    </a>
+                                {% endif %}
                             {% elseif is_granted('ROLE_ADMIN') %}
                                 <a href="{{ path('edit', {id: user.id}) }}" title="Modifier le profil de {{ user.username }}">
                                     <i class="glyphicon glyphicon-edit"></i>
