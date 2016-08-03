@@ -165,7 +165,11 @@ class Cluster
         return true;
     }
 
-    public function hasUser(User $user) {
+    public function hasUser($user) {
+        if(!$user) {
+            return false;
+        }
+
         foreach($this->getUsers() as $clusterUser) {
             if($clusterUser == $user) {
                 return true;

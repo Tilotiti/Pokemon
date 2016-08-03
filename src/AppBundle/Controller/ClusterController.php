@@ -12,7 +12,6 @@ use AppBundle\Entity\Cluster;
 use AppBundle\Entity\User;
 use AppBundle\Form\ClusterType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
@@ -55,6 +54,10 @@ class ClusterController extends Controller
      * @return mixed
      */
     public function addClusterAction(Request $request) {
+        if(!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return $this->redirectToRoute('login');
+        }
+
         $cluster = new Cluster();
         $cluster->setAdmin($this->getUser());
         $cluster->addUser($this->getUser());
@@ -125,7 +128,7 @@ class ClusterController extends Controller
      * @return mixed
      */
     public function clusterEditAction(Request $request, Cluster $cluster) {
-        if($this->getUser()->isRole('ROLE_ADMIN') && $cluster->getAdmin() != $this->getUser()) {
+        if(!$this->getUser()->isRole('ROLE_ADMIN') && $cluster->getAdmin() != $this->getUser()) {
             $this->addFlash('error', "Vous n'avez pas les droits pour modifier ce groupe.");
 
             return $this->redirectToRoute("cluster_view", array(
@@ -169,6 +172,10 @@ class ClusterController extends Controller
      * @return mixed
      */
     public function clusterJoinAction(Cluster $cluster) {
+        if(!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return $this->redirectToRoute('login');
+        }
+
         // Check that the user is not a member already
         foreach($this->getUser()->getClusters() as $userCluster) {
             if($userCluster == $cluster) {
@@ -236,6 +243,10 @@ class ClusterController extends Controller
      * @return mixed
      */
     public function cancelRequestAction(Cluster $cluster) {
+        if(!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return $this->redirectToRoute('login');
+        }
+
         $request = $this->getDoctrine()
             ->getRepository('AppBundle:Request')
             ->findOneBy(array(
@@ -389,6 +400,10 @@ class ClusterController extends Controller
      * @return mixed
      */
     public function clusterAbandon(Cluster $cluster) {
+        if(!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return $this->redirectToRoute('login');
+        }
+
         if($cluster->getAdmin() == $this->getUser()) {
             $this->addFlash('error', "Vous n'avez pas le droit de quitter ce groupe. Vous devez soit, en transférer la propriété, soit le supprimer.");
 
@@ -437,6 +452,10 @@ class ClusterController extends Controller
      * @return mixed
      */
     public function clusterRemove(Cluster $cluster) {
+        if(!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return $this->redirectToRoute('login');
+        }
+
         if($cluster->getAdmin() != $this->getUser()) {
             $this->addFlash('error', "Vous n'avez pas le droit de supprimer ce groupe.");
 
@@ -467,6 +486,10 @@ class ClusterController extends Controller
      * @return mixed
      */
     public function clusterOwnership(Cluster $cluster, User $user) {
+        if(!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return $this->redirectToRoute('login');
+        }
+
         if($cluster->getAdmin() != $this->getUser()) {
             $this->addFlash('error', "Vous n'avez pas le droit de changer le propriétaire du groupe.");
 
