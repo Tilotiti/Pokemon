@@ -9,15 +9,15 @@
                 <div class="panel-heading">
                     Classement des groupes
                     <div class="tools">
-                        <a href="{{ path("cluster_add") }}" title="Créer un groupe">
-                            <i class="glyphicon glyphicon-plus"></i>
-                        </a>
                         <select id="selectOrder">
                             <option {% if app.request.query.get('order', 'xp') == 'xp' %}selected{% endif %} value="xp">XP</option>
                             <option {% if app.request.query.get('order', 'xp') == 'km' %}selected{% endif %} value="km">Km</option>
                             <option {% if app.request.query.get('order', 'xp') == 'discovered' %}selected{% endif %} value="discovered">Pokédex</option>
                             <option {% if app.request.query.get('order', 'xp') == 'catched' %}selected{% endif %} value="catched">Captures</option>
                         </select>
+                        <a href="{{ path("cluster_add") }}" title="Créer un groupe">
+                            <i class="glyphicon glyphicon-plus"></i>
+                        </a>
                     </div>
                 </div>
                 <div class="panel-body">
