@@ -43,7 +43,7 @@
                         </div>
                         <div class="col-xs-4">
                             <dl class="dl-horizontal">
-                                {% if app.user == user %}
+                                {% if app.user == user or is_granted('USER_ADMIN') %}
                                     <div><strong>Email</strong></div>
                                 {% endif %}
                                 <div><strong>Expérience</strong></div>
@@ -56,12 +56,24 @@
                             </dl>
                         </div>
                         <div class="col-xs-4">
-                            {% if app.user == user %}
+                            {% if app.user == user or is_granted('USER_ADMIN') %}
                                 <div>{{ user.email }}</div>
                             {% endif %}
                             <div>{{ user.xp }}</div>
-                            <div>{{ user.sign | date('d/m/Y') }}</div>
-                            <div>{{ user.lastUpdate | date('d/m/Y H:i') }}</div>
+                            <div>
+                                {% if user.sign is not null %}
+                                    {{ user.sign | date('d/m/Y') }}
+                                {% else %}
+                                    <em>Non renseignée</em>
+                                {% endif %}
+                            </div>
+                            <div>
+                                {% if user.lastUpdate is not null %}
+                                    {{ user.lastUpdate | date('d/m/Y H:i') }}
+                                {% else %}
+                                    <em>Non renseignée</em>
+                                {% endif %}
+                            </div>
                             <div>{{ user.discovered }}</div>
                             <div>{{ user.pokedex | length }}</div>
                             <div>{{ user.catched }}</div>
