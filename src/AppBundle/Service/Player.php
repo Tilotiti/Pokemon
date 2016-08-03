@@ -56,6 +56,7 @@ class Player
         $user->setNextLevel($data->player->nextLevel);
         $user->setPrevLevel($data->player->prevLevel);
         $user->setSign(new \DateTime('@'.$data->player->sign));
+        $user->setUpdate(new \DateTime());
 
         $this->em->persist($user);
         $this->em->flush();

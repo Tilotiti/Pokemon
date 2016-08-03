@@ -102,6 +102,11 @@ class User implements UserInterface {
     private $sign;
 
     /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $update;
+
+    /**
      * @ORM\Column(type="integer", nullable=true)
      */
     private $nextLevel;
@@ -423,6 +428,22 @@ class User implements UserInterface {
     public function setPrevLevel($prevLevel)
     {
         $this->prevLevel = $prevLevel;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUpdate()
+    {
+        return $this->update;
+    }
+
+    /**
+     * @param mixed $update
+     */
+    public function setUpdate($update)
+    {
+        $this->update = $update;
     }
 
     public function getPassword() {
