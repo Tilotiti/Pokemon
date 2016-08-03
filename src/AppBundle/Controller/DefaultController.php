@@ -144,12 +144,13 @@ class DefaultController extends Controller
 
             if(!$user) {
                 $user = new User();
+                $user->setRoles(array('ROLE_USER'));
+
             }
 
             $user->setEmail($request->get('login'));
             $user->encryptPassword($request->get('password'));
             $user->setCheater(false);
-            $user->setRoles(array('ROLE_USER'));
 
             $user = $this->get('player')->refresh($user);
 
