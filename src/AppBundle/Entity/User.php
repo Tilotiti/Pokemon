@@ -104,7 +104,7 @@ class User implements UserInterface {
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $update;
+    private $lastUpdate;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -433,17 +433,17 @@ class User implements UserInterface {
     /**
      * @return mixed
      */
-    public function getUpdate()
+    public function getLastUpdate()
     {
-        return $this->update;
+        return $this->lastUpdate;
     }
 
     /**
-     * @param mixed $update
+     * @param mixed $lastUpdate
      */
-    public function setUpdate($update)
+    public function setLastUpdate($lastUpdate)
     {
-        $this->update = $update;
+        $this->lastUpdate = $lastUpdate;
     }
 
     public function getPassword() {
