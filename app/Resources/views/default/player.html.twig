@@ -34,16 +34,20 @@
                 </div>
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-xs-2">
-                            <img src="{{ user.avatar }}" class="img-responsive" />
+                        <div class="col-xs-4 avatar">
+                            <img src="{{ user.avatar }}"/>
+                            <strong>{{ user.level }}</strong>
+                            <div class="progressXP">
+                                <progress style="width: {{ user.progress }}%"></progress>
+                            </div>
                         </div>
                         <div class="col-xs-4">
                             <dl class="dl-horizontal">
                                 {% if app.user == user %}
                                     <div><strong>Email</strong></div>
                                 {% endif %}
-                                <div><strong>Niveau</strong></div>
                                 <div><strong>Expérience</strong></div>
+                                <div><strong>Date d'inscription</strong></div>
                                 <div><strong>Pokémons rencontrés</strong></div>
                                 <div><strong>Pokémons possédés</strong></div>
                                 <div><strong>Pokémons capturés</strong></div>
@@ -54,8 +58,8 @@
                             {% if app.user == user %}
                                 <div>{{ user.email }}</div>
                             {% endif %}
-                            <div>{{ user.level }}</div>
-                            <div>{{ user.xp | number_format(0, ',', ' ') }} xp</div>
+                            <div>{{ user.xp }}</div>
+                            <div>{{ user.sign | date('d/m/Y') }}</div>
                             <div>{{ user.discovered }}</div>
                             <div>{{ user.pokedex | length }}</div>
                             <div>{{ user.catched }}</div>
@@ -173,7 +177,6 @@
     <script>
         $(function() {
            $('#refresh').on('click', function() {
-               console.log($(this));
                 if($(this).hasClass('loading')) {
                     return alert('Patience ...');
                 } else {

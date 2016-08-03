@@ -1,38 +1,18 @@
 const pogobuf = require('pogobuf');
 
-if(!process.argv[2])
-    return console.error("Argument 1 must be the Login");
-
-if(!process.argv[3])
-    return console.error("Argument 2 must be the Password");
-
-var type = 'ptc';
-
-if(process.argv[2].indexOf('@') != -1) {
-    type = 'google';
-}
-
-var username = process.argv[2];
-var password = process.argv[3];
 var lat      = 48.856614;
 var lng      = 2.3522219000000177;
 var client = new pogobuf.Client();
-var login;
-
-if(type == "google") {
-    login = new pogobuf.GoogleLogin();
-} else {
-    login = new pogobuf.PTCLogin();
-}
+var login = new pogobuf.GoogleLogin();
 
 var callback = {
     player: {},
     pokedex: []
 };
 
-login.login(username, password)
+login.login('tilo.thibault@gmail.com', "M9212000134")
     .then(function(token) {
-        client.setAuthInfo(type, token);
+        client.setAuthInfo('google', token);
         client.setPosition(lat, lng);
         return client.init();
     })
@@ -52,9 +32,10 @@ login.login(username, password)
             discovered: inventory.player.unique_pokedex_entries,
             catched: inventory.player.pokemons_captured,
             evolved: inventory.player.evolutions,
-            prevLevel: inventory.player.prev_level_xp.toString(),
-            nextLevel: inventory.player.next_level_xp.toString()
+            prev_xp: inventory.player.prev_level_xp.toString(),
+            next_xp: inventory.player.next_level_xp.toString()
         };
+
 
         // Pokedex Informations
         var pokedex = [];

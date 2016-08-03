@@ -96,6 +96,21 @@ class User implements UserInterface {
      */
     private $roles;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $sign;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $nextLevel;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $prevLevel;
+
     private $hash = '6ca0c2dee967a67805509a247486f8527a592277';
 
     /**
@@ -362,6 +377,54 @@ class User implements UserInterface {
         $this->roles = $roles;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getSign()
+    {
+        return $this->sign;
+    }
+
+    /**
+     * @param mixed $sign
+     */
+    public function setSign($sign)
+    {
+        $this->sign = $sign;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNextLevel()
+    {
+        return $this->nextLevel;
+    }
+
+    /**
+     * @param mixed $nextLevel
+     */
+    public function setNextLevel($nextLevel)
+    {
+        $this->nextLevel = $nextLevel;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPrevLevel()
+    {
+        return $this->prevLevel;
+    }
+
+    /**
+     * @param mixed $prevLevel
+     */
+    public function setPrevLevel($prevLevel)
+    {
+        $this->prevLevel = $prevLevel;
+    }
+
     public function getPassword() {
         return $this->decryptPassword();
     }
@@ -400,5 +463,12 @@ class User implements UserInterface {
         }
 
         return $totalCP;
+    }
+
+    public function getProgress() {
+        $goal = $this->getNextLevel() - $this->getPrevLevel();
+        $xp   = $this->getXp() - $this->getPrevLevel();
+
+        return round($xp / $goal * 100);
     }
 }

@@ -53,6 +53,9 @@ class Player
         $user->setLevel($data->player->level);
         $user->setXp($data->player->xp);
         $user->setEvolved($data->player->evolved);
+        $user->setNextLevel($data->player->nextLevel);
+        $user->setPrevLevel($data->player->prevLevel);
+        $user->setSign(new \DateTime('@'.$data->player->sign));
 
         $this->em->persist($user);
         $this->em->flush();
