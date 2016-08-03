@@ -8,6 +8,14 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     Classement
+                    <div class="tools">
+                        <select id="selectOrder">
+                            <option {% if app.request.query.get('order', 'xp') == 'xp' %}selected{% endif %} value="xp">XP</option>
+                            <option {% if app.request.query.get('order', 'xp') == 'km' %}selected{% endif %} value="km">Km</option>
+                            <option {% if app.request.query.get('order', 'xp') == 'discovered' %}selected{% endif %} value="discovered">Pokédex</option>
+                            <option {% if app.request.query.get('order', 'xp') == 'catched' %}selected{% endif %} value="catched">Captures</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="panel-body">
                     <table class="table">
@@ -90,6 +98,10 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script>
         $(function() {
+            $('#selectOrder').on('change', function() {
+                document.location.href = "{{ path('index') }}?order="+$(this).val();
+            });
+
             $('.stats').css('height', function() {
                 return $(this).width();
             })

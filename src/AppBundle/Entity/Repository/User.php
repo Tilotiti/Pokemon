@@ -14,7 +14,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class User extends EntityRepository
 {
-    public function ranking($page = 1, $max = 10) {
+    public function ranking($page = 1, $max = 10, $order) {
         if(!is_numeric($page)) {
             throw new \InvalidArgumentException(
                 '$page must be an integer ('.gettype($page).' : '.$page.')'
@@ -31,7 +31,8 @@ class User extends EntityRepository
 
         $dql->andWhere('user.username IS NOT NULL');
         $dql->andWhere('user.cheater = FALSE');
-        $dql->orderBy("user.xp", 'DESC');
+
+        $dql->orderBy("user.".$order, 'DESC');
 
         $firstResult = ($page - 1) * $max;
 
