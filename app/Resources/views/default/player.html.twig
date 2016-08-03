@@ -93,55 +93,40 @@
             </div>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Classement
+                    Groupes
                 </div>
                 <div class="panel-body">
-                    <table class="table">
+                    <table class="table table-stripped">
                         <thead>
                             <tr>
-                                <th>#</th>
-                                <th>Joueur</th>
-                                <th class="text-center">Niveau</th>
+                                <th>Groupe</th>
+                                <th class="text-center">Membres</th>
                                 <th class="text-center">Points</th>
                                 <th class="text-center">Pokédex</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for player in listUser %}
-                                <tr class="team_{{ player.team }}">
+                            {% for cluster in user.clusters %}
+                                <tr>
                                     <td>
-                                        {{ loop.index + (( app.request.get('page', 1) - 1) * 10) }}
-                                    </td>
-                                    <td>
-                                        <img src="{{ asset('images/team_'~ player.team~'.png') }}" class="team">
-                                        <a href="{{ path('player', {username: player.username}) }}">
-                                            {% if player.name is not empty %}
-                                                <strong>{{ player.name }}</strong>
-                                                <span class="hidden-md hidden-xs">({{ player.username }})</span>
-                                            {% else %}
-                                                <strong>{{ player.username }}</strong>
-                                            {% endif %}
+                                        <a href="{{ path('cluster_view', {
+                                            'cluster': cluster.id
+                                        }) }}" title="Voir le groupe">
+                                            {{ cluster.name }}
                                         </a>
                                     </td>
-                                    <td class="text-center">{{ player.level }}</td>
-                                    <td class="text-center">{{ player.xp | number_format(0, ',', ' ') }}</td>
-                                    <td class="text-center">{{ player.discovered }}</td>
+                                    <td class="text-center">{{ cluster.users | length }}</td>
+                                    <td class="text-center">{{ cluster.total('xp') }}</td>
+                                    <td class="text-center">{{ cluster.total('discovered') }}</td>
                                 </tr>
                             {% else %}
                                 <tr>
-                                    <td class="text-center" colspan="5">
-                                        <em>Aucun joueur trouvé</em>
+                                    <td class="text-center" colspan="4">
+                                        <em>Ce joueur ne fait parti d'aucun groupe</em>
                                     </td>
                                 </tr>
                             {% endfor %}
                         </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="5" class="text-center">
-                                    {{ pagination(listUser) }}
-                                </td>
-                            </tr>
-                        </tfoot>
                     </table>
                 </div>
             </div>

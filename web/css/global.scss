@@ -75,6 +75,40 @@ a {
   }
 }
 
+.pagination {
+  display: block;
+  text-align: center;
+  height: 34px;
+  line-height: 34px;
+  margin: -12px 0px;
+  list-style: none;
+
+  li {
+    height: 32px;
+    line-height: 32px;
+    display: inline-block;
+
+    &.active {
+      a {
+        background-color: #6a6c6f!important;
+      }
+    }
+
+    a {
+      float: none;
+      border-top: none;
+      border-bottom: none;
+      border-left: solid 1px #6a6c6f!important;
+      border-right: solid 1px #6a6c6f!important;
+      border-radius: 0px!important;
+      display: inline-block;
+      height: 32px;
+      line-height: 32px;
+      padding: 0px 12px;
+    }
+  }
+}
+
 tr.team_1 td { background-color: #94DBEE }
 tr.team_2 td { background-color: #EC8484 }
 tr.team_3 td { background-color: #FFFF99 }

@@ -42,6 +42,9 @@ security:
         refresh:
             path: ^/refresh
             role: ROLE_USER
+        refresh:
+            path: ^/group
+            role: ROLE_USER
         edit:
             path: ^/edit
             role: ROLE_ADMIN

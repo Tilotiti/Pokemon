@@ -1,0 +1,222 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Groupe {{ cluster.name }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ cluster.name }}
+                    <div class="tools">
+                        {% if app.user == cluster.admin %}
+                            <a href="{{ path('cluster_edit', {
+                                "cluster": cluster.id
+                            }) }}" title="Modifier le groupe">
+                                <i class="glyphicon glyphicon-edit"></i>
+                            </a>
+                        {% elseif not cluster.hasRequestFrom(app.user) and not cluster.hasUser(app.user) %}
+                            <a href="{{ path('cluster_join', {
+                                "cluster": cluster.id
+                            }) }}" title="Joindre le groupe">
+                                <i class="glyphicon glyphicon-ok"></i>
+                            </a>
+                        {% elseif cluster.hasUser(app.user) %}
+                            <a href="{{ path('cluster_abandon', {
+                                "cluster": cluster.id
+                            }) }}" title="Abandonner le groupe">
+                                <i class="glyphicon glyphicon-remove"></i>
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="panel-body">
+                    {% if cluster.hasRequestFrom(app.user) %}
+                        <div class="alert alert-warning">
+                            Vous avez demandé à faire parti de ce groupe.
+
+                            <a href="{{ path('cluster_cancelRequest', {
+                                "cluster": cluster.id
+                            }) }}" class="pull-right">Annuler</a>
+                        </div>
+                    {% endif %}
+                    {{ cluster.presentation }}
+                </div>
+            </div>
+            {% if app.user == cluster.admin and not cluster.isOpened() %}
+                <div class="panel panel-default">
+                    <div class="panel-heading">Demande d'inscription</div>
+                    <div class="panel-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Joueur</th>
+                                    <th>Niveau</th>
+                                    <th>Expérience</th>
+                                    <td>Date</td>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for request in listRequest %}
+                                    <tr class="team_{{ request.user.team }}">
+                                        <td>
+                                            <img src="{{ asset('images/team_'~ request.user.team ~'.png') }}" class="team">
+                                            <a href="{{ path('player', {username: request.user.username}) }}">
+                                                {% if request.user.name is not empty %}
+                                                    <strong>{{ request.user.name }}</strong>
+                                                    <span class="hidden-md hidden-xs">({{ request.user.username }})</span>
+                                                {% else %}
+                                                    <strong>{{ request.user.username }}</strong>
+                                                {% endif %}
+                                            </a>
+                                        </td>
+                                        <td>{{ request.user.level }}</td>
+                                        <td>{{ request.user.xp }}</td>
+                                        <td>{{ request.datetime | date('d/m/Y H:i') }}</td>
+                                        <td class="text-right">
+                                            <a href="{{ path('cluster_accept_request', {
+                                                "request": request.id
+                                            }) }}" title="Accepter le membre">
+                                                <i class="glyphicon glyphicon-ok"></i>
+                                            </a>
+                                            <a href="{{ path('cluster_reject_request', {
+                                                "request": request.id
+                                            }) }}" title="Refuser le membre">
+                                                <i class="glyphicon glyphicon-remove"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="5" class="text-center">
+                                            <em>Aucune demande</em>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Statistiques
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <div><strong>Membres</strong></div>
+                            <div><strong>XP</strong></div>
+                            <div><strong>Kilomètres parcourus</strong></div>
+                            <div><strong>Pokédex</strong></div>
+                            <div><strong>Capture</strong></div>
+                            <div><strong>CP Max</strong></div>
+                            <div><strong>CP Total</strong></div>
+                        </div>
+                        <div class="col-xs-8">
+                            <div>{{ cluster.users | length }}</div>
+                            <div>{{ cluster.total('xp') }}</div>
+                            <div>{{ cluster.total('km') }}</div>
+                            <div>{{ cluster.total('discovered') }}</div>
+                            <div>{{ cluster.total('catched') }}</div>
+                            <div>{{ cluster.maxCP }}</div>
+                            <div>{{ cluster.totalCP }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Classement
+                </div>
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Joueur</th>
+                            <th class="text-center">Niveau</th>
+                            <th class="text-center">Points</th>
+                            <th class="text-center">Pokédex</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for player in listUser %}
+                            <tr class="team_{{ player.team }}">
+                                <td>
+                                    {{ loop.index + (( app.request.get('page', 1) - 1) * 10) }}
+                                </td>
+                                <td>
+                                    <img src="{{ asset('images/team_'~ player.team~'.png') }}" class="team">
+                                    <a href="{{ path('player', {username: player.username}) }}">
+                                        {% if player.name is not empty %}
+                                            <strong>{{ player.name }}</strong>
+                                            <span class="hidden-md hidden-xs">({{ player.username }})</span>
+                                        {% else %}
+                                            <strong>{{ player.username }}</strong>
+                                        {% endif %}
+                                    </a>
+                                </td>
+                                <td class="text-center">{{ player.level }}</td>
+                                <td class="text-center">{{ player.xp | number_format(0, ',', ' ') }}</td>
+                                <td class="text-center">{{ player.discovered }}</td>
+                                <td class="text-right">
+                                    {% if cluster.admin == app.user and player != app.user %}
+                                        <a href="{{ path('cluster_remove_user', {
+                                            'cluster': cluster.id,
+                                            'user': player.id
+                                        }) }}" title="Rejeter l'utilisateur">
+                                            <i class="glyphicon glyphicon-remove"></i>
+                                        </a>
+                                        <a href="{{ path('cluster_ownership', {
+                                            'cluster': cluster.id,
+                                            'user': player.id
+                                        }) }}" title="Transférer la propriété du groupe">
+                                            <i class="glyphicon glyphicon-tower"></i>
+                                        </a>
+                                    {% else %}
+                                        {% if cluster.admin == player %}
+                                            <i class="glyphicon glyphicon-tower"></i>
+                                        {% endif %}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td class="text-center" colspan="5">
+                                    <em>Aucun joueur trouvé</em>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="panel-footer">
+                    {{ pagination(listUser) }}
+                </div>
+            </div>
+            {% if app.user == cluster.admin %}
+                <div class="text-right">
+                    <a href="{{ path('cluster_remove', {
+                        'cluster': cluster.id
+                    }) }}" title="Supprimer le groupe" id="remove">
+                        Supprimer le groupe
+                        <i class="glyphicon glyphicon-trash"></i>
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        $('#remove').on('click', function() {
+            return confirm('Êtes-vous sur de vouloir supprimer ce groupe ?');
+        })
+    </script>
+{% endblock %}

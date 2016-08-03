@@ -111,6 +111,16 @@ class User implements UserInterface {
      */
     private $prevLevel;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Cluster", mappedBy="users")
+     */
+    private $clusters;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Request", mappedBy="user")
+     */
+    private $requests;
+
     private $hash = '6ca0c2dee967a67805509a247486f8527a592277';
 
     /**
@@ -337,6 +347,10 @@ class User implements UserInterface {
         $this->roles = $roles;
     }
 
+    public function isRole($role) {
+        return in_array($role, $this->roles);
+    }
+
     /**
      * @return mixed
      */
@@ -401,6 +415,38 @@ class User implements UserInterface {
         $this->lastUpdate = $lastUpdate;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getClusters()
+    {
+        return $this->clusters;
+    }
+
+    /**
+     * @param mixed $clusters
+     */
+    public function setClusters($clusters)
+    {
+        $this->clusters = $clusters;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRequests()
+    {
+        return $this->requests;
+    }
+
+    /**
+     * @param mixed $requests
+     */
+    public function setRequests($requests)
+    {
+        $this->requests = $requests;
+    }
+
     public function getPassword() {
         return $this->hash;
     }
@@ -451,5 +497,13 @@ class User implements UserInterface {
         }
 
         return round($xp / $goal * 100);
+    }
+
+    public function get($key) {
+        if(isset($this->$key)) {
+            return $this->$key;
+        } else {
+            return false;
+        }
     }
 }

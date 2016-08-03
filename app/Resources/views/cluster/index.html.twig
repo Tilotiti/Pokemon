@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Classement des groupes{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Classement des groupes
+                    <div class="tools">
+                        <a href="{{ path("cluster_add") }}" title="Créer un groupe">
+                            <i class="glyphicon glyphicon-plus"></i>
+                        </a>
+                        <select id="selectOrder">
+                            <option {% if app.request.query.get('order', 'xp') == 'xp' %}selected{% endif %} value="xp">XP</option>
+                            <option {% if app.request.query.get('order', 'xp') == 'km' %}selected{% endif %} value="km">Km</option>
+                            <option {% if app.request.query.get('order', 'xp') == 'discovered' %}selected{% endif %} value="discovered">Pokédex</option>
+                            <option {% if app.request.query.get('order', 'xp') == 'catched' %}selected{% endif %} value="catched">Captures</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-stripped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Groupe</th>
+                                <th class="text-center">Membres</th>
+                                <th class="text-center">XP</th>
+                                <th class="text-center">Km parcourus</th>
+                                <th class="text-center">Pokédex</th>
+                                <th class="text-center">Capture</th>
+                                <th class="text-center">CP Max</th>
+                                <th class="text-center">CP Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for cluster in listCluster %}
+                                {% set cluster = cluster[0] %}
+                                <tr>
+                                    <td>{{ loop.index + (( app.request.get('page', 1) - 1) * 20) }}</td>
+                                    <td>
+                                        <a href="{{ path("cluster_view", {
+                                            "cluster": cluster.id
+                                        }) }}" title="Voir le groupe {{ cluster.name }}">
+                                            {{ cluster.name }}
+                                        </a>
+                                    </td>
+                                    <td class="text-center">{{ cluster.users | length }}</td>
+                                    <td class="text-center">{{ cluster.total('xp') }}</td>
+                                    <td class="text-center">{{ cluster.total('km') }}</td>
+                                    <td class="text-center">{{ cluster.total('discovered') }}</td>
+                                    <td class="text-center">{{ cluster.total('catched') }}</td>
+                                    <td class="text-center">{{ cluster.maxCP }}</td>
+                                    <td class="text-center">{{ cluster.totalCP }}</td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td class="text-center" colspan="9">
+                                        <em>Aucun groupe</em>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="panel-footer">
+                    {{ pagination(listCluster) }}
+                </div>
+            </div>
+        </div>
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        $(function() {
+            $('#selectOrder').on('change', function () {
+                document.location.href = "{{ path('cluster') }}?order=" + $(this).val();
+            });
+        });
+    </script>
+{% endblock %}

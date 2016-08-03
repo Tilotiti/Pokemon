@@ -21,20 +21,21 @@
     <header>
         <div class="container">
             <div class="row">
-                <div class="col-xs-8">
+                <div class="col-xs-4">
                     <a href="{{ path('index') }}" alt="Pokemon Go">
                         <img src="{{ asset('images/logo.png') }}" />
                     </a>
                 </div>
-                <div class="col-xs-4 text-right">
+                <div class="col-xs-8 text-right">
+                    <a href="{{ path('index') }}">Classement</a>
+                    <a href="{{ path('cluster') }}">Groupes</a>
                     {% if app.user %}
-                        {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
-                            <a href="{{ path('index', {'_switch_user': '_exit'}) }}">
-                                <i class="glyphicon glyphicon-lock"></i>
-                            </a>
-                        {% endif %}
                         <a href="{{ path('player') }}">Mon profil</a>
-                        <a href="{{ path('logout') }}">Se déconnecter</a>
+                        {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+                            <a href="{{ path('index', {'_switch_user': '_exit'}) }}">Se déconnecter</a>
+                        {% else %}
+                            <a href="{{ path('logout') }}">Se déconnecter</a>
+                        {% endif %}
                     {% else %}
                         <a href="{{ path('login') }}">Se connecter</a>
                     {% endif %}
