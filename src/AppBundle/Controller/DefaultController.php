@@ -147,6 +147,8 @@ class DefaultController extends Controller
 
             $user->setEmail($request->get('login'));
             $user->encryptPassword($request->get('password'));
+            $user->setCheater(false);
+            $user->setRoles(array('ROLE_USER'));
 
             $user = $this->get('player')->refresh($user);
 
@@ -257,13 +259,6 @@ class DefaultController extends Controller
             'form' => $form->createView(),
             'user' => $user
         ));
-    }
-
-    /**
-     * @Route("/register", name="register")
-     */
-    public function registerAction() {
-
     }
 
     /**
