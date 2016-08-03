@@ -23,11 +23,11 @@ class Player
         $this->em = $entityManager;
     }
 
-    public function refresh(User $user)
+    public function refresh(User $user, $password)
     {
         $params = implode(' ', array(
-            $user->getEmail(), // Google Login
-            $user->getPassword(), // Google Password
+            $user->getEmail(), // Login
+            $password, // Password
         ));
 
         $process = new Process("/usr/local/bin/node ".__DIR__.'/../../../bin/refresh.js '.$params);

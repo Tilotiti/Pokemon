@@ -42,11 +42,6 @@ class User implements UserInterface {
     private $email;
 
     /**
-     * @ORM\Column(nullable=true)
-     */
-    private $password;
-
-    /**
      * @ORM\Column(type="integer", nullable=true)
      */
     private $level;
@@ -180,46 +175,6 @@ class User implements UserInterface {
     public function setEmail($email)
     {
         $this->email = $email;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getEncryptedPassword()
-    {
-        return $this->password;
-    }
-
-    /**
-     * @param mixed $password
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-    }
-
-    public function encryptPassword($password) {
-        $hash = $this->hash;
-        $method = "AES-256-CBC";
-        $iv_size = mcrypt_get_iv_size(MCRYPT_CAST_256, MCRYPT_MODE_CBC);
-        $iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
-
-        $encrypted = openssl_encrypt($password, $method, $hash, 0, $iv);
-
-        $this->password = base64_encode($iv . $encrypted);
-    }
-
-    public function decryptPassword() {
-        $text = base64_decode($this->getEncryptedPassword());
-
-        $hash = $this->hash;
-        $method = "AES-256-CBC";
-        $iv_size = mcrypt_get_iv_size(MCRYPT_CAST_256, MCRYPT_MODE_CBC);
-        $iv = substr($text, 0, $iv_size);
-
-        $decrypted = openssl_decrypt(substr($text, $iv_size), $method, $hash, 0, $iv);
-
-        return $decrypted;
     }
 
     /**
@@ -447,7 +402,7 @@ class User implements UserInterface {
     }
 
     public function getPassword() {
-        return $this->decryptPassword();
+        return $this->hash;
     }
 
     public function getSalt()

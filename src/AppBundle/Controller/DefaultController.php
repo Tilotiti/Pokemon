@@ -145,14 +145,12 @@ class DefaultController extends Controller
             if(!$user) {
                 $user = new User();
                 $user->setRoles(array('ROLE_USER'));
-
+                $user->setCheater(false);
             }
 
             $user->setEmail($request->get('login'));
-            $user->encryptPassword($request->get('password'));
-            $user->setCheater(false);
 
-            $user = $this->get('player')->refresh($user);
+            $user = $this->get('player')->refresh($user, $request->get('password'));
 
             if(!$user) {
                 // Erreur de connexion
@@ -168,6 +166,7 @@ class DefaultController extends Controller
             $token = new UsernamePasswordToken($user, null, 'app', $user->getRoles());
             $this->get('security.token_storage')->setToken($token);
             $this->get('session')->set('_security_app', serialize($token));
+            $this->get('session')->set('password', $request->get('password'));
 
             $this->addFlash('success', "Vous êtes maintenant connecté et vos informations sont à jour.");
 
@@ -181,8 +180,11 @@ class DefaultController extends Controller
      * @Route("/refresh", name="refresh")
      */
     public function refreshAction() {
-        $this->get('player')->refresh($this->getUser());
-        return new Response('ok');
+        if($this->get('player')->refresh($this->getUser(), $this->get('session')->get('password'))) {
+            return new Response('ok');
+        } else {
+            return new Response('Err');
+        }
     }
 
     /**
