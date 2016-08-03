@@ -91,6 +91,11 @@ class User implements UserInterface {
      */
     private $cheater;
 
+    /**
+     * @ORM\Column(type="simple_array")
+     */
+    private $roles;
+
     private $hash = '6ca0c2dee967a67805509a247486f8527a592277';
 
     /**
@@ -341,13 +346,24 @@ class User implements UserInterface {
         $this->cheater = $cheater;
     }
 
-    public function getPassword() {
-        return $this->decryptPassword();
-    }
-
+    /**
+     * @return mixed
+     */
     public function getRoles()
     {
-        return array('ROLE_USER');
+        return $this->roles;
+    }
+
+    /**
+     * @param mixed $roles
+     */
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
+    }
+
+    public function getPassword() {
+        return $this->decryptPassword();
     }
 
     public function getSalt()
