@@ -86,6 +86,11 @@ class User implements UserInterface {
      */
     private $pokedex;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $cheater;
+
     private $hash = '6ca0c2dee967a67805509a247486f8527a592277';
 
     /**
@@ -318,6 +323,22 @@ class User implements UserInterface {
     public function setEvolved($evolved)
     {
         $this->evolved = $evolved;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCheater()
+    {
+        return $this->cheater;
+    }
+
+    /**
+     * @param mixed $cheater
+     */
+    public function setCheater($cheater)
+    {
+        $this->cheater = $cheater;
     }
 
     public function getPassword() {

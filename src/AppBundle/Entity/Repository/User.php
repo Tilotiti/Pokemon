@@ -30,6 +30,7 @@ class User extends EntityRepository
         $dql = $this->createQueryBuilder('user');
 
         $dql->andWhere('user.username IS NOT NULL');
+        $dql->andWhere('user.cheater = FALSE');
         $dql->orderBy("user.xp", 'DESC');
 
         $firstResult = ($page - 1) * $max;
@@ -50,6 +51,7 @@ class User extends EntityRepository
         $dql = $this->createQueryBuilder('user');
         $dql->select('SUM(user.xp) AS points');
         $dql->addSelect('user.team');
+        $dql->andWhere('user.cheater = FALSE');
         $dql->groupBy('user.team');
 
         $query = $dql->getQuery();
@@ -61,6 +63,7 @@ class User extends EntityRepository
         $dql = $this->createQueryBuilder('user');
         $dql->select('SUM(user.km) AS kilometre');
         $dql->addSelect('user.team');
+        $dql->andWhere('user.cheater = FALSE');
         $dql->groupBy('user.team');
 
         $query = $dql->getQuery();
