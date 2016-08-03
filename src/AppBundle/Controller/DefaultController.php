@@ -6,10 +6,13 @@ use AppBundle\Entity\User;
 use AppBundle\Form\UserType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class DefaultController extends Controller
 {
@@ -173,18 +176,8 @@ class DefaultController extends Controller
     /**
      * @Route("/refresh", name="refresh")
      */
-    public function refreshAction(Request $request) {
-
-        if(!$request->query->get('user')) {
-            $user = $this->getUser();
-        } else {
-            $user = $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->findOneBy(array(
-                'username' => $request->query->get('user')
-            ));
-        }
-
-        $this->get('player')->refresh($user);
-
+    public function refreshAction() {
+        $this->get('player')->refresh($this->getUser());
         return new Response('ok');
     }
 
@@ -211,11 +204,59 @@ class DefaultController extends Controller
 
             $this->addFlash('success', "Votre profil a été mis à jour.");
 
-            return $this->redirectToRoute('index');
+            return $this->redirectToRoute('player', array(
+                'username' => $user->getUsername()
+            ));
         }
 
         return $this->render('default/account.html.twig', array(
             'form' => $form->createView()
+        ));
+    }
+
+    /**
+     * @Route("/edit/{id}", name="edit")
+     * @ParamConverter("user", class="AppBundle:User")
+     */
+    public function editAction(Request $request, User $user) {
+        if(!in_array('ROLE_ADMIN', $this->getUser()->getRoles())) {
+            throw new NotFoundHttpException("Page not found");
+        }
+
+        $form = $this->createForm(UserType::class, $user);
+
+        $form->add('cheater', ChoiceType::class, array(
+            'label' => "Tricheur",
+            'choices' => array(
+                'Tricheur' => true,
+                'Honnête' => false
+            )
+        ));
+
+
+        $form->add('submit', SubmitType::class, array(
+            'label' => "Modifier",
+            'attr' => array(
+                'class' => 'btn btn-default'
+            )
+        ));
+
+        $form->handleRequest($request);
+
+        if($form->isValid()) {
+            $this->getDoctrine()->getManager()->persist($user);
+            $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash('success', "Le profil de ".$user->getUsername()." a été mis à jour.");
+
+            return $this->redirectToRoute('player', array(
+                'username' => $user->getUsername()
+            ));
+        }
+
+        return $this->render('default/edit.html.twig', array(
+            'form' => $form->createView(),
+            'user' => $user
         ));
     }
 

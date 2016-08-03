@@ -16,6 +16,15 @@
                                 <a href="#" id="refresh">
                                     <i class="glyphicon glyphicon-refresh"></i>
                                 </a>
+                            {% elseif is_granted('ROLE_ADMIN') %}
+                                <a href="{{ path('edit', {id: user.id}) }}" title="Modifier le profil de {{ user.username }}">
+                                    <i class="glyphicon glyphicon-edit"></i>
+                                </a>
+                                <a href="{{ path('index', {
+                                    _switch_user: user.email
+                                }) }}" title="Se connecter à la place de {{ user.username }}">
+                                    <i class="glyphicon glyphicon-lock"></i>
+                                </a>
                             {% endif %}
                         </div>
                     {{ user.username }}

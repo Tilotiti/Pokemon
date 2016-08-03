@@ -28,6 +28,11 @@
                 </div>
                 <div class="col-xs-4 text-right">
                     {% if app.user %}
+                        {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+                            <a href="{{ path('index', {'_switch_user': '_exit'}) }}">
+                                <i class="glyphicon glyphicon-lock"></i>
+                            </a>
+                        {% endif %}
                         <a href="{{ path('player') }}">Mon profil</a>
                         <a href="{{ path('logout') }}">Se déconnecter</a>
                     {% else %}
