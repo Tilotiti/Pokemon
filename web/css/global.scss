@@ -82,11 +82,13 @@ a {
   line-height: 34px;
   margin: -12px 0px;
   list-style: none;
+  letter-spacing: -3px;
 
   li {
     height: 32px;
     line-height: 32px;
     display: inline-block;
+    letter-spacing: normal;
 
     &.active {
       a {

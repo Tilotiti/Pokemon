@@ -62,11 +62,13 @@ a {
   height: 34px;
   line-height: 34px;
   margin: -12px 0px;
-  list-style: none; }
+  list-style: none;
+  letter-spacing: -3px; }
   .pagination li {
     height: 32px;
     line-height: 32px;
-    display: inline-block; }
+    display: inline-block;
+    letter-spacing: normal; }
     .pagination li.active a {
       background-color: #6a6c6f !important; }
     .pagination li a {
