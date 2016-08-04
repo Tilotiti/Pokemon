@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier le groupe{% endblock %}
+{% block title %}{{ 'title.cluster.edit' | trans }}{% endblock %}
 
 {% block body %}
 <div class="row">
     <div class="col-sm-6 col-sm-offset-3">
         <div class="panel panel-default">
             <div class="panel-heading">
-                Modifier le groupe "{{ cluster.name }}"
+                {{ 'title.cluster.edit' | trans }}
             </div>
             <div class="panel-body">
                 {{ form(form) }}

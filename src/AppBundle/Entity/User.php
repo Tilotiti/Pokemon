@@ -121,6 +121,11 @@ class User implements UserInterface {
      */
     private $requests;
 
+    /**
+     * @ORM\Column
+     */
+    private $locale;
+
     private $hash = '6ca0c2dee967a67805509a247486f8527a592277';
 
     /**
@@ -445,6 +450,22 @@ class User implements UserInterface {
     public function setRequests($requests)
     {
         $this->requests = $requests;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLocale()
+    {
+        return $this->locale;
+    }
+
+    /**
+     * @param mixed $locale
+     */
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
     }
 
     public function getPassword() {

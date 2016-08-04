@@ -1,0 +1,30 @@
+error:
+    user:
+        any: "This user doesn't exists."
+        rank: "You don't have the priviliges for doing it."
+    login: "A connexion error occured. Your Google Logins are not valid or Pokemon Go server are crashed. If not, open your Google Account here : https://g.co/allowaccess."
+    cluster:
+        quit: "You can't quit this group. You must either transfert it to another member or delete it."
+        alreadyMember: "You are already a member of this group."
+        user: "This user doesn't belong to the group."
+        request:
+            unknown: "You didn't request to be part of this group."
+
+success:
+    login: "You are now logged and your account is up-to-date."
+    refresh: "Your account is up-to-date."
+    user:
+        edit: "The user has been edited."
+    cluster:
+        create: "Your group has been created."
+        edit: "The group has been edited."
+        join: "You are now a member of this group."
+        reject: "This user doesn't belong to the group anymore."
+        quit: "You quitted this group."
+        deleted: "The group has been deleted."
+        transfert: "The group owner has been changed."
+        request:
+            wait: "Your request has been sent to the group administrator."
+            ok: "The request has been accepted."
+            rejected: "The request has been rejected."
+            canceled: "Your request has been canceled"

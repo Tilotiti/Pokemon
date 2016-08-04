@@ -27,18 +27,31 @@
                     </a>
                 </div>
                 <div class="col-xs-8 text-right">
-                    <a href="{{ path('index') }}">Classement</a>
-                    <a href="{{ path('cluster') }}">Groupes</a>
+                    <a href="{{ path('index') }}">{{ 'menu.rank' | trans }}</a>
+                    <a href="{{ path('cluster') }}">{{ 'menu.cluster' | trans }}</a>
                     {% if app.user %}
-                        <a href="{{ path('player') }}">Mon profil</a>
+                        <a href="{{ path('player') }}">{{ 'menu.account' | trans }}</a>
                         {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
-                            <a href="{{ path('index', {'_switch_user': '_exit'}) }}">Se déconnecter</a>
+                            <a href="{{ path('index', {'_switch_user': '_exit'}) }}">{{ 'menu.logout' | trans }}</a>
                         {% else %}
-                            <a href="{{ path('logout') }}">Se déconnecter</a>
+                            <a href="{{ path('logout') }}">{{ 'menu.logout' | trans }}</a>
                         {% endif %}
                     {% else %}
-                        <a href="{{ path('login') }}">Se connecter</a>
+                        <a href="{{ path('login') }}">{{ 'menu.login' | trans }}</a>
                     {% endif %}
+
+                    <a href="{{ path('change_locale', {
+                        'locale': 'en',
+                        'back': app.request.uri
+                    }) }}" class="flag">
+                        <img src="{{ asset('images/flag/en.png') }}" alt="Translate in English" />
+                    </a>
+                    <a href="{{ path('change_locale', {
+                        'locale': 'fr',
+                        'back': app.request.uri
+                    }) }}" class="flag">
+                        <img src="{{ asset('images/flag/fr.png') }}" alt="Traduire en Français" />
+                    </a>
                 </div>
             </div>
         </div>

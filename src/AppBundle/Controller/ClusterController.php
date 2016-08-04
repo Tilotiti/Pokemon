@@ -65,7 +65,7 @@ class ClusterController extends Controller
         $form = $this->createForm(ClusterType::class, $cluster);
 
         $form->add('submit', SubmitType::class, array(
-            'label' => "Créer",
+            'label' => "create",
             'attr' => array(
                 'class' => 'btn btn-default'
             )
@@ -77,7 +77,7 @@ class ClusterController extends Controller
             $this->getDoctrine()->getManager()->persist($cluster);
             $this->getDoctrine()->getManager()->flush();
 
-            $this->addFlash('success', "Votre groupe a été créé.");
+            $this->addFlash('success', $this->get('translator')->trans("success.cluster.create", [], "flash"));
 
             return $this->redirectToRoute('cluster_view', array(
                 'cluster' => $cluster->getId()
@@ -129,7 +129,7 @@ class ClusterController extends Controller
      */
     public function clusterEditAction(Request $request, Cluster $cluster) {
         if(!$this->getUser()->isRole('ROLE_ADMIN') && $cluster->getAdmin() != $this->getUser()) {
-            $this->addFlash('error', "Vous n'avez pas les droits pour modifier ce groupe.");
+            $this->addFlash('error', $this->get('translator')->trans("error.user.rank", [], "flash"));
 
             return $this->redirectToRoute("cluster_view", array(
                 'cluster' => $cluster->getId()
@@ -139,7 +139,7 @@ class ClusterController extends Controller
         $form = $this->createForm(ClusterType::class, $cluster);
 
         $form->add('submit', SubmitType::class, array(
-            'label' => "Modifier",
+            'label' => "edit",
             'attr' => array(
                 'class' => 'btn btn-default'
             )
@@ -151,7 +151,7 @@ class ClusterController extends Controller
             $this->getDoctrine()->getManager()->persist($cluster);
             $this->getDoctrine()->getManager()->flush();
 
-            $this->addFlash('success', "Votre groupe a été modifié.");
+            $this->addFlash('success', $this->get('translator')->trans("success.cluster.edit", [], "flash"));
 
             return $this->redirectToRoute('cluster_view', array(
                 'cluster' => $cluster->getId()
@@ -179,7 +179,7 @@ class ClusterController extends Controller
         // Check that the user is not a member already
         foreach($this->getUser()->getClusters() as $userCluster) {
             if($userCluster == $cluster) {
-                $this->addFlash('error', "Vous êtes déjà membre de ce groupe.");
+                $this->addFlash('error', $this->get('translator')->trans("error.group.alreadyMember", [], "flash"));
 
                 return $this->redirectToRoute("cluster_view", array(
                     'cluster' => $cluster->getId()
@@ -199,7 +199,7 @@ class ClusterController extends Controller
                 ->getManager()
                 ->flush();
 
-            $this->addFlash('success', "Vous êtes maintenant membre de ce groupe.");
+            $this->addFlash('success', $this->get('translator')->trans("success.cluster.join", [], "flash"));
 
             return $this->redirectToRoute("cluster_view", array(
                 'cluster' => $cluster->getId()
@@ -214,7 +214,7 @@ class ClusterController extends Controller
             }
 
             // Make a request
-            $this->addFlash('warning', "Une demande a été envoyée à l'administrateur du groupe.");
+            $this->addFlash('warning', $this->get('translator')->trans("success.cluster.request.wait", [], "flash"));
 
             $request = new \AppBundle\Entity\Request();
             $request->setUser($this->getUser());
@@ -255,9 +255,9 @@ class ClusterController extends Controller
             ));
 
         if(!$request) {
-            $this->addFlash('error', "Vous n'avez pas demandé à faire parti de ce groupe.");
+            $this->addFlash('error', $this->get('translator')->trans("error.cluster.request.unknown", [], "flash"));
         } else {
-            $this->addFlash('success', "Votre demande a été annulée");
+            $this->addFlash('success', $this->get('translator')->trans("success.cluster.request.canceled", [], "flash"));
 
             $this->getDoctrine()
                 ->getManager()
@@ -283,7 +283,7 @@ class ClusterController extends Controller
      */
     public function clusterAcceptRequest(\AppBundle\Entity\Request $request) {
         if($request->getCluster()->getAdmin() != $this->getUser()) {
-            $this->addFlash('error', "Vous n'avez pas les droits pour modifier ce groupe.");
+            $this->addFlash('error', $this->get('translator')->trans("error.user.rank", [], "flash"));
 
             return $this->redirectToRoute("cluster_view", array(
                 'cluster' => $request->getCluster()->getId()
@@ -304,7 +304,7 @@ class ClusterController extends Controller
             ->getManager()
             ->flush();
 
-        $this->addFlash('success', $request->getUser()->getUsername()." est maintenant membre de ce groupe.");
+        $this->addFlash('success', $this->get('translator')->trans("success.cluster.request.ok", [], "flash"));
 
         return $this->redirectToRoute("cluster_view", array(
             'cluster' => $request->getCluster()->getId()
@@ -321,7 +321,7 @@ class ClusterController extends Controller
      */
     public function clusterRejectRequest(\AppBundle\Entity\Request $request) {
         if($request->getCluster()->getAdmin() != $this->getUser()) {
-            $this->addFlash('error', "Vous n'avez pas les droits pour modifier ce groupe.");
+            $this->addFlash('error', $this->get('translator')->trans("error.user.rank", [], "flash"));
 
             return $this->redirectToRoute("cluster_view", array(
                 'cluster' => $request->getCluster()->getId()
@@ -336,7 +336,7 @@ class ClusterController extends Controller
             ->getManager()
             ->flush();
 
-        $this->addFlash('success', "La demande de ".$request->getUser()->getUsername()." a été supprimée.");
+        $this->addFlash('success', $this->get('translator')->trans("success.cluster.request.rejected", [], "flash"));
 
         return $this->redirectToRoute("cluster_view", array(
             'cluster' => $request->getCluster()->getId()
@@ -353,7 +353,7 @@ class ClusterController extends Controller
      */
     public function clusterRemoveUser(Cluster $cluster, User $user) {
         if($cluster->getAdmin() != $this->getUser()) {
-            $this->addFlash('error', "Vous n'avez pas les droits pour modifier ce groupe.");
+            $this->addFlash('error', $this->get('translator')->trans("error.user.rank", [], "flash"));
 
             return $this->redirectToRoute("cluster_view", array(
                 'cluster' => $cluster->getId()
@@ -361,7 +361,7 @@ class ClusterController extends Controller
         }
 
         if(!$cluster->hasUser($user)) {
-            $this->addFlash('error', $user->getUsername()." ne fait pas parti de ce groupe.");
+            $this->addFlash('error', $this->get('translator')->trans("error.cluster.user", [], "flash"));
 
             return $this->redirectToRoute("cluster_view", array(
                 'cluster' => $cluster->getId()
@@ -385,7 +385,7 @@ class ClusterController extends Controller
             ->getManager()
             ->flush();
 
-        $this->addFlash('success', $user->getUsername()." a été rejeté de ce groupe.");
+        $this->addFlash('success', $this->get('translator')->trans("success.cluster.reject", [], "flash"));
 
         return $this->redirectToRoute("cluster_view", array(
             'cluster' => $cluster->getId()
@@ -405,7 +405,7 @@ class ClusterController extends Controller
         }
 
         if($cluster->getAdmin() == $this->getUser()) {
-            $this->addFlash('error', "Vous n'avez pas le droit de quitter ce groupe. Vous devez soit, en transférer la propriété, soit le supprimer.");
+            $this->addFlash('error', $this->get('translator')->trans("error.cluster.quit", [], "flash"));
 
             return $this->redirectToRoute("cluster_view", array(
                 'cluster' => $cluster->getId()
@@ -413,7 +413,7 @@ class ClusterController extends Controller
         }
 
         if(!$cluster->hasUser($this->getUser())) {
-            $this->addFlash('error', "Vous ne faites pas parti de ce groupe.");
+            $this->addFlash('error', $this->get('translator')->trans("error.user.rank", [], "flash"));
 
             return $this->redirectToRoute("cluster_view", array(
                 'cluster' => $cluster->getId()
@@ -437,7 +437,7 @@ class ClusterController extends Controller
             ->getManager()
             ->flush();
 
-        $this->addFlash('success', "Vous avez quitté ce groupe.");
+        $this->addFlash('success', $this->get('translator')->trans("success.cluser.quit", [], "flash"));
 
         return $this->redirectToRoute("cluster_view", array(
             'cluster' => $cluster->getId()
@@ -457,7 +457,7 @@ class ClusterController extends Controller
         }
 
         if($cluster->getAdmin() != $this->getUser()) {
-            $this->addFlash('error', "Vous n'avez pas le droit de supprimer ce groupe.");
+            $this->addFlash('error', $this->get('translator')->trans("error.user.rank", [], "flash"));
 
             return $this->redirectToRoute("cluster_view", array(
                 'cluster' => $cluster->getId()
@@ -472,7 +472,7 @@ class ClusterController extends Controller
             ->getManager()
             ->flush();
 
-        $this->addFlash('success', "Le groupe a été supprimé.");
+        $this->addFlash('success', $this->get('translator')->trans("success.cluster.deleted", [], "flash"));
 
         return $this->redirectToRoute("cluster");
     }
@@ -491,7 +491,7 @@ class ClusterController extends Controller
         }
 
         if($cluster->getAdmin() != $this->getUser()) {
-            $this->addFlash('error', "Vous n'avez pas le droit de changer le propriétaire du groupe.");
+            $this->addFlash('error', $this->get('translator')->trans("error.user.rank", [], "flash"));
 
             return $this->redirectToRoute("cluster_view", array(
                 'cluster' => $cluster->getId()
@@ -499,7 +499,7 @@ class ClusterController extends Controller
         }
 
         if(!$cluster->hasUser($user)) {
-            $this->addFlash('error', "Le nouveau propriétaire doit faire parti du groupe.");
+            $this->addFlash('error', $this->get('translator')->trans("error.cluster.user", [], "flash"));
 
             return $this->redirectToRoute("cluster_view", array(
                 'cluster' => $cluster->getId()
@@ -516,7 +516,7 @@ class ClusterController extends Controller
             ->getManager()
             ->flush();
 
-        $this->addFlash('success', "La propriétaire du groupe a changé.");
+        $this->addFlash('success', $this->get('translator')->trans("success.cluster.transfert", [], "flash"));
 
         return $this->redirectToRoute("cluster_view", array(
             'cluster' => $cluster->getId()

@@ -1,19 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Classement général{% endblock %}
+{% block title %}{{ "title.index" | trans }}{% endblock %}
 
 {% block body %}
     <div class="row">
         <div class="col-xs-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Classement
+                    {{ 'title.index' | trans }}
                     <div class="tools">
                         <select id="selectOrder">
-                            <option {% if app.request.query.get('order', 'xp') == 'xp' %}selected{% endif %} value="xp">XP</option>
-                            <option {% if app.request.query.get('order', 'xp') == 'km' %}selected{% endif %} value="km">Km</option>
-                            <option {% if app.request.query.get('order', 'xp') == 'discovered' %}selected{% endif %} value="discovered">Pokédex</option>
-                            <option {% if app.request.query.get('order', 'xp') == 'catched' %}selected{% endif %} value="catched">Captures</option>
+                            <option {% if app.request.query.get('order', 'xp') == 'xp' %}selected{% endif %} value="xp">{{ "order.xp" | trans }}</option>
+                            <option {% if app.request.query.get('order', 'xp') == 'km' %}selected{% endif %} value="km">{{ "order.km" | trans }}</option>
+                            <option {% if app.request.query.get('order', 'xp') == 'discovered' %}selected{% endif %} value="discovered">{{ "order.discovered" | trans }}</option>
+                            <option {% if app.request.query.get('order', 'xp') == 'catched' %}selected{% endif %} value="catched">{{ "order.catched" | trans }}</option>
                         </select>
                     </div>
                 </div>
@@ -22,16 +22,16 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Joueur</th>
-                            <th class="text-center">Niveau</th>
-                            <th class="text-center">XP</th>
-                            <th class="text-center">Km parcourus</th>
-                            <th class="text-center">Pokédex</th>
-                            <th class="text-center">Pokémons</th>
-                            <th class="text-center">Captures</th>
-                            <th class="text-center">Evolutions</th>
-                            <th class="text-center">CP Max</th>
-                            <th class="text-center">CP Total</th>
+                            <th>{{ "trainer" | trans }}</th>
+                            <th class="text-center">{{ "player.level" | trans }}</th>
+                            <th class="text-center">{{ "player.xp" | trans }}</th>
+                            <th class="text-center">{{ "player.km" | trans }}</th>
+                            <th class="text-center">{{ "player.discovered" | trans }}</th>
+                            <th class="text-center">{{ "player.pokemons" | trans }}</th>
+                            <th class="text-center">{{ "player.catched" | trans }}</th>
+                            <th class="text-center">{{ "player.evolved" | trans }}</th>
+                            <th class="text-center">{{ "player.cpmax" | trans }}</th>
+                            <th class="text-center">{{ "player.cptotal" | trans }}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -64,7 +64,7 @@
                             {% else %}
                                 <tr>
                                     <td class="text-center" colspan="11">
-                                        <em>Aucun joueur trouvé</em>
+                                        <em>{{ "any.player" | trans }}</em>
                                     </td>
                                 </tr>
                         {% endfor %}
@@ -78,7 +78,7 @@
         </div>
         <div class="col-sm-3">
             <div class="panel panel-default">
-                <div class="panel-heading">Experience par équipe</div>
+                <div class="panel-heading">{{ 'stats.team.xp' | trans }}</div>
                 <div class="panel-body">
                     <div id="teamStats_xp" class="stats"></div>
                 </div>
@@ -86,7 +86,7 @@
         </div>
         <div class="col-sm-3">
             <div class="panel panel-default">
-                <div class="panel-heading">Kilomètres parcourus par équipe</div>
+                <div class="panel-heading">{{ 'stats.team.km' | trans }}</div>
                 <div class="panel-body">
                     <div id="teamStats_km" class="stats"></div>
                 </div>
@@ -94,7 +94,7 @@
         </div>
         <div class="col-sm-3">
             <div class="panel panel-default">
-                <div class="panel-heading">Pokémons découverts par équipe</div>
+                <div class="panel-heading">{{ 'stats.team.discovered' | trans }}</div>
                 <div class="panel-body">
                     <div id="teamStats_discovered" class="stats"></div>
                 </div>
@@ -102,7 +102,7 @@
         </div>
         <div class="col-sm-3">
             <div class="panel panel-default">
-                <div class="panel-heading">Pokémons capturés par équipe</div>
+                <div class="panel-heading">{{ 'stats.team.catched' | trans }}</div>
                 <div class="panel-body">
                     <div id="teamStats_catched" class="stats"></div>
                 </div>

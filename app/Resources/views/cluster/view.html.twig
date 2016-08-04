@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Groupe {{ cluster.name }}{% endblock %}
+{% block title %}{{ 'cluster.name' | trans }} {{ cluster.name }}{% endblock %}
 
 {% block body %}
     <div class="row">
@@ -12,19 +12,19 @@
                         {% if app.user == cluster.admin %}
                             <a href="{{ path('cluster_edit', {
                                 "cluster": cluster.id
-                            }) }}" title="Modifier le groupe">
+                            }) }}" title="{{ 'cluster.edit' | trans }}">
                                 <i class="glyphicon glyphicon-edit"></i>
                             </a>
                         {% elseif not cluster.hasRequestFrom(app.user) and not cluster.hasUser(app.user) %}
                             <a href="{{ path('cluster_join', {
                                 "cluster": cluster.id
-                            }) }}" title="Joindre le groupe">
+                            }) }}" title="{{ 'cluster.join' | trans }}">
                                 <i class="glyphicon glyphicon-ok"></i>
                             </a>
                         {% elseif cluster.hasUser(app.user) %}
                             <a href="{{ path('cluster_abandon', {
                                 "cluster": cluster.id
-                            }) }}" title="Abandonner le groupe">
+                            }) }}" title="{{ 'cluster.abandon' | trans }}">
                                 <i class="glyphicon glyphicon-remove"></i>
                             </a>
                         {% endif %}
@@ -33,11 +33,11 @@
                 <div class="panel-body">
                     {% if cluster.hasRequestFrom(app.user) %}
                         <div class="alert alert-warning">
-                            Vous avez demandé à faire parti de ce groupe.
+                            {{ 'cluster.request.message' | trans }}
 
                             <a href="{{ path('cluster_cancelRequest', {
                                 "cluster": cluster.id
-                            }) }}" class="pull-right">Annuler</a>
+                            }) }}" class="pull-right">{{ 'cancel' | trans }}</a>
                         </div>
                     {% endif %}
                     {{ cluster.presentation }}
@@ -45,15 +45,15 @@
             </div>
             {% if app.user == cluster.admin and not cluster.isOpened() %}
                 <div class="panel panel-default">
-                    <div class="panel-heading">Demande d'inscription</div>
+                    <div class="panel-heading">{{ 'cluster.request.title' | trans }}</div>
                     <div class="panel-body">
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Joueur</th>
-                                    <th>Niveau</th>
-                                    <th>Expérience</th>
-                                    <td>Date</td>
+                                    <th>{{ 'trainer' | trans }}</th>
+                                    <th>{{ 'player.level' | trans }}</th>
+                                    <th>{{ 'player.xp' | trans }}</th>
+                                    <td>{{ 'date' | trans }}</td>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -73,16 +73,16 @@
                                         </td>
                                         <td>{{ request.user.level }}</td>
                                         <td>{{ request.user.xp }}</td>
-                                        <td>{{ request.datetime | date('d/m/Y H:i') }}</td>
+                                        <td>{{ request.datetime | localizeddate('long', 'long', app.request.locale )}}</td>
                                         <td class="text-right">
                                             <a href="{{ path('cluster_accept_request', {
                                                 "request": request.id
-                                            }) }}" title="Accepter le membre">
+                                            }) }}" title="{{ 'cluster.request.accept' | trans }}">
                                                 <i class="glyphicon glyphicon-ok"></i>
                                             </a>
                                             <a href="{{ path('cluster_reject_request', {
                                                 "request": request.id
-                                            }) }}" title="Refuser le membre">
+                                            }) }}" title="{{ 'cluster.request.reject' | trans }}">
                                                 <i class="glyphicon glyphicon-remove"></i>
                                             </a>
                                         </td>
@@ -90,7 +90,7 @@
                                 {% else %}
                                     <tr>
                                         <td colspan="5" class="text-center">
-                                            <em>Aucune demande</em>
+                                            <em>{{ 'any.request' | trans }}</em>
                                         </td>
                                     </tr>
                                 {% endfor %}
@@ -103,18 +103,18 @@
         <div class="col-sm-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Statistiques
+                    {{ 'stats' | trans }}
                 </div>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-xs-4">
-                            <div><strong>Membres</strong></div>
-                            <div><strong>XP</strong></div>
-                            <div><strong>Km parcourus</strong></div>
-                            <div><strong>Pokédex</strong></div>
-                            <div><strong>Captures</strong></div>
-                            <div><strong>CP Max</strong></div>
-                            <div><strong>CP Total</strong></div>
+                            <div><strong>{{ 'cluster.members' | trans }}</strong></div>
+                            <div><strong>{{ 'cluster.xp' | trans }}</strong></div>
+                            <div><strong>{{ 'player.km' | trans }}</strong></div>
+                            <div><strong>{{ 'player.discovered' | trans }}</strong></div>
+                            <div><strong>{{ 'player.catched' | trans }}</strong></div>
+                            <div><strong>{{ 'player.cpmax' | trans }}</strong></div>
+                            <div><strong>{{ 'player.cptotal' | trans }}</strong></div>
                         </div>
                         <div class="col-xs-8">
                             <div>{{ cluster.users | length }}</div>
@@ -130,17 +130,17 @@
             </div>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Classement
+                    {{ 'ranking' | trans }}
                 </div>
                 <div class="panel-body">
                     <table class="table">
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Joueur</th>
-                            <th class="text-center">Niveau</th>
-                            <th class="text-center">Points</th>
-                            <th class="text-center">Pokédex</th>
+                            <th>{{ 'trainer' | trans }}</th>
+                            <th class="text-center">{{ 'player.level' | trans }}</th>
+                            <th class="text-center">{{ 'player.xp' | trans }}</th>
+                            <th class="text-center">{{ 'player.discovered' | trans }}</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -169,13 +169,13 @@
                                         <a href="{{ path('cluster_remove_user', {
                                             'cluster': cluster.id,
                                             'user': player.id
-                                        }) }}" title="Rejeter l'utilisateur">
+                                        }) }}" title="{{ 'cluster.reject' | trans }}">
                                             <i class="glyphicon glyphicon-remove"></i>
                                         </a>
                                         <a href="{{ path('cluster_ownership', {
                                             'cluster': cluster.id,
                                             'user': player.id
-                                        }) }}" title="Transférer la propriété du groupe">
+                                        }) }}" title="{{ 'cluster.transfert' | trans }}">
                                             <i class="glyphicon glyphicon-tower"></i>
                                         </a>
                                     {% else %}
@@ -188,7 +188,7 @@
                         {% else %}
                             <tr>
                                 <td class="text-center" colspan="5">
-                                    <em>Aucun joueur trouvé</em>
+                                    <em>{{ 'any.player' | trans }}</em>
                                 </td>
                             </tr>
                         {% endfor %}
@@ -203,8 +203,8 @@
                 <div class="text-right">
                     <a href="{{ path('cluster_remove', {
                         'cluster': cluster.id
-                    }) }}" title="Supprimer le groupe" id="remove">
-                        Supprimer le groupe
+                    }) }}" title="{{ 'cluster.delete' | trans }}" id="remove">
+                        {{ 'cluster.delete' | trans }}
                         <i class="glyphicon glyphicon-trash"></i>
                     </a>
                 </div>
@@ -216,7 +216,7 @@
 {% block javascript %}
     <script>
         $('#remove').on('click', function() {
-            return confirm('Êtes-vous sur de vouloir supprimer ce groupe ?');
+            return confirm('{{ 'cluster.deleteConfirm' | trans }}');
         })
     </script>
 {% endblock %}

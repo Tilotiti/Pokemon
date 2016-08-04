@@ -24,6 +24,13 @@ header {
   a {
     display: inline-block;
     margin-left: 20px;
+
+    &.flag {
+      img {
+        height: auto;
+        width: 20px;
+      }
+    }
   }
 }
 
@@ -112,10 +119,6 @@ a {
     }
   }
 }
-
-tr.team_1 td { background-color: #94DBEE }
-tr.team_2 td { background-color: #EC8484 }
-tr.team_3 td { background-color: #FFFF99 }
 
 #refresh {
   cursor: pointer;

@@ -21,16 +21,16 @@ class ClusterType extends AbstractType
     {
         $builder
             ->add("name", TextType::class, array(
-                'label' => 'Nom'
+                'label' => 'cluster.name'
             ))
             ->add("presentation", TextareaType::class, array(
-                'label' => 'Présentation'
+                'label' => 'cluster.presentation'
             ))
             ->add('opened', ChoiceType::class, array(
-                'label' => 'Inscriptions',
+                'label' => 'cluster.opened.name',
                 'choices' => array(
-                    'Ouvertes' => true,
-                    'Sur validation' => false
+                    'cluster.opened.1' => true,
+                    'cluster.opened.0' => false
                 )
             ))
         ;

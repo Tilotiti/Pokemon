@@ -1,20 +1,17 @@
 {% extends 'base.html.twig' %}
-{% block title %}Dresseur {{ user.username }}{% endblock %}
+{% block title %}{{ 'trainer' | trans }} {{ user.username }}{% endblock %}
 {% block body %}
     <div class="row animated-panel">
         <div class="col-md-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
                         <div class="tools">
-                            <a href="{{ path('index') }}" title="Classement général">
-                                <i class="glyphicon glyphicon-list"></i>
-                            </a>
                             {% if app.user == user %}
-                                <a href="{{ path('account') }}" title="Modifier mon profil">
+                                <a href="{{ path('account') }}" title="{{ "title.account" | trans}}">
                                     <i class="glyphicon glyphicon-edit"></i>
                                 </a>
                                 {% if not is_granted('ROLE_PREVIOUS_ADMIN') %}
-                                    <a href="#" id="refresh">
+                                    <a href="#" id="refresh" title="{{ "refresh" | trans }}">
                                         <i class="glyphicon glyphicon-refresh"></i>
                                     </a>
                                 {% endif %}
@@ -46,16 +43,16 @@
                         <div class="col-xs-4">
                             <dl class="dl-horizontal">
                                 {% if app.user == user or is_granted('ROLE_ADMIN') %}
-                                    <div><strong>Email</strong></div>
+                                    <div><strong>{{ "player.email" | trans }}</strong></div>
                                 {% endif %}
-                                <div><strong>Expérience</strong></div>
-                                <div><strong>Km parcourus</strong></div>
-                                <div><strong>Date d'inscription</strong></div>
-                                <div><strong>Date de mise à jour</strong></div>
-                                <div><strong>Pokédex</strong></div>
-                                <div><strong>Pokémons possédés</strong></div>
-                                <div><strong>Pokémons capturés</strong></div>
-                                <div><strong>Pokémons évolués</strong></div>
+                                <div><strong>{{ "player.experience" | trans }}</strong></div>
+                                <div><strong>{{ "player.km" | trans }}</strong></div>
+                                <div><strong>{{ "player.signDate" | trans }}</strong></div>
+                                <div><strong>{{ "player.updateDate" | trans }}</strong></div>
+                                <div><strong>{{ "player.discovered" | trans }}</strong></div>
+                                <div><strong>{{ "player.pokemons" | trans }}</strong></div>
+                                <div><strong>{{ "player.catched" | trans }}</strong></div>
+                                <div><strong>{{ "player.evolved" | trans }}</strong></div>
                             </dl>
                         </div>
                         <div class="col-xs-4">
@@ -66,16 +63,16 @@
                             <div>{{ user.km }}</div>
                             <div>
                                 {% if user.sign is not null %}
-                                    {{ user.sign | date('d/m/Y') }}
+                                    {{ user.sign | localizeddate('medium', 'none', app.request.locale) }}
                                 {% else %}
-                                    <em>Non renseignée</em>
+                                    <em>{{ 'any.empty' | trans }}</em>
                                 {% endif %}
                             </div>
                             <div>
                                 {% if user.lastUpdate is not null %}
-                                    {{ user.lastUpdate | date('d/m/Y H:i') }}
+                                    {{ user.lastUpdate | localizeddate('medium', 'medium', app.request.locale)  }}
                                 {% else %}
-                                    <em>Non renseignée</em>
+                                    <em>{{ 'any.empty' | trans }}</em>
                                 {% endif %}
                             </div>
                             <div>{{ user.discovered }}</div>
@@ -86,7 +83,7 @@
                         {% if user.cheater %}
                             <div class="col-xs-12">
                                 <div class="alert alert-warning">
-                                    Cet utilisateur est suspecté d'automatiser sa chasse, son compte n'apparaît donc pas dans les différentes statistiques et classements.
+                                    {{ 'cheater.message' | trans }}
                                 </div>
                             </div>
                         {% endif %}
@@ -95,16 +92,16 @@
             </div>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Groupes
+                    {{ 'menu.cluster' | trans }}
                 </div>
                 <div class="panel-body">
                     <table class="table table-stripped">
                         <thead>
                             <tr>
-                                <th>Groupe</th>
-                                <th class="text-center">Membres</th>
-                                <th class="text-center">Points</th>
-                                <th class="text-center">Pokédex</th>
+                                <th>{{ "cluster.name" | trans }}</th>
+                                <th class="text-center">{{ "cluster.members" | trans }}</th>
+                                <th class="text-center">{{ "cluster.xp" | trans }}</th>
+                                <th class="text-center">{{ "cluster.discovered" | trans }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -124,7 +121,7 @@
                             {% else %}
                                 <tr>
                                     <td class="text-center" colspan="4">
-                                        <em>Ce joueur ne fait parti d'aucun groupe</em>
+                                        <em>{{ "any.cluster" | trans }}</em>
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -139,7 +136,7 @@
                 <div class="col-xs-12">
                     <div class="panel">
                         <div class="panel-heading">
-                            Pokedex
+                            {{ 'player.discovered' | trans }}
                         </div>
                     </div>
                 </div>
@@ -150,13 +147,7 @@
                                 <img src="{{ pokemon.pokemon.image }}" />
                                 <span class="cp">{{ pokemon.cp }}</span>
                                 <span class="pokeball">
-                                    {% transchoice pokemon.pokeball %}
-                                        {0} Erreur|
-                                        {1} Pokeball|
-                                        {2} Superball|
-                                        {3} Hyperball|
-                                        [4,Inf[ Inconnue
-                                    {% endtranschoice %}
+                                    {{ 'pokeball' | transchoice(pokemon.pokeball, [], 'pokemon')}}
                                 </span>
                             </div>
                             <div class="panel-footer">
@@ -167,7 +158,7 @@
                     </div>
                 {% else %}
                     <div class="col-sm-12 text-center">
-                        <em>Aucun Pokémon</em>
+                        <em>{{ 'any.pokemon' | trans }}</em>
                     </div>
                 {% endfor %}
             </div>

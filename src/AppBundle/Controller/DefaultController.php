@@ -81,7 +81,7 @@ class DefaultController extends Controller
         }
 
         if(!$user) {
-            $this->addFlash('danger', "Cet utilisateur n'existe pas.");
+            $this->addFlash('danger', $this->get('translator')->trans("error.user.any", [], "flash"));
 
             if($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
                 return $this->redirectToRoute("player", array(
@@ -132,7 +132,7 @@ class DefaultController extends Controller
 
             if(!$user) {
                 // Erreur de connexion
-                $this->addFlash('danger', "Une erreur de connexion s'est produite. Vos identifiants Google ne sont pas valides ou les serveurs de Pokemon Go sont hors-ligne. Si ce n'est pas le cas, rendez-vous ici pour valider l'accès à votre compte Google : https://g.co/allowaccess.");
+                $this->addFlash('danger', $this->get('translator')->trans("error.login", [], "flash"));
 
                 return $this->redirectToRoute("login");
             }
@@ -146,7 +146,7 @@ class DefaultController extends Controller
             $this->get('session')->set('_security_app', serialize($token));
             $this->get('session')->set('password', $request->get('password'));
 
-            $this->addFlash('success', "Vous êtes maintenant connecté et vos informations sont à jour.");
+            $this->addFlash('success', $this->get('translator')->trans("success.login", [], "flash"));
 
             return $this->redirectToRoute("player");
         }
@@ -174,7 +174,7 @@ class DefaultController extends Controller
         $form = $this->createForm(UserType::class, $user);
 
         $form->add('submit', SubmitType::class, array(
-            'label' => "Modifier",
+            'label' => "edit",
             'attr' => array(
                 'class' => 'btn btn-default'
             )
@@ -186,7 +186,7 @@ class DefaultController extends Controller
             $this->getDoctrine()->getManager()->persist($user);
             $this->getDoctrine()->getManager()->flush();
 
-            $this->addFlash('success', "Votre profil a été mis à jour.");
+            $this->addFlash('success', $this->get('translator')->trans("success.refresh", [], "flash"));
 
             return $this->redirectToRoute('player', array(
                 'username' => $user->getUsername()
@@ -210,7 +210,7 @@ class DefaultController extends Controller
         $form = $this->createForm(UserType::class, $user);
 
         $form->add('cheater', ChoiceType::class, array(
-            'label' => "Tricheur",
+            'label' => "player.cheater",
             'choices' => array(
                 'Tricheur' => true,
                 'Honnête' => false
@@ -218,7 +218,7 @@ class DefaultController extends Controller
         ));
 
         $form->add('submit', SubmitType::class, array(
-            'label' => "Modifier",
+            'label' => "edit",
             'attr' => array(
                 'class' => 'btn btn-default'
             )
@@ -230,7 +230,7 @@ class DefaultController extends Controller
             $this->getDoctrine()->getManager()->persist($user);
             $this->getDoctrine()->getManager()->flush();
 
-            $this->addFlash('success', "Le profil de ".$user->getUsername()." a été mis à jour.");
+            $this->addFlash('success', $this->get('translator')->trans("success.user.edit", [], "flash"));
 
             return $this->redirectToRoute('player', array(
                 'username' => $user->getUsername()
@@ -241,6 +241,35 @@ class DefaultController extends Controller
             'form' => $form->createView(),
             'user' => $user
         ));
+    }
+
+    /**
+     * Change the User Locale
+     * @var Request
+     * @var string $local User locale
+     * @Route("/lang/{locale}", name="change_locale")
+     * @return mixed
+     */
+    public function changeLocaleAction(Request $request, $locale) {
+        $this->get('session')->set('_locale', $locale);
+
+        if($this->getUser()) {
+            $this->getUser()->setLocale($locale);
+
+            $this->getDoctrine()
+                ->getManager()
+                ->persist($this->getUser());
+
+            $this->getDoctrine()
+                ->getManager()
+                ->flush();
+        }
+
+        if($request->query->get('back')) {
+            return $this->redirect($request->query->get('back'));
+        } else {
+            return $this->redirectToRoute('index');
+        }
     }
 
     /**

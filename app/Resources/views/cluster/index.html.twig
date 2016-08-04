@@ -1,21 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Classement des groupes{% endblock %}
+{% block title %}{{ 'title.cluster.index' | trans }}{% endblock %}
 
 {% block body %}
     <div class="row">
         <div class="col-xs-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Classement des groupes
+                    {{ 'title.cluster.index' | trans }}
                     <div class="tools">
                         <select id="selectOrder">
-                            <option {% if app.request.query.get('order', 'xp') == 'xp' %}selected{% endif %} value="xp">XP</option>
-                            <option {% if app.request.query.get('order', 'xp') == 'km' %}selected{% endif %} value="km">Km</option>
-                            <option {% if app.request.query.get('order', 'xp') == 'discovered' %}selected{% endif %} value="discovered">Pokédex</option>
-                            <option {% if app.request.query.get('order', 'xp') == 'catched' %}selected{% endif %} value="catched">Captures</option>
+                            <option {% if app.request.query.get('order', 'xp') == 'xp' %}selected{% endif %} value="xp">{{ 'order.xp' | trans }}</option>
+                            <option {% if app.request.query.get('order', 'xp') == 'km' %}selected{% endif %} value="km">{{ 'order.km' | trans }}</option>
+                            <option {% if app.request.query.get('order', 'xp') == 'discovered' %}selected{% endif %} value="discovered">{{ 'order.discovered' | trans }}</option>
+                            <option {% if app.request.query.get('order', 'xp') == 'catched' %}selected{% endif %} value="catched">{{ 'order.catched' | trans }}</option>
                         </select>
-                        <a href="{{ path("cluster_add") }}" title="Créer un groupe">
+                        <a href="{{ path("cluster_add") }}" title="{{ 'title.cluster.add' | trans }}">
                             <i class="glyphicon glyphicon-plus"></i>
                         </a>
                     </div>
@@ -25,14 +25,14 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Groupe</th>
-                                <th class="text-center">Membres</th>
-                                <th class="text-center">XP</th>
-                                <th class="text-center">Km parcourus</th>
-                                <th class="text-center">Pokédex</th>
-                                <th class="text-center">Capture</th>
-                                <th class="text-center">CP Max</th>
-                                <th class="text-center">CP Total</th>
+                                <th>{{ 'cluster.name' | trans }}</th>
+                                <th class="text-center">{{ 'cluster.members' | trans }}</th>
+                                <th class="text-center">{{ 'cluster.xp' | trans }}</th>
+                                <th class="text-center">{{ 'player.km' | trans }}</th>
+                                <th class="text-center">{{ 'player.pokemons' | trans }}</th>
+                                <th class="text-center">{{ 'player.catched' | trans }}</th>
+                                <th class="text-center">{{ 'player.cpmax' | trans }}</th>
+                                <th class="text-center">{{ 'player.cptotal' | trans }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -58,7 +58,7 @@
                             {% else %}
                                 <tr>
                                     <td class="text-center" colspan="9">
-                                        <em>Aucun groupe</em>
+                                        <em>{{ 'any.cluster' | trans }}</em>
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -70,6 +70,7 @@
                 </div>
             </div>
         </div>
+    </div>
 {% endblock %}
 
 {% block javascript %}

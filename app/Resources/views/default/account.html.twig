@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier mes informations{% endblock %}
+{% block title %}{{ 'title.account' | trans }}{% endblock %}
 
 {% block body %}
     <div class="row">
         <div class="col-sm-6 col-sm-offset-3">
             <div class="panel panel-default">
-                <div class="panel-heading">Modifier mes informations</div>
+                <div class="panel-heading">{{ 'title.account' | trans }}</div>
                 <div class="panel-body">
                     {{ form(form) }}
                 </div>
