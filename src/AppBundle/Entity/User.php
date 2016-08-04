@@ -488,7 +488,7 @@ class User implements UserInterface {
     }
 
     public function getProgress() {
-
+        /*
         $goal = $this->getNextLevel() - $this->getPrevLevel();
         $xp   = $this->getXp() - $this->getPrevLevel();
 
@@ -496,7 +496,8 @@ class User implements UserInterface {
             return 100;
         }
 
-        return round($xp / $goal * 100);
+        return round($xp / $goal * 100);*/
+        return 100;
     }
 
     public function get($key) {
