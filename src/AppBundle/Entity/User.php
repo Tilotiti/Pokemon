@@ -488,6 +488,7 @@ class User implements UserInterface {
     }
 
     public function getProgress() {
+        // TODO
         /*
         $goal = $this->getNextLevel() - $this->getPrevLevel();
         $xp   = $this->getXp() - $this->getPrevLevel();
