@@ -1,6 +1,8 @@
 title:
     index: "Standings"
     account: "Edit my account"
+    notification: "All the notifications"
+    login: "Login"
     cluster:
         index: "Groups ranking"
         add: "Create a group"
@@ -32,7 +34,7 @@ player:
     signDate: "Sign date"
     updateDate: "Last Update"
 trainer: "Trainer"
-stats: "Statistics"
+statistics: "Statistics"
 ranking: "Ranking"
 add: "Add"
 create: "Create"
@@ -46,6 +48,7 @@ any:
     cluster: "No group"
     pokemon: "No pokémon"
     request: "No request"
+    notification: "No notification"
 stats:
     team:
         xp: "Experience by team"
@@ -76,3 +79,6 @@ cluster:
         title: "Join request"
         accept: "Accept this member"
         reject: "Reject this member"
+notification:
+    seeAll: 'See all the notifications'
+    readAll: 'Read All'

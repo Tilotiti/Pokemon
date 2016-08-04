@@ -1,6 +1,8 @@
 title:
     index: "Classement général"
     account: "Modifier mon compte"
+    notification: "Toutes les notifications"
+    login: "Se connecter"
     cluster:
         index: "Classement des groupes"
         add: "Créer un groupe"
@@ -32,7 +34,7 @@ player:
     signDate: "Date d'inscription"
     updateDate: "Dernière mise à jour"
 trainer: "Dresseur"
-stats: "Statistiques"
+statistics: "Statistiques"
 ranking: "Classement"
 create: "Créer"
 add: "Ajouter"
@@ -46,6 +48,7 @@ any:
     cluster: "Aucun groupe"
     pokemon: "Aucun pokémon"
     request: "Aucune demande"
+    notification: "Aucune notification"
 stats:
     team:
         xp: "Expérience par équipe"
@@ -76,3 +79,6 @@ cluster:
         title: "Demande d'inscription"
         accept: "Accepter le membre"
         reject: "Refuser le membre"
+notification:
+    seeAll: 'Voir toutes les notifications'
+    readAll: 'Tout lire'

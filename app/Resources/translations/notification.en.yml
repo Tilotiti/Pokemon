@@ -1,0 +1,13 @@
+category:
+    cluster: "Group"
+cluster:
+    join: 'username join your group "cluster".'
+    request:
+        add: 'username wants to join your group "cluster".'
+        cancel: 'username withdrew its request to join your group "cluster".'
+        accept: 'You joined the group "cluster".'
+        reject: 'Your join request for the group "cluster" has been rejected.'
+    abandon: 'You have been evicted from the group "cluster".'
+    quit: 'username quitted the group "cluster".'
+    remove: 'username deleted the group "cluster".'
+    transfert: 'username gave you the ownership of the group "cluster"'

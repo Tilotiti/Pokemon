@@ -16,3 +16,9 @@ services:
         class: Twig_Extensions_Extension_Intl
         tags:
             - { name: twig.extension }
+    notification:
+        class: AppBundle\Service\Notification
+        arguments: ["@doctrine.orm.entity_manager", "@security.token_storage", "@router"]
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller }
+            - { name: twig.extension }

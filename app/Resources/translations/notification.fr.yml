@@ -1,0 +1,13 @@
+category:
+    cluster: "Groupe"
+cluster:
+    join: 'username a rejoint votre groupe "cluster".'
+    request:
+        add: 'username souhaite rejoindre votre groupe "cluster".'
+        cancel: 'username a retiré sa demande de rejoindre votre groupe "cluster".'
+        accept: 'Vous avez rejoinds le groupe "cluster".'
+        reject: 'Votre demande de rejoindre le groupe "cluster" a été rejetée.'
+    abandon: 'Vous avez été rejeté du groupe "cluster".'
+    quit: 'username a quitté le groupe "cluster".'
+    remove: 'username a supprimé le groupe "cluster".'
+    transfert: 'username vous a donné les droits sur le groupe "cluster"'

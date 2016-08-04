@@ -32,6 +32,126 @@ header {
       }
     }
   }
+
+  #notifications {
+    display: inline-block;
+    margin-left: 20px;
+    margin-right: 30px;
+    position: relative;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: none;
+
+      #notificationBox {
+        display: block;
+      }
+    }
+
+    #notificationBox {
+      display: none;
+      position: absolute;
+      top: 50px;
+      width: 400px;
+      background-color: #fff;
+      line-height: normal;
+      right: -10px;
+      z-index: 1;
+      border: 1px solid #e4e5e7;
+      border-radius: 2px;
+
+      a {
+        margin: 0px;
+        border-bottom: 1px solid #e4e5e7;
+        display: table;
+        padding: 5px;
+        border-left: solid 4px #5bc0de;
+        text-align: left;
+        width: 100%;
+
+        &:hover {
+          text-decoration: none;
+          background-color: #f7f9fa;
+          cursor: pointer;
+        }
+
+        &.read {
+          border-left: solid 4px transparent;
+        }
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        .icon {
+          display: table-cell;
+          width: 65px;
+          text-align: center;
+          font-size: 14px;
+          line-height: 1.4;
+          font-weight: 500;
+          vertical-align: top;
+          padding: 5px 0px;
+
+          i {
+            display: block;
+            margin-bottom: 10px;
+          }
+        }
+
+        .main {
+          display: table-cell;
+          padding: 5px 20px;
+          margin: 0px;
+          vertical-align: top;
+
+          b {
+            display: block;
+            margin-bottom: 5px;
+          }
+
+          p {
+            margin-bottom: 0px;
+          }
+        }
+
+        &:after {
+          display: table-cell;
+          content: "\e080";
+          color: #5bc0de;
+          font-family: 'Glyphicons Halflings';
+          vertical-align: middle;
+          font-size: 20px;
+          width: 30px;
+        }
+
+        &.all {
+          text-align: center;
+          padding: 10px;
+          border-left: 0px;
+          background-color: #f7f9fa;
+
+          &:after {
+            display: none;
+          }
+        }
+      }
+
+      &:before {
+        right: 10px;
+        top: -10px;
+        content: '';
+        display: block;
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        border-left: 1px solid #e4e5e7;
+        border-top: 1px solid #e4e5e7;
+        transform: rotate(45deg);
+        background-color: #fff;
+      }
+    }
+  }
 }
 
 a {

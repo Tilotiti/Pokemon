@@ -48,3 +48,6 @@ security:
         edit:
             path: ^/edit
             role: ROLE_ADMIN
+        notification:
+            path: ^/notification
+            role: ROLE_USER

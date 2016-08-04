@@ -52,7 +52,7 @@ class Notification
 
     /**
      * @var array Paramètres du contenu
-     * @ORM\Column(type="json_array")
+     * @ORM\Column(type="json_array", nullable=true)
      */
     private $params;
 
@@ -72,7 +72,7 @@ class Notification
      * @var boolean Status de la notification
      * @ORM\Column(type="boolean")
      */
-    private $read;
+    private $isRead;
 
     /**
      * @var \DateTime Date et heure de la notification
@@ -82,7 +82,7 @@ class Notification
 
     public function __construct()
     {
-        $this->read = false;
+        $this->isRead = false;
         $this->datetime = new \DateTime();
     }
 
@@ -139,7 +139,7 @@ class Notification
      */
     public function getCategory()
     {
-        return $this->category;
+        return 'category.'.$this->category;
     }
 
     /**
@@ -219,7 +219,7 @@ class Notification
      */
     public function isRead()
     {
-        return $this->read;
+        return $this->isRead;
     }
 
     /**
@@ -227,7 +227,7 @@ class Notification
      */
     public function setRead($read)
     {
-        $this->read = $read;
+        $this->isRead = $read;
     }
 
     /**

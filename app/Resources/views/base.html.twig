@@ -36,6 +36,35 @@
                         {% else %}
                             <a href="{{ path('logout') }}">{{ 'menu.logout' | trans }}</a>
                         {% endif %}
+                        <div id="notifications">
+                            {% if notificationCountUnread() > 0  %}
+                                <div class="label label-pill label-info">
+                                    <i class="glyphicon glyphicon-envelope"></i> {{ notificationCountUnread() }}
+                                </div>
+                            {% else %}
+                                <div class="label label-pill label-default">
+                                    <i class="glyphicon glyphicon-envelope"></i> 0
+                                </div>
+                            {% endif %}
+
+                            <div id="notificationBox">
+                                {% for notification in notificationList(5) %}
+                                    <a href="{{ notificationLink(notification) }}" class="{% if notification.read %}read {% endif %}notification">
+                                        <div class="icon">
+                                            <i class="glyphicon glyphicon-{{ notification.icon }}"></i>
+                                            {{ notification.category | trans([], 'notification') }}
+                                        </div>
+                                        <div class="main">
+                                            <b>{{ notification.datetime | localizeddate('medium', 'medium', app.request.locale) }}</b>
+                                            <p>{{ notification.code | trans(notification.params, 'notification') }}</p>
+                                        </div>
+                                    </a>
+                                {% endfor %}
+                                <a href="{{ path('notification') }}" class="all">
+                                    <em>{{ 'notification.seeAll' | trans }}</em>
+                                </a>
+                            </div>
+                        </div>
                     {% else %}
                         <a href="{{ path('login') }}">{{ 'menu.login' | trans }}</a>
                     {% endif %}

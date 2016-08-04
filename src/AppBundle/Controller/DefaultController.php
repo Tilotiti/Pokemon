@@ -273,6 +273,57 @@ class DefaultController extends Controller
     }
 
     /**
+     * @var Request $request
+     * @Route("/notification", name="notification")
+     * @return mixed
+     */
+    public function allNotificationAction(Request $request) {
+
+        $listNotification = $this->getDoctrine()
+            ->getRepository('AppBundle:Notification')
+            ->listNotification(
+                $request->query->getInt('page', 1),
+                20,
+                $this->getUser()
+            );
+
+        return $this->render('default/notification.html.twig', array(
+            'listNotification' => $listNotification
+        ));
+    }
+
+    /**
+     * @Route("/notification/readAll", name="notification_read_all")
+     */
+    public function readAllNotificationAction() {
+
+        if(!$this->getUser()) {
+            return $this->redirectToRoute('login');
+        }
+
+        $listNotification = $this->getDoctrine()
+            ->getRepository('AppBundle:Notification')
+            ->findBy(array(
+                'user' => $this->getUser(),
+                'isRead' => false
+            ));
+
+        foreach($listNotification as $notification) {
+            $notification->setRead(true);
+
+            $this->getDoctrine()
+                ->getManager()
+                ->persist($notification);
+        }
+
+        $this->getDoctrine()
+            ->getManager()
+            ->flush();
+
+        return $this->redirectToRoute('notification');
+    }
+
+    /**
      * @Route("/login-check", name="login_check")
      */
     public function loginCheckAction() {

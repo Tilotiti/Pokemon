@@ -9,6 +9,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Cluster;
+use AppBundle\Entity\Notification;
 use AppBundle\Entity\User;
 use AppBundle\Form\ClusterType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -195,11 +196,30 @@ class ClusterController extends Controller
                 ->getManager()
                 ->persist($cluster);
 
+            $this->addFlash('success', $this->get('translator')->trans("success.cluster.join", [], "flash"));
+
+            // Notification
+            $notification = new Notification();
+            $notification->setUser($cluster->getAdmin());
+            $notification->setIcon('list');
+            $notification->setCategory('cluster');
+            $notification->setCode('cluster.join');
+            $notification->setParams(array(
+                'username' => $this->getUser()->getUsername(),
+                'cluster' => $cluster->getName()
+            ));
+            $notification->setRoute('cluster_view');
+            $notification->setRouteParams(array(
+                'cluster' => $cluster->getId()
+            ));
+
+            $this->getDoctrine()
+                ->getManager()
+                ->persist($notification);
+
             $this->getDoctrine()
                 ->getManager()
                 ->flush();
-
-            $this->addFlash('success', $this->get('translator')->trans("success.cluster.join", [], "flash"));
 
             return $this->redirectToRoute("cluster_view", array(
                 'cluster' => $cluster->getId()
@@ -223,6 +243,25 @@ class ClusterController extends Controller
             $this->getDoctrine()
                 ->getManager()
                 ->persist($request);
+
+            // Notification
+            $notification = new Notification();
+            $notification->setUser($cluster->getAdmin());
+            $notification->setIcon('list');
+            $notification->setCategory('cluster');
+            $notification->setCode('cluster.request.add');
+            $notification->setParams(array(
+                'username' => $this->getUser()->getUsername(),
+                'cluster' => $cluster->getName()
+            ));
+            $notification->setRoute('cluster_view');
+            $notification->setRouteParams(array(
+                'cluster' => $cluster->getId()
+            ));
+
+            $this->getDoctrine()
+                ->getManager()
+                ->persist($notification);
 
             $this->getDoctrine()
                 ->getManager()
@@ -263,6 +302,25 @@ class ClusterController extends Controller
                 ->getManager()
                 ->remove($request);
 
+            // Notification
+            $notification = new Notification();
+            $notification->setUser($cluster->getAdmin());
+            $notification->setIcon('list');
+            $notification->setCategory('cluster');
+            $notification->setCode('cluster.request.cancel');
+            $notification->setParams(array(
+                'username' => $this->getUser()->getUsername(),
+                'cluster' => $cluster->getName()
+            ));
+            $notification->setRoute('cluster_view');
+            $notification->setRouteParams(array(
+                'cluster' => $cluster->getId()
+            ));
+
+            $this->getDoctrine()
+                ->getManager()
+                ->persist($notification);
+
             $this->getDoctrine()
                 ->getManager()
                 ->flush();
@@ -296,6 +354,25 @@ class ClusterController extends Controller
             ->getManager()
             ->persist($request->getCluster());
 
+        // Notification
+        $notification = new Notification();
+        $notification->setUser($request->getUser());
+        $notification->setIcon('list');
+        $notification->setCategory('cluster');
+        $notification->setCode('cluster.request.accept');
+        $notification->setParams(array(
+            'cluster' => $request->getCluster()->getName()
+        ));
+        $notification->setRoute('cluster_view');
+        $notification->setRouteParams(array(
+            'cluster' => $request->getCluster()->getId()
+        ));
+
+        $this->getDoctrine()
+            ->getManager()
+            ->persist($notification);
+
+        // Supprimer la request
         $this->getDoctrine()
             ->getManager()
             ->remove($request);
@@ -331,6 +408,24 @@ class ClusterController extends Controller
         $this->getDoctrine()
             ->getManager()
             ->remove($request);
+
+        // Notification
+        $notification = new Notification();
+        $notification->setUser($request->getUser());
+        $notification->setIcon('list');
+        $notification->setCategory('cluster');
+        $notification->setCode('cluster.request.reject');
+        $notification->setParams(array(
+            'cluster' => $request->getCluster()->getName()
+        ));
+        $notification->setRoute('cluster_view');
+        $notification->setRouteParams(array(
+            'cluster' => $request->getCluster()->getId()
+        ));
+
+        $this->getDoctrine()
+            ->getManager()
+            ->persist($notification);
 
         $this->getDoctrine()
             ->getManager()
@@ -380,6 +475,24 @@ class ClusterController extends Controller
         $this->getDoctrine()
             ->getManager()
             ->persist($cluster);
+
+        // Notification
+        $notification = new Notification();
+        $notification->setUser($user);
+        $notification->setIcon('list');
+        $notification->setCategory('cluster');
+        $notification->setCode('cluster.abandon');
+        $notification->setParams(array(
+            'cluster' => $cluster->getName()
+        ));
+        $notification->setRoute('cluster_view');
+        $notification->setRouteParams(array(
+            'cluster' => $cluster->getId()
+        ));
+
+        $this->getDoctrine()
+            ->getManager()
+            ->persist($notification);
 
         $this->getDoctrine()
             ->getManager()
@@ -433,6 +546,25 @@ class ClusterController extends Controller
             ->getManager()
             ->persist($cluster);
 
+        // Notification
+        $notification = new Notification();
+        $notification->setUser($cluster->getAdmin());
+        $notification->setIcon('list');
+        $notification->setCategory('cluster');
+        $notification->setCode('cluster.quit');
+        $notification->setParams(array(
+            'username' => $this->getUser()->getUsername(),
+            'cluster' => $cluster->getName()
+        ));
+        $notification->setRoute('cluster_view');
+        $notification->setRouteParams(array(
+            'cluster' => $cluster->getId()
+        ));
+
+        $this->getDoctrine()
+            ->getManager()
+            ->persist($notification);
+
         $this->getDoctrine()
             ->getManager()
             ->flush();
@@ -462,6 +594,24 @@ class ClusterController extends Controller
             return $this->redirectToRoute("cluster_view", array(
                 'cluster' => $cluster->getId()
             ));
+        }
+
+        foreach($cluster->getUsers() as $user) {
+            // Notification
+            $notification = new Notification();
+            $notification->setUser($user);
+            $notification->setIcon('list');
+            $notification->setCategory('cluster');
+            $notification->setCode('cluster.remove');
+            $notification->setParams(array(
+                'username' => $this->getUser()->getUsername(),
+                'cluster' => $cluster->getName()
+            ));
+            $notification->setRoute('cluster');
+
+            $this->getDoctrine()
+                ->getManager()
+                ->persist($notification);
         }
 
         $this->getDoctrine()
@@ -507,6 +657,25 @@ class ClusterController extends Controller
         }
 
         $cluster->setAdmin($user);
+
+        // Notification
+        $notification = new Notification();
+        $notification->setUser($user);
+        $notification->setIcon('list');
+        $notification->setCategory('cluster');
+        $notification->setCode('cluster.transfert');
+        $notification->setParams(array(
+            'username' => $this->getUser()->getUsername(),
+            'cluster' => $cluster->getName()
+        ));
+        $notification->setRoute('cluster_view');
+        $notification->setRouteParams(array(
+            'cluster' => $cluster->getId()
+        ));
+
+        $this->getDoctrine()
+            ->getManager()
+            ->persist($notification);
 
         $this->getDoctrine()
             ->getManager()
