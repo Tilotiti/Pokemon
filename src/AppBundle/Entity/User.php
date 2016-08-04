@@ -462,7 +462,7 @@ class User implements UserInterface {
     }
 
     public function getAvatar() {
-        return 'https://www.gravatar.com/avatar/'.md5($this->getEmail());
+        return 'https://www.gravatar.com/avatar/'.md5(strtolower($this->getEmail()));
     }
 
     public function getMaxCP() {
@@ -488,17 +488,14 @@ class User implements UserInterface {
     }
 
     public function getProgress() {
-        // TODO
-        /*
-        $goal = $this->getNextLevel() - $this->getPrevLevel();
+        $goal = $this->getNextLevel();
         $xp   = $this->getXp() - $this->getPrevLevel();
 
         if($goal == 0) {
             return 100;
         }
 
-        return round($xp / $goal * 100);*/
-        return 100;
+        return round($xp / $goal * 100);
     }
 
     public function get($key) {
