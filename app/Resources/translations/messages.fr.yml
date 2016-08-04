@@ -7,6 +7,8 @@ title:
         index: "Classement des groupes"
         add: "Créer un groupe"
         edit: "Modifier le groupe"
+seo:
+    description: "Partagez vos statistiques Pokemon Go, mesurez-vous à vos amis, communiquez parmis vos co-équipiers."
 menu:
     login: "Se connecter"
     logout: "Se déconnecter"

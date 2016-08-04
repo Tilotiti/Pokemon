@@ -7,6 +7,8 @@ title:
         index: "Groups ranking"
         add: "Create a group"
         edit: "Edit the group"
+seo:
+    description: "Share your Pokemon Go stats, beat your friends , communicate with you team-mates."
 menu:
     login: "Login"
     logout: "Logout"
