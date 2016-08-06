@@ -27,7 +27,12 @@ class Pokemon
     /**
      * @ORM\Column
      */
-    private $name;
+    private $nameFR;
+
+    /**
+     * @ORM\Column
+     */
+    private $nameEN;
 
     /**
      * @ORM\Column
@@ -58,17 +63,41 @@ class Pokemon
     /**
      * @return mixed
      */
-    public function getName()
+    public function getNameFR()
     {
-        return $this->name;
+        return $this->nameFR;
     }
 
     /**
-     * @param mixed $name
+     * @param mixed $nameFR
      */
-    public function setName($name)
+    public function setNameFR($nameFR)
     {
-        $this->name = $name;
+        $this->nameFR = $nameFR;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNameEN()
+    {
+        return $this->nameEN;
+    }
+
+    /**
+     * @param mixed $nameEN
+     */
+    public function setNameEN($nameEN)
+    {
+        $this->nameEN = $nameEN;
+    }
+
+    public function getName($locale) {
+        if(strtolower($locale) == 'fr') {
+            return $this->getNameFR();
+        } else {
+            return $this->getNameEN();
+        }
     }
 
     /**

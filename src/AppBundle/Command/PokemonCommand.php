@@ -25,24 +25,27 @@ class PokemonCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+
+        $json = json_decode(file_get_contents(__DIR__.'/pokemon.json'));
+
         $db = $this
             ->getContainer()
             ->get('doctrine')
             ->getManager();
 
-        foreach($db->getRepository('AppBundle:Pokemon')->findAll() as $pokemon) {
-            $db->remove($pokemon);
-        }
+        foreach($json as $item) {
 
-        $db->flush();
+            // Search Pokemon
+            $pokemon = $db->getRepository('AppBundle:Pokemon')->find($item->id);
 
-        $json = json_decode(file_get_contents(__DIR__.'/pokemon.json'));
+            if(!$pokemon) {
+                $pokemon = new Pokemon();
+            }
 
-        foreach($json->pokemon as $item) {
-            $pokemon = new Pokemon();
-
+            // Update Pokemon
             $pokemon->setId($item->id);
-            $pokemon->setName($item->name);
+            $pokemon->setNameFR($item->name_fr);
+            $pokemon->setNameEN($item->name_en);
             $pokemon->setImage($item->img);
             $pokemon->setType($item->type);
 
