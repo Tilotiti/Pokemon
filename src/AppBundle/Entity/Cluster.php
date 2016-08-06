@@ -221,7 +221,7 @@ class Cluster
         $totalCP = 0;
 
         foreach($this->getUsers() as $user) {
-            $totalCP = $user->getTotalCP();
+            $totalCP += $user->getTotalCP();
         }
 
         return $totalCP;
