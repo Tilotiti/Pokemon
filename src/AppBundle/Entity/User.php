@@ -122,7 +122,7 @@ class User implements UserInterface {
     private $requests;
 
     /**
-     * @ORM\Column
+     * @ORM\Column(nullable=true)
      */
     private $locale;
 

@@ -41,7 +41,6 @@
                                     <i class="glyphicon glyphicon-envelope"></i> 0
                                 </div>
                             {% endif %}
-
                             <div id="notificationBox">
                                 {% for notification in notificationList(5) %}
                                     <a href="{{ notificationLink(notification) }}" class="{% if notification.read %}read {% endif %}notification">
