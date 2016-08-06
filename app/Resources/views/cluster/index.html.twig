@@ -15,8 +15,8 @@
                             <option {% if app.request.query.get('order', 'xp') == 'discovered' %}selected{% endif %} value="discovered">{{ 'order.discovered' | trans }}</option>
                             <option {% if app.request.query.get('order', 'xp') == 'catched' %}selected{% endif %} value="catched">{{ 'order.catched' | trans }}</option>
                         </select>
-                        <a href="{{ path("cluster_add") }}" title="{{ 'title.cluster.add' | trans }}">
-                            <i class="glyphicon glyphicon-plus"></i>
+                        <a href="{{ path("cluster_add") }}" title="{{ 'title.cluster.add' | trans }}" class="btn btn-default btn-xs">
+                            <i class="glyphicon glyphicon-plus"></i> Créer un groupe
                         </a>
                     </div>
                 </div>

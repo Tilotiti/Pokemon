@@ -12,20 +12,20 @@
                         {% if app.user == cluster.admin %}
                             <a href="{{ path('cluster_edit', {
                                 "cluster": cluster.id
-                            }) }}" title="{{ 'cluster.edit' | trans }}">
-                                <i class="glyphicon glyphicon-edit"></i>
+                            }) }}" title="{{ 'cluster.edit' | trans }}" class="btn btn-default btn-xs">
+                                <i class="glyphicon glyphicon-edit"></i> Modifier
                             </a>
                         {% elseif not cluster.hasRequestFrom(app.user) and not cluster.hasUser(app.user) %}
                             <a href="{{ path('cluster_join', {
                                 "cluster": cluster.id
-                            }) }}" title="{{ 'cluster.join' | trans }}">
-                                <i class="glyphicon glyphicon-ok"></i>
+                            }) }}" title="{{ 'cluster.join' | trans }}" class="btn btn-default btn-xs">
+                                <i class="glyphicon glyphicon-ok"></i> Rejoindre
                             </a>
                         {% elseif cluster.hasUser(app.user) %}
                             <a href="{{ path('cluster_abandon', {
                                 "cluster": cluster.id
-                            }) }}" title="{{ 'cluster.abandon' | trans }}">
-                                <i class="glyphicon glyphicon-remove"></i>
+                            }) }}" title="{{ 'cluster.abandon' | trans }}" class="btn btn-default btn-xs">
+                                <i class="glyphicon glyphicon-remove"></i> Quitter
                             </a>
                         {% endif %}
                     </div>
