@@ -146,7 +146,7 @@
                         </thead>
                         <tbody>
                         {% for player in listUser %}
-                            <tr class="team_{{ player.team }}">
+                            <tr class="team_{{ player.team }} {% if app.user == player %}active{% endif %}">
                                 <td>
                                     {{ loop.index + (( app.request.get('page', 1) - 1) * 10) }}
                                 </td>
