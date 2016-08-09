@@ -191,19 +191,21 @@ a {
 .pokemon {
   text-align: center;
   position: relative; }
-  .pokemon img {
-    max-width: 100%; }
   .pokemon .panel-body {
     height: 162px; }
   .pokemon .title {
     display: block;
     text-align: center;
     font-weight: bold; }
-  .pokemon .cp {
+  .pokemon:hover .details {
+    display: none; }
+  .pokemon .details img {
+    max-width: 100%; }
+  .pokemon .details .cp {
     position: absolute;
     left: 10px;
     top: 10px; }
-    .pokemon .cp:before {
+    .pokemon .details .cp:before {
       content: '';
       display: inline-block;
       background-image: url("../images/strength.png");
@@ -213,11 +215,11 @@ a {
       background-size: contain;
       margin-right: 5px;
       vertical-align: baseline; }
-  .pokemon .pokeball {
+  .pokemon .details .pokeball {
     position: absolute;
     top: 10px;
     right: 10px; }
-    .pokemon .pokeball:before {
+    .pokemon .details .pokeball:before {
       content: '';
       display: inline-block;
       background-image: url("../images/pokeball.png");
@@ -227,6 +229,26 @@ a {
       background-size: contain;
       margin-right: 5px;
       vertical-align: baseline; }
+  .pokemon:hover .stats {
+    display: block; }
+  .pokemon .stats {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    display: none;
+    width: 100%;
+    padding: 10px; }
+    .pokemon .stats .progress {
+      position: relative; }
+      .pokemon .stats .progress span {
+        display: block;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        text-align: center;
+        color: #000;
+        line-height: 20px; }
 
 img.team {
   width: 13px;
