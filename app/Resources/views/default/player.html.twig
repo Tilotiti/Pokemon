@@ -155,22 +155,22 @@
 	                                <div class="progress">
                                         <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{ pokemon.attack / 15 * 100 | round }}%">
                                         </div>
-                                        <span>Attaque : {{ pokemon.attack }}</span>
+                                        <span>{{ 'pokemon.attack' | trans }} : {{ pokemon.attack }}</span>
                                     </div>
                                     <div class="progress">
                                         <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: {{ pokemon.defense / 15 * 100 | round }}%">
                                         </div>
-                                        <span>Défense : {{ pokemon.defense }}</span>
+                                        <span>{{ 'pokemon.defense' | trans }} : {{ pokemon.defense }}</span>
                                     </div>
                                     <div class="progress">
                                         <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{ pokemon.stamina / 15 * 100 | round }}%">
                                         </div>
-                                        <span>Stamina : {{ pokemon.stamina }}</span>
+                                        <span>{{ 'pokemon.stamina' | trans }} : {{ pokemon.stamina }}</span>
                                     </div>
                                     <div class="progress">
-                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: {{ pokemon.progress }}%">
+                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: {{ pokemon.iv }}%">
                                         </div>
-                                        <span>Progression : {{ pokemon.progress }}%</span>
+                                        <span>{{ 'pokemon.iv' | trans }} : {{ pokemon.iv }}%</span>
                                     </div>
                                 </div>
                             </div>

@@ -98,3 +98,8 @@ login:
         authorisation: "Google Authorisation"
         authorisationText: "Always not ? Google could refuse to share your Pokémon Go data, you can then force them by clicking there :"
         outro: "Attention, this could take few minutes before taking effect."
+pokemon:
+      attack: "Attack"
+      defense: "Defense"
+      stamina: "Stamina"
+      iv: "IV"

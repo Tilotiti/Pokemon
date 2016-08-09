@@ -63,7 +63,7 @@ class Pokedex
     /**
      * @ORM\Column(type="integer")
      */
-    private $progress;
+    private $iv;
 
     /**
      * @return mixed
@@ -192,20 +192,20 @@ class Pokedex
     {
         $this->stamina = $stamina;
     }
-    
+
     /**
      * @return mixed
      */
-    public function getProgress()
+    public function getIv()
     {
-        return $this->progress;
+        return $this->iv;
     }
 
     /**
-     * @param mixed $attack
+     * @param mixed $iv
      */
-    public function setProgress($progress)
+    public function setIv($iv)
     {
-        $this->progress = $progress;
+        $this->iv = $iv;
     }
 }
