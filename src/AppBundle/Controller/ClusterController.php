@@ -350,7 +350,7 @@ class ClusterController extends Controller
             ));
         }
 
-        foreach($request->getCluster()->getUser() as $user) {
+        foreach($request->getCluster()->getUsers() as $user) {
 
             // Notification aux membres du groupe
             $notification = new Notification();
