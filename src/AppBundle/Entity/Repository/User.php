@@ -29,11 +29,16 @@ class User extends EntityRepository
 
         $dql = $this->createQueryBuilder('user');
 
-        $dql->andWhere('user.username IS NOT NULL');
-        $dql->andWhere('user.cheater = FALSE');
-        $dql->andWhere($order.' IS NOT NULL');
+        $dql->leftJoin('user.pokedex', 'pokedex');
 
-        $dql->orderBy($order, $way);
+        $dql->addSelect($order.' as orderParam');
+
+        $dql->andWhere('user.cheater = FALSE');
+
+        $dql->andHaving('user.username IS NOT NULL');
+        $dql->andHaving($order.' IS NOT NULL');
+
+        $dql->orderBy('orderParam', $way);
 
         $firstResult = ($page - 1) * $max;
 

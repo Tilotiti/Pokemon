@@ -19,7 +19,11 @@ order:
     xp: "XP"
     km: "Km"
     discovered: "Pokédex"
+    pokemon: "Pokémons"
     catched: "Catched"
+    evolved: "Evolved"
+    cpmax: "CP Max"
+    cptotal: "CP Total"
     sign: "Registration date"
 player:
     name: "Name"

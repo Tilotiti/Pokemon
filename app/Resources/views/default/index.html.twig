@@ -13,7 +13,11 @@
                             <option {% if app.request.query.get('order', 'xp') == 'xp' %}selected{% endif %} value="xp">{{ "order.xp" | trans }}</option>
                             <option {% if app.request.query.get('order', 'xp') == 'km' %}selected{% endif %} value="km">{{ "order.km" | trans }}</option>
                             <option {% if app.request.query.get('order', 'xp') == 'discovered' %}selected{% endif %} value="discovered">{{ "order.discovered" | trans }}</option>
+                            <option {% if app.request.query.get('order', 'xp') == 'pokemons' %}selected{% endif %} value="pokemons">{{ "order.pokemon" | trans }}</option>
                             <option {% if app.request.query.get('order', 'xp') == 'catched' %}selected{% endif %} value="catched">{{ "order.catched" | trans }}</option>
+                            <option {% if app.request.query.get('order', 'xp') == 'evolved' %}selected{% endif %} value="evolved">{{ "order.evolved" | trans }}</option>
+                            <option {% if app.request.query.get('order', 'xp') == 'cpmax' %}selected{% endif %} value="cpmax">{{ "order.cpmax" | trans }}</option>
+                            <option {% if app.request.query.get('order', 'xp') == 'cptotal' %}selected{% endif %} value="cptotal">{{ "order.cptotal" | trans }}</option>
                             <option {% if app.request.query.get('order', 'xp') == 'sign' %}selected{% endif %} value="sign">{{ "order.sign" | trans }}</option>
                         </select>
                     </div>
@@ -38,6 +42,7 @@
                         </thead>
                         <tbody>
                             {% for player in listUser %}
+                                {% set player = player[0] %}
                                 <tr class="team_{{ player.team }} {% if app.user == player %}active{% endif %}">
                                     <td>
                                         {{ loop.index + (( app.request.get('page', 1) - 1) * 20) }}

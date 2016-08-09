@@ -25,6 +25,18 @@ class DefaultController extends Controller
                 $orderBy = 'user.sign';
                 $way = 'ASC';
                 break;
+            case "pokemons":
+                $orderBy = 'COUNT(pokedex)';
+                $way = 'DESC';
+                break;
+            case "cpmax":
+                $orderBy = 'MAX(pokedex.cp)';
+                $way = 'DESC';
+                break;
+            case "cptotal":
+                $orderBy = 'SUM(pokedex.cp)';
+                $way = 'DESC';
+                break;
             default:
                 $orderBy = 'user.'.$request->query->get('order', 'xp');
                 $way = 'DESC';
