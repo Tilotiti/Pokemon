@@ -105,20 +105,36 @@ class ClusterController extends Controller
                 'cluster' => $cluster
             ));
 
-        $listPlayer = $this->getDoctrine()
-            ->getRepository('AppBundle:User')
-            ->rankingCluster(
-                $request->query->getInt('page', 1),
-                20,
-                $request->query->get('order', 'xp'),
-                'DESC',
-                $cluster
-            );
+        switch($request->query->get('order', 'xp')) {
+            case "sign":
+                $orderBy = 'user.sign';
+                break;
+            case "pokedex":
+                $orderBy = 'COUNT(pokedex)';
+                break;
+            case "maxcp":
+                $orderBy = 'MAX(pokedex.cp)';
+                break;
+            case "totalcp":
+                $orderBy = 'SUM(pokedex.cp)';
+                break;
+            default:
+                $orderBy = 'user.'.$request->query->get('order', 'xp');
+                break;
+        }
+
+        $listUser = $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->rankingCluster(
+            $request->query->getInt('page', 1),
+            20,
+            $orderBy,
+            $request->query->get('way', 'DESC'),
+            $cluster
+        );
 
         return $this->render('cluster/view.html.twig', array(
             'cluster' => $cluster,
             'listRequest' => $listRequest,
-            'listUser' => $listPlayer
+            'listUser' => $listUser
         ));
     }
 

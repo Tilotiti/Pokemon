@@ -14,7 +14,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class User extends EntityRepository
 {
-    public function ranking($page = 1, $max = 10, $order = 'xp', $way = 'DESC') {
+    public function ranking($page = 1, $max = 10, $order = 'user.xp', $way = 'DESC') {
         if(!is_numeric($page)) {
             throw new \InvalidArgumentException(
                 '$page must be an integer ('.gettype($page).' : '.$page.')'
@@ -55,7 +55,7 @@ class User extends EntityRepository
         return $paginator;
     }
 
-    public function rankingCluster($page = 1, $max = 10, $order = 'xp', $way = 'DESC', $cluster) {
+    public function rankingCluster($page = 1, $max = 10, $order = 'user.xp', $way = 'DESC', $cluster) {
         if(!is_numeric($page)) {
             throw new \InvalidArgumentException(
                 '$page must be an integer ('.gettype($page).' : '.$page.')'
@@ -70,15 +70,20 @@ class User extends EntityRepository
 
         $dql = $this->createQueryBuilder('user');
 
+        $dql->join('user.pokedex', 'pokedex');
         $dql->join('user.clusters', 'cluster');
 
-        $dql->andWhere('user.username IS NOT NULL');
+        $dql->addSelect($order.' as orderParam');
+
         $dql->andWhere('user.cheater = FALSE');
         $dql->andWhere('cluster = :cluster');
         $dql->setParameter('cluster', $cluster);
 
-        $dql->groupBy('user');
-        $dql->orderBy("user.".$order, $way);
+        $dql->andHaving('user.username IS NOT NULL');
+        $dql->andHaving($order.' IS NOT NULL');
+
+        $dql->groupBy('user.id');
+        $dql->orderBy('orderParam', $way);
 
         $firstResult = ($page - 1) * $max;
 
