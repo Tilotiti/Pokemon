@@ -20,6 +20,7 @@ order:
     km: "Km"
     discovered: "Pokédex"
     catched: "Catched"
+    sign: "Registration date"
 player:
     name: "Name"
     level: "Level"

@@ -14,6 +14,7 @@
                             <option {% if app.request.query.get('order', 'xp') == 'km' %}selected{% endif %} value="km">{{ "order.km" | trans }}</option>
                             <option {% if app.request.query.get('order', 'xp') == 'discovered' %}selected{% endif %} value="discovered">{{ "order.discovered" | trans }}</option>
                             <option {% if app.request.query.get('order', 'xp') == 'catched' %}selected{% endif %} value="catched">{{ "order.catched" | trans }}</option>
+                            <option {% if app.request.query.get('order', 'xp') == 'sign' %}selected{% endif %} value="sign">{{ "order.sign" | trans }}</option>
                         </select>
                     </div>
                 </div>
@@ -32,6 +33,7 @@
                             <th class="text-center">{{ "player.evolved" | trans }}</th>
                             <th class="text-center">{{ "player.cpmax" | trans }}</th>
                             <th class="text-center">{{ "player.cptotal" | trans }}</th>
+                            <th class="text-center">{{ "player.signDate" | trans}}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -60,10 +62,13 @@
                                     <td class="text-center">{{ player.evolved }}</td>
                                     <td class="text-center">{{ player.maxCP }}</td>
                                     <td class="text-center">{{ player.totalCP }}</td>
+                                    <td class="text-center">
+                                        {{ player.sign | localizeddate('short', 'none') }}
+                                    </td>
                                 </tr>
                             {% else %}
                                 <tr>
-                                    <td class="text-center" colspan="11">
+                                    <td class="text-center" colspan="12">
                                         <em>{{ "any.player" | trans }}</em>
                                     </td>
                                 </tr>
