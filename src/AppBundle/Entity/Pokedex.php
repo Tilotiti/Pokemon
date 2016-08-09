@@ -44,6 +44,26 @@ class Pokedex
      * @ORM\Column(type="integer")
      */
     private $pokeball;
+    
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $attack;
+    
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $defense;
+    
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $stamina;
+    
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $progress;
 
     /**
      * @return mixed
@@ -123,5 +143,69 @@ class Pokedex
     public function setPokeball($pokeball)
     {
         $this->pokeball = $pokeball;
+    }
+    
+    /**
+     * @return mixed
+     */
+    public function getAttack()
+    {
+        return $this->attack;
+    }
+
+    /**
+     * @param mixed $attack
+     */
+    public function setAttack($attack)
+    {
+        $this->attack = $attack;
+    }
+    
+    /**
+     * @return mixed
+     */
+    public function getDefense()
+    {
+        return $this->defense;
+    }
+
+    /**
+     * @param mixed $defense
+     */
+    public function setDefense($defense)
+    {
+        $this->defense = $defense;
+    }
+    
+    /**
+     * @return mixed
+     */
+    public function getStamina()
+    {
+        return $this->stamina;
+    }
+
+    /**
+     * @param mixed $stamina
+     */
+    public function setStamina($stamina)
+    {
+        $this->stamina = $stamina;
+    }
+    
+    /**
+     * @return mixed
+     */
+    public function getProgress()
+    {
+        return $this->progress;
+    }
+
+    /**
+     * @param mixed $attack
+     */
+    public function setProgress($progress)
+    {
+        $this->progress = $progress;
     }
 }

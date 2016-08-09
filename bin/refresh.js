@@ -60,11 +60,17 @@ login.login(username, password)
         var pokedex = [];
         for(var i in inventory.pokemon) {
             var pokemon = inventory.pokemon[i];
+            
+            var iv = pogobuf.Utils.getIVsFromPokemon(pokemon);
 
             pokedex.push({
                 id: pokemon.pokemon_id,
                 cp: pokemon.cp,
-                pokeball: pokemon.pokeball
+                pokeball: pokemon.pokeball,
+                attack: iv.att,
+                defense: iv.def,
+                stamina: iv.stam,
+                progress: Math.round(parseInt(iv.percent))
             });
         }
 
