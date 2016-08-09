@@ -14,7 +14,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Cluster extends EntityRepository
 {
-    public function ranking($page = 1, $max = 10, $order = 'xp') {
+    public function ranking($page = 1, $max = 10, $order = 'xp', $way = "DESC") {
         if(!is_numeric($page)) {
             throw new \InvalidArgumentException(
                 '$page must be an integer ('.gettype($page).' : '.$page.')'
@@ -29,14 +29,15 @@ class Cluster extends EntityRepository
 
         $dql = $this->createQueryBuilder('cluster');
 
-        $dql->addSelect("SUM(user.".$order.") AS points");
+        $dql->addSelect($order.' as orderParam');
 
         $dql->join('cluster.users', 'user');
+        $dql->join('user.pokedex', 'pokedex');
 
         $dql->where('user.cheater != TRUE');
 
-        $dql->orderBy("points", 'DESC');
         $dql->groupBy('cluster.id');
+        $dql->orderBy('orderParam', $way);
 
         $firstResult = ($page - 1) * $max;
 

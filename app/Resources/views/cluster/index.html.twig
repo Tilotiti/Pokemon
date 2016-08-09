@@ -9,12 +9,6 @@
                 <div class="panel-heading">
                     {{ 'title.cluster.index' | trans }}
                     <div class="tools">
-                        <select id="selectOrder">
-                            <option {% if app.request.query.get('order', 'xp') == 'xp' %}selected{% endif %} value="xp">{{ 'order.xp' | trans }}</option>
-                            <option {% if app.request.query.get('order', 'xp') == 'km' %}selected{% endif %} value="km">{{ 'order.km' | trans }}</option>
-                            <option {% if app.request.query.get('order', 'xp') == 'discovered' %}selected{% endif %} value="discovered">{{ 'order.discovered' | trans }}</option>
-                            <option {% if app.request.query.get('order', 'xp') == 'catched' %}selected{% endif %} value="catched">{{ 'order.catched' | trans }}</option>
-                        </select>
                         <a href="{{ path("cluster_add") }}" title="{{ 'title.cluster.add' | trans }}" class="btn btn-default btn-xs">
                             <i class="glyphicon glyphicon-plus"></i> Créer un groupe
                         </a>
@@ -25,35 +19,142 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>{{ 'cluster.name' | trans }}</th>
-                                <th class="text-center">{{ 'cluster.members' | trans }}</th>
-                                <th class="text-center">{{ 'cluster.xp' | trans }}</th>
-                                <th class="text-center">{{ 'player.km' | trans }}</th>
-                                <th class="text-center">{{ 'player.pokemons' | trans }}</th>
-                                <th class="text-center">{{ 'player.catched' | trans }}</th>
-                                <th class="text-center">{{ 'player.cpmax' | trans }}</th>
-                                <th class="text-center">{{ 'player.cptotal' | trans }}</th>
+                                <th class="{{ app.request.query.get('order') == 'name' ? app.request.query.get('way', 'ASC') }}">
+                                    <a href="{{ path('cluster', {
+                                        'order': 'name',
+                                        'way': app.request.query.get('order') == 'name' and app.request.query.get('way', 'ASC') == 'ASC' ? 'DESC' : 'ASC'
+                                    }) }}">
+                                        {{ "cluster.name" | trans }}
+                                    </a>
+                                </th>
+                                <th class="text-center {{ app.request.query.get('order') == 'members' ? app.request.query.get('way', 'DESC') }}">
+                                    <a href="{{ path('cluster', {
+                                        'order': 'members',
+                                        'way': app.request.query.get('order') == 'members' and app.request.query.get('way', 'DESC') == 'DESC' ? 'ASC' : 'DESC'
+                                    }) }}">
+                                        {{ "cluster.members" | trans }}
+                                    </a>
+                                </th>
+                                <th class="text-center {{ app.request.query.get('order') == 'level' ? app.request.query.get('way', 'DESC') }}">
+                                    <a href="{{ path('cluster', {
+                                        'order': 'level',
+                                        'way': app.request.query.get('order') == 'level' and app.request.query.get('way', 'DESC') == 'DESC' ? 'ASC' : 'DESC'
+                                    }) }}">
+                                        {{ "player.level" | trans }}
+                                    </a>
+                                </th>
+                                <th class="text-center {{ app.request.query.get('order') == 'points' ? app.request.query.get('way', 'DESC') }}">
+                                    <a href="{{ path('cluster', {
+                                        'order': 'points',
+                                        'way': app.request.query.get('order') == 'points' and app.request.query.get('way', 'DESC') == 'DESC' ? 'ASC' : 'DESC'
+                                    }) }}">
+                                        {{ "cluster.xp" | trans }}
+                                    </a>
+                                </th>
+                                <th class="text-center {{ app.request.query.get('order', 'xp') == 'xp' ? app.request.query.get('way', 'DESC') }}">
+                                    <a href="{{ path('cluster', {
+                                        'order': 'xp',
+                                        'way': app.request.query.get('order', 'xp') == 'xp' and app.request.query.get('way', 'DESC') == 'DESC' ? 'ASC' : 'DESC'
+                                    }) }}">
+                                        {{ "player.xp" | trans }}
+                                    </a>
+                                </th>
+                                <th class="text-center {{ app.request.query.get('order') == 'km' ? app.request.query.get('way', 'DESC') }}">
+                                    <a href="{{ path('cluster', {
+                                        'order': 'km',
+                                        'way': app.request.query.get('order') == 'km' and app.request.query.get('way', 'DESC') == 'DESC' ? 'ASC' : 'DESC'
+                                    }) }}">
+                                        {{ "player.km" | trans }}
+                                    </a>
+                                </th>
+                                <th class="text-center {{ app.request.query.get('order') == 'discovered' ? app.request.query.get('way', 'DESC') }}">
+                                    <a href="{{ path('cluster', {
+                                        'order': 'discovered',
+                                        'way': app.request.query.get('order') == 'discovered' and app.request.query.get('way', 'DESC') == 'DESC' ? 'ASC' : 'DESC'
+                                    }) }}">
+                                        {{ "player.discovered" | trans }}
+                                    </a>
+                                </th>
+                                <th class="text-center {{ app.request.query.get('order') == 'pokedex' ? app.request.query.get('way', 'DESC') }}">
+                                    <a href="{{ path('cluster', {
+                                        'order': 'pokedex',
+                                        'way': app.request.query.get('order') == 'pokedex' and app.request.query.get('way', 'DESC') == 'DESC' ? 'ASC' : 'DESC'
+                                    }) }}">
+                                        {{ "player.pokedex" | trans }}
+                                    </a>
+                                </th>
+                                <th class="text-center {{ app.request.query.get('order') == 'catched' ? app.request.query.get('way', 'DESC') }}">
+                                    <a href="{{ path('cluster', {
+                                        'order': 'catched',
+                                        'way': app.request.query.get('order') == 'catched' and app.request.query.get('way', 'DESC') == 'DESC' ? 'ASC' : 'DESC'
+                                    }) }}">
+                                        {{ "player.catched" | trans }}
+                                    </a>
+                                </th>
+                                <th class="text-center {{ app.request.query.get('order') == 'evolved' ? app.request.query.get('way', 'DESC') }}">
+                                    <a href="{{ path('cluster', {
+                                        'order': 'evolved',
+                                        'way': app.request.query.get('order') == 'evolved' and app.request.query.get('way', 'DESC') == 'DESC' ? 'ASC' : 'DESC'
+                                    }) }}">
+                                        {{ "player.evolved" | trans }}
+                                    </a>
+                                </th>
+                                <th class="text-center {{ app.request.query.get('order') == 'maxcp' ? app.request.query.get('way', 'DESC') }}">
+                                    <a href="{{ path('cluster', {
+                                        'order': 'maxcp',
+                                        'way': app.request.query.get('order') == 'maxcp' and app.request.query.get('way', 'DESC') == 'DESC' ? 'ASC' : 'DESC'
+                                    }) }}">
+                                        {{ "player.maxcp" | trans }}
+                                    </a>
+                                </th>
+                                <th class="text-center">{{ "player.totalcp" | trans }}</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for cluster in listCluster %}
                                 {% set cluster = cluster[0] %}
-                                <tr>
+                                <tr class="{{ cluster.hasUser(app.user) ? 'active' }}">
                                     <td>{{ loop.index + (( app.request.get('page', 1) - 1) * 20) }}</td>
-                                    <td>
+                                    <td class="{{ app.request.query.get('order') == 'name' ? 'order' }}">
                                         <a href="{{ path("cluster_view", {
                                             "cluster": cluster.id
                                         }) }}" title="Voir le groupe {{ cluster.name }}">
                                             {{ cluster.name }}
                                         </a>
                                     </td>
-                                    <td class="text-center">{{ cluster.users | length }}</td>
-                                    <td class="text-center">{{ cluster.total('xp') }}</td>
-                                    <td class="text-center">{{ cluster.total('km') }}</td>
-                                    <td class="text-center">{{ cluster.total('discovered') }}</td>
-                                    <td class="text-center">{{ cluster.total('catched') }}</td>
-                                    <td class="text-center">{{ cluster.maxCP }}</td>
-                                    <td class="text-center">{{ cluster.totalCP }}</td>
+                                    <td class="text-center {{ app.request.query.get('order') == 'members' ? 'order' }}">
+                                        {{ cluster.users | length }}
+                                    </td>
+                                    <td class="text-center {{ app.request.query.get('order') == 'level' ? 'order' }}">
+                                        {{ (cluster.total('level') / (cluster.users | length)) | round }}
+                                    </td>
+                                    <td class="text-center {{ app.request.query.get('order') == 'points' ? 'order' }}">
+                                        {{ cluster.total('xp') }}
+                                    </td>
+                                    <td class="text-center {{ app.request.query.get('order', 'xp') == 'xp' ? 'order' }}">
+                                        {{ (cluster.total('xp') / (cluster.users | length)) | round }}
+                                    </td>
+                                    <td class="text-center {{ app.request.query.get('order') == 'km' ? 'order' }}">
+                                        {{ (cluster.total('km') / (cluster.users | length)) | round }}
+                                    </td>
+                                    <td class="text-center {{ app.request.query.get('order') == 'discovered' ? 'order' }}">
+                                        {{ (cluster.total('discovered') / (cluster.users | length)) | round }}
+                                    </td>
+                                    <td class="text-center {{ app.request.query.get('order') == 'pokedex' ? 'order' }}">
+                                        {{ (cluster.totalPokedex / (cluster.users | length)) | round }}
+                                    </td>
+                                    <td class="text-center {{ app.request.query.get('order') == 'catched' ? 'order' }}">
+                                        {{ (cluster.total('catched') / (cluster.users | length)) | round }}
+                                    </td>
+                                    <td class="text-center {{ app.request.query.get('order') == 'evolved' ? 'order' }}">
+                                        {{ (cluster.total('evolved') / (cluster.users | length)) | round }}
+                                    </td>
+                                    <td class="text-center {{ app.request.query.get('order') == 'maxcp' ? 'order' }}">
+                                        {{ cluster.maxCP }}
+                                    </td>
+                                    <td class="text-center">
+                                        {{ (cluster.totalCP / (cluster.users | length)) | round }}
+                                    </td>
                                 </tr>
                             {% else %}
                                 <tr>
@@ -71,14 +172,4 @@
             </div>
         </div>
     </div>
-{% endblock %}
-
-{% block javascript %}
-    <script>
-        $(function() {
-            $('#selectOrder').on('change', function () {
-                document.location.href = "{{ path('cluster') }}?order=" + $(this).val();
-            });
-        });
-    </script>
 {% endblock %}

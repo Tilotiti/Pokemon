@@ -14,7 +14,7 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th class="{{ app.request.query.get('order') == 'username' ? app.request.query.get('way', 'DESC') }}">
+                            <th class="{{ app.request.query.get('order') == 'username' ? app.request.query.get('way', 'ASC') }}">
                                 <a href="{{ path('index', {
                                     'order': 'username',
                                     'way': app.request.query.get('order') == 'username' and app.request.query.get('way', 'ASC') == 'ASC' ? 'DESC' : 'ASC'
@@ -94,7 +94,7 @@
                                     {{ "player.totalcp" | trans }}
                                 </a>
                             </th>
-                            <th class="text-center {{ app.request.query.get('order') == 'sign' ? app.request.query.get('way', 'DESC') }}">
+                            <th class="text-center {{ app.request.query.get('order') == 'sign' ? app.request.query.get('way', 'ASC') }}">
                                 <a href="{{ path('index', {
                                     'order': 'sign',
                                     'way': app.request.query.get('order') == 'sign' and app.request.query.get('way', 'ASC') == 'ASC' ? 'DESC' : 'ASC'

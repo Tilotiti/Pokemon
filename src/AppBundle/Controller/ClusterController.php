@@ -34,12 +34,49 @@ class ClusterController extends Controller
      * @return mixed
      */
     public function indexAction(Request $request) {
+        switch($request->query->get('order', 'xp')) {
+            case "members":
+                $orderBy = 'COUNT(user)';
+                break;
+            case "level":
+                $orderBy = 'AVG(user.level)';
+                break;
+            case "points":
+                $orderBy = 'SUM(user.xp)';
+                break;
+            case "xp":
+                $orderBy = 'AVG(user.xp)';
+                break;
+            case "km":
+                $orderBy = 'AVG(user.km)';
+                break;
+            case "discovered":
+                $orderBy = 'AVG(user.discovered)';
+                break;
+            case "pokedex":
+                $orderBy = 'COUNT(pokedex)';
+                break;
+            case "catched":
+                $orderBy = 'AVG(user.catched)';
+                break;
+            case "evolved":
+                $orderBy = 'AVG(user.evolved)';
+                break;
+            case "maxcp":
+                $orderBy = 'MAX(pokedex.cp)';
+                break;
+            default:
+                $orderBy = 'user.'.$request->query->get('order', 'xp');
+                break;
+        }
+
         $listCluster = $this->getDoctrine()
             ->getRepository('AppBundle:Cluster')
             ->ranking(
                 $request->query->getInt('page', 1),
                 20,
-                $request->query->get('order', 'xp')
+                $orderBy,
+                $request->query->get('way', 'DESC')
             );
 
         return $this->render('cluster/index.html.twig', array(
