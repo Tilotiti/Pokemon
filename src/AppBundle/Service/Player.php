@@ -82,7 +82,7 @@ class Player
             $pokedex->setAttack($pokemon->attack);
             $pokedex->setDefense($pokemon->defense);
             $pokedex->setStamina($pokemon->stamina);
-            $pokedex->setProgress($pokemon->progress);
+            $pokedex->setIv($pokemon->iv);
 
             if(!isset($listPokemon[$pokemon->id])) {
                 $monster = $this->em->getRepository('AppBundle:Pokemon')->find($pokemon->id);
