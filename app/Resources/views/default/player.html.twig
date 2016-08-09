@@ -144,6 +144,7 @@
                                     <option {% if app.request.query.get('order', 'cp') == "defense" %}selected{% endif %} value="defense">{{ 'pokemon.defense' | trans }}</option>
                                     <option {% if app.request.query.get('order', 'cp') == "stamina" %}selected{% endif %} value="stamina">{{ 'pokemon.stamina' | trans }}</option>
                                     <option {% if app.request.query.get('order', 'cp') == "iv" %}selected{% endif %} value="iv">{{ 'pokemon.iv' | trans }}</option>
+                                    <option {% if app.request.query.get('order', 'cp') == "pokemon" %}selected{% endif %} value="pokemon">{{ 'pokemon.id' | trans }}</option>
                                 </select>
                             </div>
                         </div>

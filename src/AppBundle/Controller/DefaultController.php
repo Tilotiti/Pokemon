@@ -90,7 +90,7 @@ class DefaultController extends Controller
         $listPokemon = $this->getDoctrine()->getManager()->getRepository('AppBundle:Pokedex')->findBy(array(
             'user' => $user
         ), array(
-            $request->query->get('order', 'cp') => 'DESC'
+            $request->query->get('order', 'cp') => $request->query->get('order', 'cp') == "pokemon" ? 'ASC' : 'DESC'
         ));
 
         return $this->render('default/player.html.twig', array(
