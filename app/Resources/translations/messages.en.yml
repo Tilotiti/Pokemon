@@ -38,7 +38,7 @@ player:
     cpmax: "CP Max"
     cptotal: "CP Total"
     email: "E-mail"
-    signDate: "Sign date"
+    sign: "Sign date"
     lastUpdate: "Last Update"
 trainer: "Trainer"
 statistics: "Statistics"

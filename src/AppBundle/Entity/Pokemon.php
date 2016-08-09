@@ -40,7 +40,7 @@ class Pokemon
     private $image;
 
     /**
-     * @ORM\Column
+     * @ORM\Column(type="simple_array")
      */
     private $type;
 

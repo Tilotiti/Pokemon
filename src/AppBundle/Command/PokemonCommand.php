@@ -46,7 +46,7 @@ class PokemonCommand extends ContainerAwareCommand
             $pokemon->setId($item->id);
             $pokemon->setNameFR($item->name_fr);
             $pokemon->setNameEN($item->name_en);
-            $pokemon->setType($item->type);
+            $pokemon->setType(explode(' / ', strtolower($item->type)));
 
             if(!file_exists(__DIR__.'/../../../web/images/pokemon/'.$pokemon->getId().'.png')) {
                 $image = file_get_contents($item->img);

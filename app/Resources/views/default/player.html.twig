@@ -186,7 +186,14 @@
                             </div>
                             <div class="panel-footer">
                                 <span class="title">{{ pokemon.pokemon.name(app.request.locale) }}</span>
-                                <span class="type">{{ pokemon.pokemon.type }}</span>
+                                <span class="type">
+                                    {% for type in pokemon.pokemon.type %}
+                                        {{ ('type.'~ type) | trans([], 'pokemon') }}
+                                        {% if not loop.last %}
+                                            /
+                                        {% endif %}
+                                    {% endfor %}
+                                </span>
                             </div>
                         </div>
                     </div>
