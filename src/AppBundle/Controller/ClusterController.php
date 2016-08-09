@@ -35,8 +35,11 @@ class ClusterController extends Controller
      */
     public function indexAction(Request $request) {
         switch($request->query->get('order', 'xp')) {
+            case "name":
+                $orderBy = 'cluster.name';
+                break;
             case "members":
-                $orderBy = 'COUNT(user)';
+                $orderBy = 'COUNT(user.id)';
                 break;
             case "level":
                 $orderBy = 'AVG(user.level)';
@@ -53,20 +56,14 @@ class ClusterController extends Controller
             case "discovered":
                 $orderBy = 'AVG(user.discovered)';
                 break;
-            case "pokedex":
-                $orderBy = 'COUNT(pokedex)';
-                break;
             case "catched":
                 $orderBy = 'AVG(user.catched)';
                 break;
             case "evolved":
                 $orderBy = 'AVG(user.evolved)';
                 break;
-            case "maxcp":
-                $orderBy = 'MAX(pokedex.cp)';
-                break;
             default:
-                $orderBy = 'user.'.$request->query->get('order', 'xp');
+                return $this->redirectToRoute('cluster');
                 break;
         }
 

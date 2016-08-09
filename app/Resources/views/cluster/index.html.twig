@@ -75,14 +75,7 @@
                                         {{ "player.discovered" | trans }}
                                     </a>
                                 </th>
-                                <th class="text-center {{ app.request.query.get('order') == 'pokedex' ? app.request.query.get('way', 'DESC') }}">
-                                    <a href="{{ path('cluster', {
-                                        'order': 'pokedex',
-                                        'way': app.request.query.get('order') == 'pokedex' and app.request.query.get('way', 'DESC') == 'DESC' ? 'ASC' : 'DESC'
-                                    }) }}">
-                                        {{ "player.pokedex" | trans }}
-                                    </a>
-                                </th>
+                                <th class="text-center">{{ "player.pokedex" | trans }} </th>
                                 <th class="text-center {{ app.request.query.get('order') == 'catched' ? app.request.query.get('way', 'DESC') }}">
                                     <a href="{{ path('cluster', {
                                         'order': 'catched',
@@ -99,14 +92,7 @@
                                         {{ "player.evolved" | trans }}
                                     </a>
                                 </th>
-                                <th class="text-center {{ app.request.query.get('order') == 'maxcp' ? app.request.query.get('way', 'DESC') }}">
-                                    <a href="{{ path('cluster', {
-                                        'order': 'maxcp',
-                                        'way': app.request.query.get('order') == 'maxcp' and app.request.query.get('way', 'DESC') == 'DESC' ? 'ASC' : 'DESC'
-                                    }) }}">
-                                        {{ "player.maxcp" | trans }}
-                                    </a>
-                                </th>
+                                <th class="text-center">{{ "player.maxcp" | trans }}</th>
                                 <th class="text-center">{{ "player.totalcp" | trans }}</th>
                             </tr>
                         </thead>
@@ -140,7 +126,7 @@
                                     <td class="text-center {{ app.request.query.get('order') == 'discovered' ? 'order' }}">
                                         {{ (cluster.total('discovered') / (cluster.users | length)) | round }}
                                     </td>
-                                    <td class="text-center {{ app.request.query.get('order') == 'pokedex' ? 'order' }}">
+                                    <td class="text-center">
                                         {{ (cluster.totalPokedex / (cluster.users | length)) | round }}
                                     </td>
                                     <td class="text-center {{ app.request.query.get('order') == 'catched' ? 'order' }}">
@@ -149,7 +135,7 @@
                                     <td class="text-center {{ app.request.query.get('order') == 'evolved' ? 'order' }}">
                                         {{ (cluster.total('evolved') / (cluster.users | length)) | round }}
                                     </td>
-                                    <td class="text-center {{ app.request.query.get('order') == 'maxcp' ? 'order' }}">
+                                    <td class="text-center">
                                         {{ cluster.maxCP }}
                                     </td>
                                     <td class="text-center">

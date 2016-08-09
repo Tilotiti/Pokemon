@@ -31,12 +31,12 @@ class Cluster extends EntityRepository
 
         $dql->addSelect($order.' as orderParam');
 
-        $dql->join('cluster.users', 'user');
-        $dql->join('user.pokedex', 'pokedex');
+        $dql->innerjoin('cluster.users', 'user');
 
         $dql->where('user.cheater != TRUE');
 
         $dql->groupBy('cluster.id');
+        
         $dql->orderBy('orderParam', $way);
 
         $firstResult = ($page - 1) * $max;
