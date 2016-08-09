@@ -38,6 +38,7 @@ class User extends EntityRepository
         $dql->andHaving('user.username IS NOT NULL');
         $dql->andHaving($order.' IS NOT NULL');
 
+        $dql->groupBy('user.id');
         $dql->orderBy('orderParam', $way);
 
         $firstResult = ($page - 1) * $max;
