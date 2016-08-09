@@ -291,4 +291,25 @@ img.team {
       background-color: #2EB0F6;
       background-image: none; }
 
+table.table thead a {
+  display: block; }
+table.table thead th.DESC {
+  background-color: #dadada !important; }
+  table.table thead th.DESC a:after {
+    content: "\e252";
+    display: block;
+    float: right;
+    font-family: 'Glyphicons Halflings'; }
+table.table thead th.ASC {
+  background-color: #dadada !important; }
+  table.table thead th.ASC a:after {
+    content: "\e253";
+    display: block;
+    float: right;
+    font-family: 'Glyphicons Halflings'; }
+table.table td.order {
+  background-color: #dadada !important; }
+table.table tr.active td.order {
+  background-color: #bbb !important; }
+
 /*# sourceMappingURL=global.css.map */

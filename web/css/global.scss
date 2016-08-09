@@ -398,3 +398,43 @@ img.team {
     }
   }
 }
+
+table.table {
+  thead {
+    a {
+      display: block;
+    }
+
+    th.DESC {
+      background-color: #dadada!important;
+
+      a:after {
+        content: "\e252";
+        display: block;
+        float: right;
+        font-family: 'Glyphicons Halflings';
+      }
+    }
+
+    th.ASC {
+      background-color: #dadada!important;
+
+      a:after {
+        content: "\e253";
+        display: block;
+        float: right;
+        font-family: 'Glyphicons Halflings';
+      }
+    }
+  }
+
+
+
+  td.order {
+    background-color: #dadada!important;
+  }
+
+  tr.active td.order {
+    background-color: #bbb!important;
+  }
+}

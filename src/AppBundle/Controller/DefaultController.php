@@ -23,23 +23,18 @@ class DefaultController extends Controller
         switch($request->query->get('order', 'xp')) {
             case "sign":
                 $orderBy = 'user.sign';
-                $way = 'ASC';
                 break;
-            case "pokemons":
+            case "pokedex":
                 $orderBy = 'COUNT(pokedex)';
-                $way = 'DESC';
                 break;
-            case "cpmax":
+            case "maxcp":
                 $orderBy = 'MAX(pokedex.cp)';
-                $way = 'DESC';
                 break;
-            case "cptotal":
+            case "totalcp":
                 $orderBy = 'SUM(pokedex.cp)';
-                $way = 'DESC';
                 break;
             default:
                 $orderBy = 'user.'.$request->query->get('order', 'xp');
-                $way = 'DESC';
                 break;
         }
 
@@ -47,7 +42,7 @@ class DefaultController extends Controller
             $request->query->getInt('page', 1),
             20,
             $orderBy,
-            $way
+            $request->query->get('way', 'DESC')
         );
 
         $statsTeam = array();

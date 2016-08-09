@@ -8,36 +8,100 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     {{ 'title.index' | trans }}
-                    <div class="tools">
-                        <select id="selectOrder">
-                            <option {% if app.request.query.get('order', 'xp') == 'xp' %}selected{% endif %} value="xp">{{ "order.xp" | trans }}</option>
-                            <option {% if app.request.query.get('order', 'xp') == 'km' %}selected{% endif %} value="km">{{ "order.km" | trans }}</option>
-                            <option {% if app.request.query.get('order', 'xp') == 'discovered' %}selected{% endif %} value="discovered">{{ "order.discovered" | trans }}</option>
-                            <option {% if app.request.query.get('order', 'xp') == 'pokemons' %}selected{% endif %} value="pokemons">{{ "order.pokemon" | trans }}</option>
-                            <option {% if app.request.query.get('order', 'xp') == 'catched' %}selected{% endif %} value="catched">{{ "order.catched" | trans }}</option>
-                            <option {% if app.request.query.get('order', 'xp') == 'evolved' %}selected{% endif %} value="evolved">{{ "order.evolved" | trans }}</option>
-                            <option {% if app.request.query.get('order', 'xp') == 'cpmax' %}selected{% endif %} value="cpmax">{{ "order.cpmax" | trans }}</option>
-                            <option {% if app.request.query.get('order', 'xp') == 'cptotal' %}selected{% endif %} value="cptotal">{{ "order.cptotal" | trans }}</option>
-                            <option {% if app.request.query.get('order', 'xp') == 'sign' %}selected{% endif %} value="sign">{{ "order.sign" | trans }}</option>
-                        </select>
-                    </div>
                 </div>
                 <div class="panel-body">
                     <table class="table">
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>{{ "trainer" | trans }}</th>
-                            <th class="text-center">{{ "player.level" | trans }}</th>
-                            <th class="text-center">{{ "player.xp" | trans }}</th>
-                            <th class="text-center">{{ "player.km" | trans }}</th>
-                            <th class="text-center">{{ "player.discovered" | trans }}</th>
-                            <th class="text-center">{{ "player.pokemons" | trans }}</th>
-                            <th class="text-center">{{ "player.catched" | trans }}</th>
-                            <th class="text-center">{{ "player.evolved" | trans }}</th>
-                            <th class="text-center">{{ "player.cpmax" | trans }}</th>
-                            <th class="text-center">{{ "player.cptotal" | trans }}</th>
-                            <th class="text-center">{{ "player.signDate" | trans}}</th>
+                            <th class="{{ app.request.query.get('order') == 'username' ? app.request.query.get('way', 'DESC') }}">
+                                <a href="{{ path('index', {
+                                    'order': 'username',
+                                    'way': app.request.query.get('order') == 'username' and app.request.query.get('way', 'DESC') == 'DESC' ? 'ASC' : 'DESC'
+                                }) }}">
+                                    {{ "trainer" | trans }}
+                                </a>
+                            </th>
+                            <th class="text-center {{ app.request.query.get('order') == 'level' ? app.request.query.get('way', 'DESC') }}">
+                                <a href="{{ path('index', {
+                                    'order': 'level',
+                                    'way': app.request.query.get('order') == 'level' and app.request.query.get('way', 'DESC') == 'DESC' ? 'ASC' : 'DESC'
+                                }) }}">
+                                    {{ "player.level" | trans }}
+                                </a>
+                            </th>
+                            <th class="text-center {{ app.request.query.get('order', 'xp') == 'xp' ? app.request.query.get('way', 'DESC') }}">
+                                <a href="{{ path('index', {
+                                    'order': 'xp',
+                                    'way': app.request.query.get('order', 'xp') == 'xp' and app.request.query.get('way', 'DESC') == 'DESC' ? 'ASC' : 'DESC'
+                                }) }}">
+                                    {{ "player.xp" | trans }}
+                                </a>
+                            </th>
+                            <th class="text-center {{ app.request.query.get('order') == 'km' ? app.request.query.get('way', 'DESC') }}">
+                                <a href="{{ path('index', {
+                                    'order': 'km',
+                                    'way': app.request.query.get('order') == 'km' and app.request.query.get('way', 'DESC') == 'DESC' ? 'ASC' : 'DESC'
+                                }) }}">
+                                    {{ "player.km" | trans }}
+                                </a>
+                            </th>
+                            <th class="text-center {{ app.request.query.get('order') == 'discovered' ? app.request.query.get('way', 'DESC') }}">
+                                <a href="{{ path('index', {
+                                    'order': 'discovered',
+                                    'way': app.request.query.get('order') == 'discovered' and app.request.query.get('way', 'DESC') == 'DESC' ? 'ASC' : 'DESC'
+                                }) }}">
+                                    {{ "player.discovered" | trans }}
+                                </a>
+                            </th>
+                            <th class="text-center {{ app.request.query.get('order') == 'pokedex' ? app.request.query.get('way', 'DESC') }}">
+                                <a href="{{ path('index', {
+                                    'order': 'pokedex',
+                                    'way': app.request.query.get('order') == 'pokedex' and app.request.query.get('way', 'DESC') == 'DESC' ? 'ASC' : 'DESC'
+                                }) }}">
+                                    {{ "player.pokedex" | trans }}
+                                </a>
+                            </th>
+                            <th class="text-center {{ app.request.query.get('order') == 'catched' ? app.request.query.get('way', 'DESC') }}">
+                                <a href="{{ path('index', {
+                                    'order': 'catched',
+                                    'way': app.request.query.get('order') == 'catched' and app.request.query.get('way', 'DESC') == 'DESC' ? 'ASC' : 'DESC'
+                                }) }}">
+                                    {{ "player.catched" | trans }}
+                                </a>
+                            </th>
+                            <th class="text-center {{ app.request.query.get('order') == 'evolved' ? app.request.query.get('way', 'DESC') }}">
+                                <a href="{{ path('index', {
+                                    'order': 'evolved',
+                                    'way': app.request.query.get('order') == 'evolved' and app.request.query.get('way', 'DESC') == 'DESC' ? 'ASC' : 'DESC'
+                                }) }}">
+                                    {{ "player.evolved" | trans }}
+                                </a>
+                            </th>
+                            <th class="text-center {{ app.request.query.get('order') == 'maxcp' ? app.request.query.get('way', 'DESC') }}">
+                                <a href="{{ path('index', {
+                                    'order': 'maxcp',
+                                    'way': app.request.query.get('order') == 'maxcp' and app.request.query.get('way', 'DESC') == 'DESC' ? 'ASC' : 'DESC'
+                                }) }}">
+                                    {{ "player.maxcp" | trans }}
+                                </a>
+                            </th>
+                            <th class="text-center {{ app.request.query.get('order') == 'totalcp' ? app.request.query.get('way', 'DESC') }}">
+                                <a href="{{ path('index', {
+                                    'order': 'totalcp',
+                                    'way': app.request.query.get('order') == 'totalcp' and app.request.query.get('way', 'DESC') == 'DESC' ? 'ASC' : 'DESC'
+                                }) }}">
+                                    {{ "player.totalcp" | trans }}
+                                </a>
+                            </th>
+                            <th class="text-center {{ app.request.query.get('order') == 'sign' ? app.request.query.get('way', 'DESC') }}">
+                                <a href="{{ path('index', {
+                                    'order': 'sign',
+                                    'way': app.request.query.get('order') == 'sign' and app.request.query.get('way', 'ASC') == 'ASC' ? 'DESC' : 'ASC'
+                                }) }}">
+                                    {{ "player.sign" | trans }}
+                                </a>
+                            </th>
                         </tr>
                         </thead>
                         <tbody>
@@ -47,7 +111,7 @@
                                     <td>
                                         {{ loop.index + (( app.request.get('page', 1) - 1) * 20) }}
                                     </td>
-                                    <td>
+                                    <td class="{{ app.request.query.get('order', 'xp') == 'username' ? 'order' }}">
                                         <img src="{{ asset('images/team_'~ player.team ~'.png') }}" class="team">
                                         <a href="{{ path('player', {username: player.username}) }}">
                                             {% if player.name is not empty %}
@@ -58,16 +122,16 @@
                                             {% endif %}
                                         </a>
                                     </td>
-                                    <td class="text-center">{{ player.level }}</td>
-                                    <td class="text-center">{{ player.xp }}</td>
-                                    <td class="text-center">{{ player.km }}</td>
-                                    <td class="text-center">{{ player.discovered }}</td>
-                                    <td class="text-center">{{ player.pokedex | length }}</td>
-                                    <td class="text-center">{{ player.catched }}</td>
-                                    <td class="text-center">{{ player.evolved }}</td>
-                                    <td class="text-center">{{ player.maxCP }}</td>
-                                    <td class="text-center">{{ player.totalCP }}</td>
-                                    <td class="text-center">
+                                    <td class="text-center {{ app.request.query.get('order', 'xp') == 'level' ? 'order' }}">{{ player.level }}</td>
+                                    <td class="text-center {{ app.request.query.get('order', 'xp') == 'xp' ? 'order' }}">{{ player.xp }}</td>
+                                    <td class="text-center {{ app.request.query.get('order', 'xp') == 'km' ? 'order' }}">{{ player.km }}</td>
+                                    <td class="text-center {{ app.request.query.get('order', 'xp') == 'discovered' ? 'order' }}">{{ player.discovered }}</td>
+                                    <td class="text-center {{ app.request.query.get('order', 'xp') == 'pokedex' ? 'order' }}">{{ player.pokedex | length }}</td>
+                                    <td class="text-center {{ app.request.query.get('order', 'xp') == 'catched' ? 'order' }}">{{ player.catched }}</td>
+                                    <td class="text-center {{ app.request.query.get('order', 'xp') == 'evolved' ? 'order' }}">{{ player.evolved }}</td>
+                                    <td class="text-center {{ app.request.query.get('order', 'xp') == 'maxcp' ? 'order' }}">{{ player.maxCP }}</td>
+                                    <td class="text-center {{ app.request.query.get('order', 'xp') == 'totalcp' ? 'order' }}">{{ player.totalCP }}</td>
+                                    <td class="text-center {{ app.request.query.get('order', 'xp') == 'sign' ? 'order' }}">
                                         {{ player.sign | localizeddate('short', 'none') }}
                                     </td>
                                 </tr>
@@ -125,10 +189,6 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script>
         $(function() {
-            $('#selectOrder').on('change', function() {
-                document.location.href = "{{ path('index') }}?order="+$(this).val();
-            });
-
             $('.stats').css('height', function() {
                 return $(this).width();
             })
