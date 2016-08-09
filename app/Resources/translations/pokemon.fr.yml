@@ -4,7 +4,7 @@ type:
     psychic: "Psychique"
     water: "Eau"
     normal: "Normal"
-    flying: "Volant"
+    flying: "Vol"
     bug: "Insecte"
     ice: "Glace"
     poison: "Poison"
