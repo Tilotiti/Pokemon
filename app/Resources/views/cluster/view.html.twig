@@ -73,7 +73,7 @@
                                         </td>
                                         <td>{{ request.user.level }}</td>
                                         <td>{{ request.user.xp }}</td>
-                                        <td>{{ request.datetime | localizeddate('long', 'long', app.request.locale )}}</td>
+                                        <td>{{ request.datetime | localizeddate('medium', 'medium', app.request.locale )}}</td>
                                         <td class="text-right">
                                             <a href="{{ path('cluster_accept_request', {
                                                 "request": request.id
