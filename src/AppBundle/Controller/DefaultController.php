@@ -20,10 +20,12 @@ class DefaultController extends Controller
      * @Route("/", name="index")
      */
     public function indexAction(Request $request) {
+
         $listUser = $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->ranking(
             $request->query->getInt('page', 1),
             20,
-            $request->query->get('order', 'xp')
+            $request->query->get('order', 'xp'),
+            'DESC'
         );
 
         $statsTeam = array();

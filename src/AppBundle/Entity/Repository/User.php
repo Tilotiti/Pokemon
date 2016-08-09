@@ -14,7 +14,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class User extends EntityRepository
 {
-    public function ranking($page = 1, $max = 10, $order = 'xp') {
+    public function ranking($page = 1, $max = 10, $order = 'xp', $way = 'DESC') {
         if(!is_numeric($page)) {
             throw new \InvalidArgumentException(
                 '$page must be an integer ('.gettype($page).' : '.$page.')'
@@ -32,7 +32,7 @@ class User extends EntityRepository
         $dql->andWhere('user.username IS NOT NULL');
         $dql->andWhere('user.cheater = FALSE');
 
-        $dql->orderBy("user.".$order, 'DESC');
+        $dql->orderBy("user.".$order, $way);
 
         $firstResult = ($page - 1) * $max;
 
@@ -48,7 +48,7 @@ class User extends EntityRepository
         return $paginator;
     }
 
-    public function rankingCluster($page = 1, $max = 10, $order = 'xp', $cluster) {
+    public function rankingCluster($page = 1, $max = 10, $order = 'xp', $way = 'DESC', $cluster) {
         if(!is_numeric($page)) {
             throw new \InvalidArgumentException(
                 '$page must be an integer ('.gettype($page).' : '.$page.')'
@@ -71,7 +71,7 @@ class User extends EntityRepository
         $dql->setParameter('cluster', $cluster);
 
         $dql->groupBy('user');
-        $dql->orderBy("user.".$order, 'DESC');
+        $dql->orderBy("user.".$order, $way);
 
         $firstResult = ($page - 1) * $max;
 

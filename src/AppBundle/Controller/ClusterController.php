@@ -111,6 +111,7 @@ class ClusterController extends Controller
                 $request->query->getInt('page', 1),
                 20,
                 $request->query->get('order', 'xp'),
+                'DESC',
                 $cluster
             );
 
