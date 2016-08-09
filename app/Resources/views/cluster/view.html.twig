@@ -122,32 +122,32 @@
                             <tr>
                                 <th>{{ 'player.xp' | trans }}</th>
                                 <td class="text-center">{{ cluster.total('xp') }}</td>
-                                <td class="text-center">{{ cluster.total('xp') / (cluster.users | length) | round }}</td>
+                                <td class="text-center">{{ (cluster.total('xp') / (cluster.users | length)) | round }}</td>
                             </tr>
                             <tr>
                                 <th>{{ 'player.km' | trans }}</th>
                                 <td class="text-center">{{ cluster.total('km') }}</td>
-                                <td class="text-center">{{ cluster.total('km') / (cluster.users | length) | round }}</td>
+                                <td class="text-center">{{ (cluster.total('km') / (cluster.users | length)) | round }}</td>
                             </tr>
                             <tr>
                                 <th>{{ 'player.discovered' | trans }}</th>
                                 <td class="text-center">{{ cluster.total('discovered') }}</td>
-                                <td class="text-center">{{ cluster.total('discovered') / (cluster.users | length) | round }}</td>
+                                <td class="text-center">{{ (cluster.total('discovered') / (cluster.users | length)) | round }}</td>
                             </tr>
                             <tr>
                                 <th>{{ 'player.pokedex' | trans }}</th>
                                 <td class="text-center">{{ cluster.totalPokedex }}</td>
-                                <td class="text-center">{{ cluster.totalPokedex / (cluster.users | length) | round}}</td>
+                                <td class="text-center">{{ (cluster.totalPokedex / (cluster.users | length)) | round}}</td>
                             </tr>
                             <tr>
                                 <th>{{ 'player.catched' | trans }}</th>
                                 <td class="text-center">{{ cluster.total('catched') }}</td>
-                                <td class="text-center">{{ cluster.total('catched') / (cluster.users | length) | round }}</td>
+                                <td class="text-center">{{ (cluster.total('catched') / (cluster.users | length)) | round }}</td>
                             </tr>
                             <tr>
                                 <th>{{ 'player.totalcp' | trans }}</th>
                                 <td class="text-center">{{ cluster.totalCP }}</td>
-                                <td class="text-center">{{ cluster.totalCP / (cluster.users | length) | round }}</td>
+                                <td class="text-center">{{ (cluster.totalCP / (cluster.users | length)) | round }}</td>
                             </tr>
                             <tr>
                                 <th>{{ 'player.maxcp' | trans }}</th>
