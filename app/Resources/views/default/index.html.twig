@@ -17,7 +17,7 @@
                             <th class="{{ app.request.query.get('order') == 'username' ? app.request.query.get('way', 'DESC') }}">
                                 <a href="{{ path('index', {
                                     'order': 'username',
-                                    'way': app.request.query.get('order') == 'username' and app.request.query.get('way', 'DESC') == 'DESC' ? 'ASC' : 'DESC'
+                                    'way': app.request.query.get('order') == 'username' and app.request.query.get('way', 'ASC') == 'ASC' ? 'DESC' : 'ASC'
                                 }) }}">
                                     {{ "trainer" | trans }}
                                 </a>
