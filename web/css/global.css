@@ -206,14 +206,10 @@ a {
     left: 10px;
     top: 10px; }
     .pokemon .details .cp:before {
-      content: '';
+      content: 'PC : ';
       display: inline-block;
-      background-image: url("../images/strength.png");
-      background-repeat: no-repeat;
-      width: 8px;
-      height: 8px;
       background-size: contain;
-      margin-right: 5px;
+      margin-right: 3px;
       vertical-align: baseline; }
   .pokemon .details .pokeball {
     position: absolute;
