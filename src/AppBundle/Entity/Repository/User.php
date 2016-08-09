@@ -31,9 +31,9 @@ class User extends EntityRepository
 
         $dql->andWhere('user.username IS NOT NULL');
         $dql->andWhere('user.cheater = FALSE');
-        $dql->andWhere('user.'.$order.' IS NOT NULL');
+        $dql->andWhere($order.' IS NOT NULL');
 
-        $dql->orderBy("user.".$order, $way);
+        $dql->orderBy($order, $way);
 
         $firstResult = ($page - 1) * $max;
 

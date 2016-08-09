@@ -20,12 +20,22 @@ class DefaultController extends Controller
      * @Route("/", name="index")
      */
     public function indexAction(Request $request) {
+        switch($request->query->get('order', 'xp')) {
+            case "sign":
+                $orderBy = 'user.sign';
+                $way = 'ASC';
+                break;
+            default:
+                $orderBy = 'user.'.$request->query->get('order', 'xp');
+                $way = 'DESC';
+                break;
+        }
 
         $listUser = $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->ranking(
             $request->query->getInt('page', 1),
             20,
-            $request->query->get('order', 'xp'),
-            $request->query->get('order', 'xp') == "sign" ? 'ASC' : 'DESC'
+            $orderBy,
+            $way
         );
 
         $statsTeam = array();
