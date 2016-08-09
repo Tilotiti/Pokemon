@@ -65,12 +65,6 @@ class DefaultController extends Controller
      */
     public function playerAction(Request $request, $username) {
 
-        // Classement général
-        $listUser = $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->ranking(
-            $request->query->getInt('page', 1),
-            10
-        );
-
         // Utilisateur
         if($username == "me") {
             $user = $this->getUser();
@@ -96,12 +90,11 @@ class DefaultController extends Controller
         $listPokemon = $this->getDoctrine()->getManager()->getRepository('AppBundle:Pokedex')->findBy(array(
             'user' => $user
         ), array(
-            'cp' => 'DESC'
+            $request->query->get('order', 'cp') => 'DESC'
         ));
 
         return $this->render('default/player.html.twig', array(
             'user' => $user,
-            'listUser' => $listUser,
             'listPokemon' => $listPokemon
         ));
     }

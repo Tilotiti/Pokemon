@@ -272,7 +272,7 @@ a {
     font-weight: bold;
   }
   
-  &:hover .details {
+  &:hover .details, &.active .details {
 	  display: none;
   }
 
@@ -320,8 +320,8 @@ a {
       }
     }
   }
-	  
-  &:hover .stats {
+
+  &:hover .stats, &.active .stats {
     display: block;
   }
 

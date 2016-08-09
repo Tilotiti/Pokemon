@@ -99,6 +99,7 @@ login:
         authorisationText: "Toujours pas ? Il se peut alors que Google refuse délibérement de partager vos données Pokémon GO. Vous pouvez alors le forcer à accepter les futurs connexions en cliquant ici :"
         outro: "Attention, cela peut mettre quelques minutes avant de prendre effet."
 pokemon:
+    cp: "CP"
     attack: "Attaque"
     defense: "Défense"
     stamina: "Endurance"

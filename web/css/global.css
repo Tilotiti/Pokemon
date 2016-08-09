@@ -197,7 +197,7 @@ a {
     display: block;
     text-align: center;
     font-weight: bold; }
-  .pokemon:hover .details {
+  .pokemon:hover .details, .pokemon.active .details {
     display: none; }
   .pokemon .details .img {
     display: block;
@@ -231,7 +231,7 @@ a {
       background-size: contain;
       margin-right: 5px;
       vertical-align: baseline; }
-  .pokemon:hover .stats {
+  .pokemon:hover .stats, .pokemon.active .stats {
     display: block; }
   .pokemon .stats {
     position: absolute;

@@ -137,6 +137,15 @@
                     <div class="panel">
                         <div class="panel-heading">
                             {{ 'player.discovered' | trans }}
+                            <div class="tools">
+                                <select id="selectOrder">
+                                    <option {% if app.request.query.get('order', 'cp') == "cp" %}selected{% endif %} value="cp">{{ 'pokemon.cp' | trans }}</option>
+                                    <option {% if app.request.query.get('order', 'cp') == "attack" %}selected{% endif %} value="attack">{{ 'pokemon.attack' | trans }}</option>
+                                    <option {% if app.request.query.get('order', 'cp') == "defense" %}selected{% endif %} value="defense">{{ 'pokemon.defense' | trans }}</option>
+                                    <option {% if app.request.query.get('order', 'cp') == "stamina" %}selected{% endif %} value="stamina">{{ 'pokemon.stamina' | trans }}</option>
+                                    <option {% if app.request.query.get('order', 'cp') == "iv" %}selected{% endif %} value="iv">{{ 'pokemon.iv' | trans }}</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -194,7 +203,19 @@
 {% block javascript %}
     <script>
         $(function() {
-           $('#refresh').on('click', function() {
+            $('#selectOrder').on('change', function() {
+                document.location.href = "{{ path(app.request.get('_route'), app.request.attributes.get('_route_params')) }}?order="+$(this).val();
+            });
+
+            $('.pokemon').on('click', function() {
+                if($(this).hasClass('active')) {
+                    $(this).removeClass('active');
+                } else {
+                    $(this).addClass('active');
+                }
+            });
+
+            $('#refresh').on('click', function() {
                 if($(this).hasClass('loading')) {
                     return alert('Patience ...');
                 } else {
@@ -206,7 +227,7 @@
 
                     return false;
                 }
-           });
+            });
         });
     </script>
 {% endblock %}
