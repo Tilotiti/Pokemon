@@ -205,6 +205,16 @@ class Cluster
         return $count;
     }
 
+    public function getTotalPokedex() {
+        $count = 0;
+
+        foreach($this->getUsers() as $user) {
+            $count += count($user->getPokedex());
+        }
+
+        return $count;
+    }
+
     public function getMaxCP() {
         $maxCP = 0;
 

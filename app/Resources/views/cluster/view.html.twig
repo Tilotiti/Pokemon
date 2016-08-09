@@ -106,26 +106,55 @@
                     {{ 'statistics' | trans }}
                 </div>
                 <div class="panel-body">
-                    <div class="row">
-                        <div class="col-xs-4">
-                            <div><strong>{{ 'cluster.members' | trans }}</strong></div>
-                            <div><strong>{{ 'cluster.xp' | trans }}</strong></div>
-                            <div><strong>{{ 'player.km' | trans }}</strong></div>
-                            <div><strong>{{ 'player.discovered' | trans }}</strong></div>
-                            <div><strong>{{ 'player.catched' | trans }}</strong></div>
-                            <div><strong>{{ 'player.maxcp' | trans }}</strong></div>
-                            <div><strong>{{ 'player.totalcp' | trans }}</strong></div>
-                        </div>
-                        <div class="col-xs-8">
-                            <div>{{ cluster.users | length }}</div>
-                            <div>{{ cluster.total('xp') }}</div>
-                            <div>{{ cluster.total('km') }}</div>
-                            <div>{{ cluster.total('discovered') }}</div>
-                            <div>{{ cluster.total('catched') }}</div>
-                            <div>{{ cluster.maxCP }}</div>
-                            <div>{{ cluster.totalCP }}</div>
-                        </div>
-                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th class="text-center">Total</th>
+                                <th class="text-center">Moyenne</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>{{ 'cluster.members' | trans }}</th>
+                                <td colspan="2" class="text-center">{{ cluster.users | length }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'player.xp' | trans }}</th>
+                                <td class="text-center">{{ cluster.total('xp') }}</td>
+                                <td class="text-center">{{ cluster.total('xp') / (cluster.users | length) }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'player.km' | trans }}</th>
+                                <td class="text-center">{{ cluster.total('km') }}</td>
+                                <td class="text-center">{{ cluster.total('km') / (cluster.users | length) }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'player.discovered' | trans }}</th>
+                                <td class="text-center">{{ cluster.total('discovered') }}</td>
+                                <td class="text-center">{{ cluster.total('discovered') / (cluster.users | length) }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'player.pokedex' | trans }}</th>
+                                <td class="text-center">{{ cluster.totalPokedex }}</td>
+                                <td class="text-center">{{ cluster.totalPokedex / (cluster.users | length) }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'player.catched' | trans }}</th>
+                                <td class="text-center">{{ cluster.total('catched') }}</td>
+                                <td class="text-center">{{ cluster.total('catched') / (cluster.users | length) }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'player.totalcp' | trans }}</th>
+                                <td class="text-center">{{ cluster.totalCP }}</td>
+                                <td class="text-center">{{ cluster.totalCP / (cluster.users | length) }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'player.maxcp' | trans }}</th>
+                                <td class="text-center" colspan="2">{{ cluster.maxCP }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
