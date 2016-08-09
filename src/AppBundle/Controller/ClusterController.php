@@ -198,24 +198,26 @@ class ClusterController extends Controller
 
             $this->addFlash('success', $this->get('translator')->trans("success.cluster.join", [], "flash"));
 
-            // Notification
-            $notification = new Notification();
-            $notification->setUser($cluster->getAdmin());
-            $notification->setIcon('list');
-            $notification->setCategory('cluster');
-            $notification->setCode('cluster.join');
-            $notification->setParams(array(
-                'username' => $this->getUser()->getUsername(),
-                'cluster' => $cluster->getName()
-            ));
-            $notification->setRoute('cluster_view');
-            $notification->setRouteParams(array(
-                'cluster' => $cluster->getId()
-            ));
+            foreach ($cluster->getUsers() as $user) {
+                // Notification
+                $notification = new Notification();
+                $notification->setUser($user);
+                $notification->setIcon('list');
+                $notification->setCategory('cluster');
+                $notification->setCode('cluster.join');
+                $notification->setParams(array(
+                    'username' => $this->getUser()->getUsername(),
+                    'cluster' => $cluster->getName()
+                ));
+                $notification->setRoute('cluster_view');
+                $notification->setRouteParams(array(
+                    'cluster' => $cluster->getId()
+                ));
 
-            $this->getDoctrine()
-                ->getManager()
-                ->persist($notification);
+                $this->getDoctrine()
+                    ->getManager()
+                    ->persist($notification);
+            }
 
             $this->getDoctrine()
                 ->getManager()
@@ -348,13 +350,36 @@ class ClusterController extends Controller
             ));
         }
 
+        foreach($request->getCluster()->getUser() as $user) {
+
+            // Notification aux membres du groupe
+            $notification = new Notification();
+            $notification->setUser($user);
+            $notification->setIcon('list');
+            $notification->setCategory('cluster');
+            $notification->setCode('cluster.join');
+            $notification->setParams(array(
+                'cluster' => $request->getCluster()->getName(),
+                'user' => $request->getUser()->getUsername()
+            ));
+            $notification->setRoute('cluster_view');
+            $notification->setRouteParams(array(
+                'cluster' => $request->getCluster()->getId()
+            ));
+
+            $this->getDoctrine()
+                ->getManager()
+                ->persist($notification);
+        }
+
+
         $request->getCluster()->addUser($request->getUser());
 
         $this->getDoctrine()
             ->getManager()
             ->persist($request->getCluster());
 
-        // Notification
+        // Notification au membre concerné
         $notification = new Notification();
         $notification->setUser($request->getUser());
         $notification->setIcon('list');
