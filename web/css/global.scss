@@ -278,9 +278,16 @@ a {
 
   .details {
 
-    img {
-      max-width: 100%;
+    .img {
+      display: block;
+      width: 100%;
+      height: 120px;
+      background-position: center;
+      background-size: contain;
+      background-repeat: no-repeat;
+      margin-top: 10px;
     }
+
 
     .cp {
       position: absolute;

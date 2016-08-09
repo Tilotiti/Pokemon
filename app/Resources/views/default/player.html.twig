@@ -145,7 +145,7 @@
                         <div class="panel pokemon">
                             <div class="panel-body">
                                 <div class="details">
-	                                <img src="{{ pokemon.pokemon.image }}" />
+	                                <span class="img" style="background-image: url('{{ pokemon.pokemon.image }}');" />
 	                                <span class="cp">{{ pokemon.cp }}</span>
 	                                <span class="pokeball">
 	                                    {{ 'pokeball' | transchoice(pokemon.pokeball, [], 'pokemon')}}
