@@ -8,7 +8,7 @@ title:
         add: "Create a group"
         edit: "Edit the group"
 seo:
-    description: "Share your Pokemon Go stats, beat your friends , communicate with you team-mates."
+    description: "Share your Pokémon Go stats, beat your friends , communicate with you team-mates."
 menu:
     login: "Login"
     logout: "Logout"
@@ -87,7 +87,7 @@ notification:
 login:
     username:
         google: "Google E-mail"
-        ptc: "Pokemon Trainer Club Username"
+        ptc: "Pokémon Trainer Club Username"
     password: "Password"
     passwordNotSaved: "Your password is never stored on the server."
     help:
@@ -96,5 +96,5 @@ login:
         2Steps: "Google 2 Steps Authentification"
         2StepsText: "The Google 2 steps Authentification isn't available. But Google let you create a specific password for this app only, just here :"
         authorisation: "Google Authorisation"
-        authorisationText: "Always not ? Google could refuse to share your Pokemon Go data, you can then force them by clicking there :"
+        authorisationText: "Always not ? Google could refuse to share your Pokémon Go data, you can then force them by clicking there :"
         outro: "Attention, this could take few minutes before taking effect."
