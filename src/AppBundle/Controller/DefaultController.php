@@ -25,7 +25,7 @@ class DefaultController extends Controller
             $request->query->getInt('page', 1),
             20,
             $request->query->get('order', 'xp'),
-            'DESC'
+            $request->query->get('order', 'xp') == "sign" ? 'ASC' : 'DESC'
         );
 
         $statsTeam = array();
