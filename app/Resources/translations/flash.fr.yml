@@ -2,14 +2,13 @@ error:
     user:
         any: "Cet utilisateur n'existe pas."
         rank: "Vous n'avez pas les droits pour effectuer cette action."
-    login: "Une erreur de connexion s'est produite. Vos identifiants Google ne sont pas valides ou les serveurs de Pokemon Go sont hors-ligne. Si ce n'est pas le cas, rendez-vous ici pour valider l'accès à votre compte Google : https://g.co/allowaccess."
+    login: "Une erreur de connexion s'est produite. Vos identifiants Google ne sont pas valides ou les serveurs de Pokemon Go sont hors-ligne. Autrement, suivez les instruction dans la partie \"Besoins d'aide ?\"."
     cluster:
         quit: "Vous n'avez pas le droit de quitter ce groupe. Vous devez soit le transférer à un autre membre ou le supprimer."
         alreadyMember: "Vous êtes déjà membre de ce groupe."
         user: "Cet utilisateur ne fait pas parti du groupe."
         request:
             unknown: "Vous n'avez pas demandé à faire parti du groupe."
-
 success:
     login: "Vous êtes maintenant connecté et votre compte a été mis à jour."
     refresh: "Votre compte a été mis à jour."

@@ -84,3 +84,17 @@ cluster:
 notification:
     seeAll: 'Voir toutes les notifications'
     readAll: 'Tout lire'
+login:
+    username:
+        google: "E-mail Google"
+        ptc: "Pseudo Club Dresseur Pokémon"
+    password: "Mot de passe"
+    passwordNotSaved: "Votre mot de passe n'est jamais sauvegardé sur le serveur."
+    help:
+        title: "Besoin d'aide ?"
+        intro: "Vous n'arrivez pas à vous connecter ?"
+        2Steps: "Google Double Authentification"
+        2StepsText: "La double authentification de Google n'est pas disponible. Mais Google vous laisse la possibilité de créer un mot de passe spécifique et sécurisé pour cette application uniquement, en cliquant ici :"
+        authorisation: "Google Autorisation"
+        authorisationText: "Toujours pas ? Il se peut alors que Google refuse délibérement de partager vos données Pokemon GO. Vous pouvez alors le forcer à accepter les futurs connexions en cliquant ici :"
+        outro: "Attention, cela peut mettre quelques minutes avant de prendre effet."

@@ -84,3 +84,17 @@ cluster:
 notification:
     seeAll: 'See all the notifications'
     readAll: 'Read All'
+login:
+    username:
+        google: "Google E-mail"
+        ptc: "Pokemon Trainer Club Username"
+    password: "Password"
+    passwordNotSaved: "Your password is never stored on the server."
+    help:
+        title: "Need help ?"
+        intro: "Unable to login ?"
+        2Steps: "Google 2 Steps Authentification"
+        2StepsText: "The Google 2 steps Authentification isn't available. But Google let you create a specific password for this app only, just here :"
+        authorisation: "Google Authorisation"
+        authorisationText: "Always not ? Google could refuse to share your Pokemon Go data, you can then force them by clicking there :"
+        outro: "Attention, this could take few minutes before taking effect."
