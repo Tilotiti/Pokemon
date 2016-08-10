@@ -19,3 +19,5 @@ parameters:
     secret:            ThisTokenIsNotSoSecretChangeIt
 
     google_analytics: ~
+
+    node: "/usr/local/bin/node"

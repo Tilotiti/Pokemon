@@ -17,10 +17,12 @@ use Symfony\Component\Process\Exception\ProcessFailedException;
 class Player
 {
     private $em;
+    private $node;
 
-    public function __construct(EntityManager $entityManager)
+    public function __construct(EntityManager $entityManager, $node)
     {
         $this->em = $entityManager;
+        $this->node = $node;
     }
 
     public function refresh(User $user, $password)
@@ -30,7 +32,7 @@ class Player
             $password, // Password
         ));
 
-        $process = new Process("/usr/local/bin/node ".__DIR__.'/../../../bin/refresh.js '.$params);
+        $process = new Process($this->node." ".__DIR__.'/../../../bin/refresh.js '.$params);
         $process->run();
 
         // executes after the command finishes
