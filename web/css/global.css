@@ -312,4 +312,9 @@ table.table td.order {
 table.table tr.active td.order {
   background-color: #bbb !important; }
 
+@media screen and (max-width: 1024px) {
+  table {
+    overflow-x: scroll;
+    display: block; } }
+
 /*# sourceMappingURL=global.css.map */

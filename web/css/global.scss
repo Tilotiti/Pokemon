@@ -400,6 +400,7 @@ img.team {
 }
 
 table.table {
+
   thead {
     a {
       display: block;
@@ -428,13 +429,18 @@ table.table {
     }
   }
 
-
-
   td.order {
     background-color: #dadada!important;
   }
 
   tr.active td.order {
     background-color: #bbb!important;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  table {
+    overflow-x: scroll;
+    display: block;
   }
 }
