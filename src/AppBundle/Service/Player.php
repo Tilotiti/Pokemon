@@ -32,7 +32,7 @@ class Player
             $password, // Password
         ));
 
-        $process = new Process($this->node." ".__DIR__.'/../../../bin/refresh.js '.$params);
+        $process = new Process($this->node.' "'.__DIR__.'/../../../bin/refresh.js" '.$params);
         $process->run();
 
         // executes after the command finishes
