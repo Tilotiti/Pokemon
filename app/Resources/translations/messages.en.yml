@@ -3,6 +3,7 @@ title:
     account: "Edit my account"
     notification: "All the notifications"
     login: "Login"
+    bot: "Bot ranking"
     cluster:
         index: "Groups ranking"
         add: "Create a group"
@@ -40,6 +41,7 @@ player:
     email: "E-mail"
     sign: "Sign date"
     lastUpdate: "Last Update"
+    cheater: "Automatisation"
 trainer: "Trainer"
 statistics: "Statistics"
 ranking: "Ranking"
@@ -49,6 +51,8 @@ edit: "Edit"
 refresh: "Update"
 cancel: "Cancel"
 date: "Date"
+yes: "Yes"
+no: "No"
 any:
     player: "No player"
     empty: "Not specified"
@@ -63,7 +67,7 @@ stats:
         discovered: "Pokémons discovered by team"
         catched: "Pokémons catched by team"
 cheater:
-    message: "This user is suspected to automate his hunt, his account does not appear in the various statistics and rankings."
+    message: "This user use a bot. He is part of a diferent ranking."
 cluster:
     name: "Group"
     members: "Members"

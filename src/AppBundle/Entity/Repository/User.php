@@ -55,6 +55,47 @@ class User extends EntityRepository
         return $paginator;
     }
 
+    public function rankingBot($page = 1, $max = 10, $order = 'user.xp', $way = 'DESC') {
+        if(!is_numeric($page)) {
+            throw new \InvalidArgumentException(
+                '$page must be an integer ('.gettype($page).' : '.$page.')'
+            );
+        }
+
+        if(!is_numeric($page)) {
+            throw new \InvalidArgumentException(
+                '$max must be an integer ('.gettype($max).' : '.$max.')'
+            );
+        }
+
+        $dql = $this->createQueryBuilder('user');
+
+        $dql->leftJoin('user.pokedex', 'pokedex');
+
+        $dql->addSelect($order.' as orderParam');
+
+        $dql->andWhere('user.cheater = TRUE');
+
+        $dql->andHaving('user.username IS NOT NULL');
+        $dql->andHaving($order.' IS NOT NULL');
+
+        $dql->groupBy('user.id');
+        $dql->orderBy('orderParam', $way);
+
+        $firstResult = ($page - 1) * $max;
+
+        $query = $dql->getQuery();
+        $query->setFirstResult($firstResult);
+        $query->setMaxResults($max);
+
+        $paginator = new Paginator($query);
+
+        if(($paginator->count() <=  $firstResult) && $page != 1) {
+            throw new NotFoundHttpException('Page not found');
+        }
+        return $paginator;
+    }
+
     public function rankingCluster($page = 1, $max = 10, $order = 'user.xp', $way = 'DESC', $cluster) {
         if(!is_numeric($page)) {
             throw new \InvalidArgumentException(
@@ -104,6 +145,18 @@ class User extends EntityRepository
         $dql->select('SUM(user.'.$param.') AS points');
         $dql->addSelect('user.team');
         $dql->andWhere('user.cheater = FALSE');
+        $dql->groupBy('user.team');
+
+        $query = $dql->getQuery();
+
+        return $query->getResult();
+    }
+
+    public function statsTeamBot($param) {
+        $dql = $this->createQueryBuilder('user');
+        $dql->select('SUM(user.'.$param.') AS points');
+        $dql->addSelect('user.team');
+        $dql->andWhere('user.cheater = TRUE');
         $dql->groupBy('user.team');
 
         $query = $dql->getQuery();

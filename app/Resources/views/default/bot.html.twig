@@ -1,16 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ "title.index" | trans }}{% endblock %}
+{% block title %}{{ "title.bot" | trans }}{% endblock %}
 
 {% block body %}
     <div class="row">
         <div class="col-xs-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    {{ 'title.index' | trans }}
+                    {{ 'title.bot' | trans }}
                     <div class="tools">
-                        <a href="{{ path('bot') }}" class="btn btn-default btn-xs">
-                            {{ 'title.bot' | trans }}
+                        <a href="{{ path('index') }}" class="btn btn-default btn-xs">
+                            {{ 'title.index' | trans }}
                         </a>
                     </div>
                 </div>

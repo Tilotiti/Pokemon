@@ -3,6 +3,7 @@ title:
     account: "Modifier mon compte"
     notification: "Toutes les notifications"
     login: "Se connecter"
+    bot: "Classement des robots"
     cluster:
         index: "Classement des groupes"
         add: "Créer un groupe"
@@ -40,6 +41,7 @@ player:
     email: "E-mail"
     sign: "Date d'inscription"
     lastUpdate: "Dernière mise à jour"
+    cheater: "Automatisation"
 trainer: "Dresseur"
 statistics: "Statistiques"
 ranking: "Classement"
@@ -49,6 +51,8 @@ edit: "Modifier"
 refresh: "Mettre à jour"
 cancel: "Annuler"
 date: "Date"
+yes: "Oui"
+no: "Non"
 any:
     player: "Aucun joueur"
     empty: "Non-renseigné"
@@ -63,7 +67,7 @@ stats:
         discovered: "Pokémons découverts par équipe"
         catched: "Pokémons capturés par équipe"
 cheater:
-    message: "Cet utilisateur est suspecté d'automatiser sa chasse, son compte n'apparaît donc pas dans les différentes statistiques et classements."
+    message: "Cet utilisateur automatise sa chasse aux Pokémons. Il fait parti d'un classement différent."
 cluster:
     name: "Groupe"
     members: "Membres"

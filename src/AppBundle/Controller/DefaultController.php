@@ -78,6 +78,68 @@ class DefaultController extends Controller
         ));
     }
 
+    /**
+     * @Route("/bot", name="bot")
+     */
+    public function botAction(Request $request) {
+        switch($request->query->get('order', 'xp')) {
+            case "sign":
+                $orderBy = 'user.sign';
+                break;
+            case "pokedex":
+                $orderBy = 'COUNT(pokedex)';
+                break;
+            case "maxcp":
+                $orderBy = 'MAX(pokedex.cp)';
+                break;
+            case "totalcp":
+                $orderBy = 'SUM(pokedex.cp)';
+                break;
+            default:
+                $orderBy = 'user.'.$request->query->get('order', 'xp');
+                break;
+        }
+
+        $listUser = $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->rankingBot(
+            $request->query->getInt('page', 1),
+            20,
+            $orderBy,
+            $request->query->get('way', 'DESC')
+        );
+
+        $statsTeam = array();
+
+        // Pokedex
+        foreach(array('xp', 'km', 'discovered', 'catched') as $stats) {
+            $listStats = $this->getDoctrine()
+                ->getRepository('AppBundle:User')
+                ->statsTeamBot($stats);
+
+            $statsTeam[$stats] = array(array(
+                'name' => "Sans équipe",
+                'points' => 0
+            ), array(
+                'name' => "Team bleu",
+                'points' => 0
+            ), array(
+                'name' => "Team rouge",
+                'points' => 0
+            ), array(
+                'name' => "Team Jaune",
+                'points' => 0
+            ));
+
+            foreach ($listStats as $points) {
+                $statsTeam[$stats][$points['team']]['points'] = $points["points"];
+            }
+        }
+
+        return $this->render('default/bot.html.twig', array(
+            'listUser' => $listUser,
+            'statsTeam' => $statsTeam,
+        ));
+    }
+
 
     /**
      * @Route("/player/{username}", name="player", defaults={"username":"me"})
@@ -224,8 +286,8 @@ class DefaultController extends Controller
         $form->add('cheater', ChoiceType::class, array(
             'label' => "player.cheater",
             'choices' => array(
-                'Tricheur' => true,
-                'Honnête' => false
+                'yes' => true,
+                'non' => false
             )
         ));
 
