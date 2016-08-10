@@ -6,6 +6,7 @@ use AppBundle\Entity\User;
 use AppBundle\Form\UserType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
@@ -247,6 +248,13 @@ class DefaultController extends Controller
 
         $form = $this->createForm(UserType::class, $user);
 
+        if(!$this->getUser()->getCheater()) {
+            $form->add('cheater', CheckboxType::class, array(
+                'label' => "player.cheater.question",
+                'required' => false
+            ));
+        }
+
         $form->add('submit', SubmitType::class, array(
             'label' => "edit",
             'attr' => array(
@@ -284,7 +292,7 @@ class DefaultController extends Controller
         $form = $this->createForm(UserType::class, $user);
 
         $form->add('cheater', ChoiceType::class, array(
-            'label' => "player.cheater",
+            'label' => "player.cheater.label",
             'choices' => array(
                 'yes' => true,
                 'non' => false

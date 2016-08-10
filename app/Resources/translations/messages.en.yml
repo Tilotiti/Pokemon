@@ -41,7 +41,9 @@ player:
     email: "E-mail"
     sign: "Sign date"
     lastUpdate: "Last Update"
-    cheater: "Automatisation"
+    cheater:
+        label: "Automatisation"
+        question: "Do you use a bot ?"
 trainer: "Trainer"
 statistics: "Statistics"
 ranking: "Ranking"
