@@ -9,4 +9,4 @@ Poke Rank - https://www.poke-rank.com
     bin/console doctrine:schema:update --force
     bin/console pokemon:import
     
-Edit your vhost to target the folder web/
+The project is based on [Symfony](https://symfony.com/).
