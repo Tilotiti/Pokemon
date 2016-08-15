@@ -57,6 +57,7 @@ class NewsController extends Controller
         }
 
         $news = new News();
+        $news->setLocale($request->getLocale());
 
         $form = $this->createForm(NewsType::class, $news);
 
