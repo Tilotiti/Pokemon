@@ -61,7 +61,7 @@ class Pokedex
     private $stamina;
     
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float")
      */
     private $iv;
 

@@ -70,7 +70,7 @@ login.login(username, password)
                 attack: iv.att,
                 defense: iv.def,
                 stamina: iv.stam,
-                iv: Math.round(parseInt(iv.percent))
+                iv: iv.percent
             });
         }
 
