@@ -28,3 +28,7 @@ success:
             ok: "The request has been accepted."
             rejected: "The request has been rejected."
             canceled: "Your request has been canceled"
+    news:
+        add: "The news has been added."
+        edit: "The news has been updated."
+        delete: "The news has been deleted."

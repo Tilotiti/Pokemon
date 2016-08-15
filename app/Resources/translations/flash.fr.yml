@@ -30,4 +30,4 @@ success:
     news:
         add: "L'actualité a été ajoutée."
         edit: "L'actualité a été modifiée."
-        delete: "L'actualité a été supprimée"
+        delete: "L'actualité a été supprimée."
