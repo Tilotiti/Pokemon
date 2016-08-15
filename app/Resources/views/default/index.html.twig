@@ -157,35 +157,63 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-6">
             <div class="panel panel-default">
-                <div class="panel-heading">{{ 'stats.team.xp' | trans }}</div>
+                <div class="panel-heading">
+                    <i class="glyphicon glyphicon-signal"></i> Actualités
+                </div>
                 <div class="panel-body">
-                    <div id="teamStats_xp" class="stats"></div>
+                    {% for news in listNews %}
+                        <a href="{{ path('news_view', {
+                            'news': news.id
+                        }) }}">
+                            {{ news.datetime | localizeddate('medium', 'medium') }}
+                            <br>
+                            <strong>{{ news.title }}</strong>
+                        </a>
+                        <hr>
+                    {% else %}
+                        <div class="text-center">{{ 'any.news' | trans }}</div>
+                    {% endfor %}
+                </div>
+                <div class="panel-footer">
+                    <a href="{{ path('news') }}">{{ 'news.seeAll' | trans }}</a>
                 </div>
             </div>
         </div>
-        <div class="col-sm-3">
-            <div class="panel panel-default">
-                <div class="panel-heading">{{ 'stats.team.km' | trans }}</div>
-                <div class="panel-body">
-                    <div id="teamStats_km" class="stats"></div>
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">{{ 'stats.team.xp' | trans }}</div>
+                        <div class="panel-body">
+                            <div id="teamStats_xp" class="stats"></div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-sm-3">
-            <div class="panel panel-default">
-                <div class="panel-heading">{{ 'stats.team.discovered' | trans }}</div>
-                <div class="panel-body">
-                    <div id="teamStats_discovered" class="stats"></div>
+                <div class="col-sm-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">{{ 'stats.team.km' | trans }}</div>
+                        <div class="panel-body">
+                            <div id="teamStats_km" class="stats"></div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-sm-3">
-            <div class="panel panel-default">
-                <div class="panel-heading">{{ 'stats.team.catched' | trans }}</div>
-                <div class="panel-body">
-                    <div id="teamStats_catched" class="stats"></div>
+                <div class="col-sm-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">{{ 'stats.team.discovered' | trans }}</div>
+                        <div class="panel-body">
+                            <div id="teamStats_discovered" class="stats"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">{{ 'stats.team.catched' | trans }}</div>
+                        <div class="panel-body">
+                            <div id="teamStats_catched" class="stats"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

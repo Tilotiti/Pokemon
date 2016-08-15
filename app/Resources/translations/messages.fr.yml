@@ -8,6 +8,12 @@ title:
         index: "Classement des groupes"
         add: "Créer un groupe"
         edit: "Modifier le groupe"
+    news:
+        index: "Actualités"
+        view: "Actualité : news"
+        add: "Ajouter une actualité"
+        edit: "Modifier l'actualité"
+        delete: "Supprimer l'actualité"
 seo:
     description: "Partagez vos statistiques Pokémon Go, mesurez-vous à vos amis, communiquez parmis vos co-équipiers."
 menu:
@@ -16,6 +22,7 @@ menu:
     cluster: "Groupes"
     rank: "Classement"
     account: "Compte"
+    news: "Actualités"
 order:
     xp: "XP"
     km: "Km"
@@ -55,6 +62,7 @@ cancel: "Annuler"
 date: "Date"
 yes: "Oui"
 no: "Non"
+more: "En lire plus"
 any:
     player: "Aucun joueur"
     empty: "Non-renseigné"
@@ -62,6 +70,7 @@ any:
     pokemon: "Aucun pokémon"
     request: "Aucune demande"
     notification: "Aucune notification"
+    news: "Aucune actualité"
 stats:
     team:
         xp: "Expérience par équipe"
@@ -116,3 +125,7 @@ pokemon:
     defense: "Défense"
     stamina: "Endurance"
     iv: "IV"
+news:
+    title: "Titre"
+    content: "Contenu"
+    seeAll: "Voir toutes les actualités"

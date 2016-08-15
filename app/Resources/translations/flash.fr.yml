@@ -27,3 +27,7 @@ success:
             ok: "La demande a été acceptée."
             rejected: "La demande a été rejetée."
             canceled: "Votre demande a été annulée."
+    news:
+        add: "L'actualité a été ajoutée."
+        edit: "L'actualité a été modifiée."
+        delete: "L'actualité a été supprimée"

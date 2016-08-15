@@ -181,7 +181,7 @@ class ClusterController extends Controller
      */
     public function clusterEditAction(Request $request, Cluster $cluster) {
         if(!$this->getUser()->isRole('ROLE_ADMIN') && $cluster->getAdmin() != $this->getUser()) {
-            $this->addFlash('error', $this->get('translator')->trans("error.user.rank", [], "flash"));
+            $this->addFlash('danger', $this->get('translator')->trans("error.user.rank", [], "flash"));
 
             return $this->redirectToRoute("cluster_view", array(
                 'cluster' => $cluster->getId()
@@ -231,7 +231,7 @@ class ClusterController extends Controller
         // Check that the user is not a member already
         foreach($this->getUser()->getClusters() as $userCluster) {
             if($userCluster == $cluster) {
-                $this->addFlash('error', $this->get('translator')->trans("error.group.alreadyMember", [], "flash"));
+                $this->addFlash('danger', $this->get('translator')->trans("error.group.alreadyMember", [], "flash"));
 
                 return $this->redirectToRoute("cluster_view", array(
                     'cluster' => $cluster->getId()
@@ -279,7 +279,7 @@ class ClusterController extends Controller
             ));
         } else {
             if($cluster->hasRequestFrom($this->getUser())) {
-                $this->addFlash('error', "Votre demande est déjà en attente.");
+                $this->addFlash('danger', "Votre demande est déjà en attente.");
 
                 return $this->redirectToRoute("cluster_view", array(
                     'cluster' => $cluster->getId()
@@ -347,7 +347,7 @@ class ClusterController extends Controller
             ));
 
         if(!$request) {
-            $this->addFlash('error', $this->get('translator')->trans("error.cluster.request.unknown", [], "flash"));
+            $this->addFlash('danger', $this->get('translator')->trans("error.cluster.request.unknown", [], "flash"));
         } else {
             $this->addFlash('success', $this->get('translator')->trans("success.cluster.request.canceled", [], "flash"));
 
@@ -394,7 +394,7 @@ class ClusterController extends Controller
      */
     public function clusterAcceptRequest(\AppBundle\Entity\Request $request) {
         if($request->getCluster()->getAdmin() != $this->getUser()) {
-            $this->addFlash('error', $this->get('translator')->trans("error.user.rank", [], "flash"));
+            $this->addFlash('danger', $this->get('translator')->trans("error.user.rank", [], "flash"));
 
             return $this->redirectToRoute("cluster_view", array(
                 'cluster' => $request->getCluster()->getId()
@@ -474,7 +474,7 @@ class ClusterController extends Controller
      */
     public function clusterRejectRequest(\AppBundle\Entity\Request $request) {
         if($request->getCluster()->getAdmin() != $this->getUser()) {
-            $this->addFlash('error', $this->get('translator')->trans("error.user.rank", [], "flash"));
+            $this->addFlash('danger', $this->get('translator')->trans("error.user.rank", [], "flash"));
 
             return $this->redirectToRoute("cluster_view", array(
                 'cluster' => $request->getCluster()->getId()
@@ -524,7 +524,7 @@ class ClusterController extends Controller
      */
     public function clusterRemoveUser(Cluster $cluster, User $user) {
         if($cluster->getAdmin() != $this->getUser()) {
-            $this->addFlash('error', $this->get('translator')->trans("error.user.rank", [], "flash"));
+            $this->addFlash('danger', $this->get('translator')->trans("error.user.rank", [], "flash"));
 
             return $this->redirectToRoute("cluster_view", array(
                 'cluster' => $cluster->getId()
@@ -532,7 +532,7 @@ class ClusterController extends Controller
         }
 
         if(!$cluster->hasUser($user)) {
-            $this->addFlash('error', $this->get('translator')->trans("error.cluster.user", [], "flash"));
+            $this->addFlash('danger', $this->get('translator')->trans("error.cluster.user", [], "flash"));
 
             return $this->redirectToRoute("cluster_view", array(
                 'cluster' => $cluster->getId()
@@ -594,7 +594,7 @@ class ClusterController extends Controller
         }
 
         if($cluster->getAdmin() == $this->getUser()) {
-            $this->addFlash('error', $this->get('translator')->trans("error.cluster.quit", [], "flash"));
+            $this->addFlash('danger', $this->get('translator')->trans("error.cluster.quit", [], "flash"));
 
             return $this->redirectToRoute("cluster_view", array(
                 'cluster' => $cluster->getId()
@@ -602,7 +602,7 @@ class ClusterController extends Controller
         }
 
         if(!$cluster->hasUser($this->getUser())) {
-            $this->addFlash('error', $this->get('translator')->trans("error.user.rank", [], "flash"));
+            $this->addFlash('danger', $this->get('translator')->trans("error.user.rank", [], "flash"));
 
             return $this->redirectToRoute("cluster_view", array(
                 'cluster' => $cluster->getId()
@@ -665,7 +665,7 @@ class ClusterController extends Controller
         }
 
         if($cluster->getAdmin() != $this->getUser()) {
-            $this->addFlash('error', $this->get('translator')->trans("error.user.rank", [], "flash"));
+            $this->addFlash('danger', $this->get('translator')->trans("error.user.rank", [], "flash"));
 
             return $this->redirectToRoute("cluster_view", array(
                 'cluster' => $cluster->getId()
@@ -717,7 +717,7 @@ class ClusterController extends Controller
         }
 
         if($cluster->getAdmin() != $this->getUser()) {
-            $this->addFlash('error', $this->get('translator')->trans("error.user.rank", [], "flash"));
+            $this->addFlash('danger', $this->get('translator')->trans("error.user.rank", [], "flash"));
 
             return $this->redirectToRoute("cluster_view", array(
                 'cluster' => $cluster->getId()
@@ -725,7 +725,7 @@ class ClusterController extends Controller
         }
 
         if(!$cluster->hasUser($user)) {
-            $this->addFlash('error', $this->get('translator')->trans("error.cluster.user", [], "flash"));
+            $this->addFlash('danger', $this->get('translator')->trans("error.cluster.user", [], "flash"));
 
             return $this->redirectToRoute("cluster_view", array(
                 'cluster' => $cluster->getId()

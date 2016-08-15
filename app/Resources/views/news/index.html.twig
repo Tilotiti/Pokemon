@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'title.news.index' | trans }}{% endblock %}
+
+{% block body %}
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="text-right">
+            <a href="{{ path('news_add') }}" class="btn btn-default btn-xs">{{ 'title.news.add' | trans }}</a>
+        </div>
+    {% endif %}
+    <div class="row">
+        {% for news in listNews %}
+            <div class="col-md-6">
+                <div class="panel panel-default>">
+                    <div class="panel-heading">{{ news.title }}</div>
+                    <div class="panel-body">
+                        <p>{{ news.content | truncate(100) }}</p>
+                    </div>
+                    <div class="panel-footer">
+                        <a href="{{ path('news_view', {
+                            'news' : news.id
+                        }) }}">
+                            {{ 'more' | trans }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="col-sm-12">
+                <p class="text-center">
+                    <em>{{ 'any.news' | trans }}</em>
+                </p>
+            </div>
+        {% endfor %}
+        <div class="col-sm-12">
+            {{ pagination(listNews) }}
+        </div>
+    </div>
+{% endblock %}

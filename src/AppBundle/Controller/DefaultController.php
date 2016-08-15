@@ -73,9 +73,14 @@ class DefaultController extends Controller
             }
         }
 
+        $listNews = $this->getDoctrine()->getManager()->getRepository('AppBundle:News')->findBy(array(
+            'locale' => $request->getLocale()
+        ), array('datetime' => 'DESC'), 5);
+
         return $this->render('default/index.html.twig', array(
             'listUser' => $listUser,
             'statsTeam' => $statsTeam,
+            'listNews' => $listNews
         ));
     }
 

@@ -27,6 +27,7 @@
                 <div class="col-xs-8 text-right">
                     <a href="{{ path('index') }}">{{ 'menu.rank' | trans }}</a>
                     <a href="{{ path('cluster') }}">{{ 'menu.cluster' | trans }}</a>
+                    <a href="{{ path('news') }}">{{ 'menu.news' | trans }}</a>
                     {% if app.user %}
                         <a href="{{ path('player') }}">{{ 'menu.account' | trans }}</a>
                         {% if is_granted('ROLE_PREVIOUS_ADMIN') %}

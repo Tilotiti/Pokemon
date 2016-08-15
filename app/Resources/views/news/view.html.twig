@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'title.news.view' | trans({
+    'news': news.title
+}) }}{% endblock %}
+
+{% block body %}
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="text-right">
+            <a href="{{ path('news_edit', {
+                'news': news.id
+            }) }}" class="btn btn-default btn-xs">{{ 'title.news.edit' | trans }}</a>
+        </div>
+    {% endif %}
+    <div class="panel panel-default>">
+        <div class="panel-heading">{{ news.title }}</div>
+        <div class="panel-body">
+            <p>{{ news.content | nl2br }}</p>
+        </div>
+    </div>
+{% endblock %}

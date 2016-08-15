@@ -312,4 +312,7 @@ table.table td.order {
 table.table tr.active td.order {
   background-color: #bbb !important; }
 
+footer {
+  margin-top: 20px; }
+
 /*# sourceMappingURL=global.css.map */

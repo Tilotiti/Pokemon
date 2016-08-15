@@ -8,6 +8,12 @@ title:
         index: "Groups ranking"
         add: "Create a group"
         edit: "Edit the group"
+    news:
+        index: "News"
+        view: "News : news"
+        add: "Add a news"
+        edit: "Update a news"
+        delete: "Delete a news"
 seo:
     description: "Share your Pokémon Go stats, beat your friends , communicate with you team-mates."
 menu:
@@ -16,6 +22,7 @@ menu:
     cluster: "Groups"
     rank: "Ranking"
     account: "Account"
+    news: "News"
 order:
     xp: "XP"
     km: "Km"
@@ -55,6 +62,7 @@ cancel: "Cancel"
 date: "Date"
 yes: "Yes"
 no: "No"
+more: "Read more"
 any:
     player: "No player"
     empty: "Not specified"
@@ -62,6 +70,7 @@ any:
     pokemon: "No pokémon"
     request: "No request"
     notification: "No notification"
+    news: "No news"
 stats:
     team:
         xp: "Experience by team"
@@ -116,3 +125,7 @@ pokemon:
     defense: "Defense"
     stamina: "Stamina"
     iv: "IV"
+news:
+    title: "Title"
+    content: "Content"
+    seeAll: "See all the news"

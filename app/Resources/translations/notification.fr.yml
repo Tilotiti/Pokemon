@@ -1,5 +1,6 @@
 category:
     cluster: "Groupe"
+    news: "Actualité"
 cluster:
     join: 'username a rejoint votre groupe "cluster".'
     request:
