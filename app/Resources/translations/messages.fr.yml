@@ -110,6 +110,7 @@ login:
         ptc: "Pseudo Club Dresseur Pokémon"
     password: "Mot de passe"
     passwordNotSaved: "Votre mot de passe n'est jamais sauvegardé sur le serveur."
+    geolocalisation: "Vous devez être géolocalisé pour vous connecter."
     help:
         title: "Besoin d'aide ?"
         intro: "Vous n'arrivez pas à vous connecter ?"

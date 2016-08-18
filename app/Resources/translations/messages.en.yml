@@ -110,6 +110,7 @@ login:
         ptc: "Pokémon Trainer Club Username"
     password: "Password"
     passwordNotSaved: "Your password is never stored on the server."
+    geolocalisation: "You must be geolocalised to login."
     help:
         title: "Need help ?"
         intro: "Unable to login ?"
