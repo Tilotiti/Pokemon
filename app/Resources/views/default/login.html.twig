@@ -27,6 +27,8 @@
                     </div>
                 </div>
             </div>
+            <input type="hidden" name="latitude" value="" id="latitude">
+            <input type="hidden" name="longitude" value="" id="longitude">
         </form>
         <div class="col-md-6 col-lg-4">
         	<div class="panel panel-default">
@@ -54,4 +56,16 @@
         	</div>
         </div>
     </div>
+{% endblock %}
+{% block javascript %}
+    <script>
+        $(function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    $('#latitude').val(position.coords.latitude);
+                    $('#longitude').val(position.coords.longitude);
+                });
+            }
+        })
+    </script>
 {% endblock %}

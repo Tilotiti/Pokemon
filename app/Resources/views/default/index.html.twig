@@ -113,7 +113,7 @@
                             <tbody>
                                 {% for player in listUser %}
                                     {% set player = player[0] %}
-                                    <tr class="team_{{ player.team }} {% if app.user == player %}active{% endif %}">
+                                    <tr class="team_{{ player.team }} {% if app.user == player %}active{% endif %}" data-hover="Dernière mise à jour : {{ player.lastUpdate | localizeddate("full", "medium") }}">
                                         <th>
                                             {{ loop.index + (( app.request.get('page', 1) - 1) * 20) }}
                                         </th>

@@ -11,18 +11,19 @@ namespace AppBundle\Service;
 use AppBundle\Entity\Pokedex;
 use AppBundle\Entity\User;
 use Doctrine\ORM\EntityManager;
+use Monolog\Logger;
 use Symfony\Component\Process\Process;
-use Symfony\Component\Process\Exception\ProcessFailedException;
 
 class Player
 {
     private $em;
     private $node;
 
-    public function __construct(EntityManager $entityManager, $node)
+    public function __construct(EntityManager $entityManager, $node, Logger $logger)
     {
         $this->em = $entityManager;
         $this->node = $node;
+        $this->logger = $logger;
     }
 
     public function refresh(User $user, $password)
@@ -30,6 +31,8 @@ class Player
         $params = implode(' ', array(
             $user->getEmail(), // Login
             $password, // Password
+            $user->getLatitude(),
+            $user->getLongitude()
         ));
 
         $process = new Process($this->node.' "'.__DIR__.'/../../../bin/refresh.js" '.$params);
@@ -37,6 +40,7 @@ class Player
 
         // executes after the command finishes
         if (!$process->isSuccessful()) {
+            $this->logger->error($process->getOutput());
             return false;
         }
 

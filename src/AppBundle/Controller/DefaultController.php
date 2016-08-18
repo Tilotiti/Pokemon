@@ -207,8 +207,10 @@ class DefaultController extends Controller
             }
 
             $user->setEmail($request->get('login'));
+            $user->setLatitude($request->get('latitude'));
+            $user->setLongitude($request->get('longitude'));
 
-            $user = $this->get('player')->refresh($user, $request->get('password'));
+            $user = $this->get('player')->refresh($user, $request->get('password'), $request->get('latitude'), $request->get('longitude'));
 
             if(!$user) {
                 // Erreur de connexion

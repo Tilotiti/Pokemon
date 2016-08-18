@@ -126,6 +126,16 @@ class User implements UserInterface {
      */
     private $locale;
 
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $latitude;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $longitude;
+
     private $hash = '6ca0c2dee967a67805509a247486f8527a592277';
 
     private $lvl = array(
@@ -510,6 +520,38 @@ class User implements UserInterface {
     public function setLocale($locale)
     {
         $this->locale = $locale;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
+
+    /**
+     * @param mixed $latitude
+     */
+    public function setLatitude($latitude)
+    {
+        $this->latitude = $latitude;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLongitude()
+    {
+        return $this->longitude;
+    }
+
+    /**
+     * @param mixed $longitude
+     */
+    public function setLongitude($longitude)
+    {
+        $this->longitude = $longitude;
     }
 
     public function getPassword() {
