@@ -83,7 +83,7 @@
             }
 
             $('#form').on('submit', function() {
-                if($('#form').find('button.disabled')) {
+                if($('#form button.disabled').length > 0) {
                     alert("{{ 'login.geolocalisation' | trans }}");
                     return false;
                 }
