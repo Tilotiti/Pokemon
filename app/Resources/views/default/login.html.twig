@@ -66,16 +66,28 @@
                     $('#longitude').val(position.coords.longitude);
 
                     $('#submit').removeClass('disabled');
-                    $('#submit i').removeClass('glyphicon-lock loading');
+                    $('#submit i').removeClass('glyphicon-lock')
+                            .removeClass('loading')
+                            .addClass('glyphicon-lock');
+                }, function() {
+                    $('#submit').removeClass('disabled');
+                    $('#submit i').removeClass('glyphicon-lock')
+                            .removeClass('loading')
+                            .addClass('glyphicon-lock');
                 });
-
-                $('#form').on('submit', function() {
-                    if($('#form').find('button.disabled')) {
-                        alert("{{ 'login.geolocalisation' | trans }}");
-                        return false;
-                    }
-                })
+            } else {
+                $('#submit').removeClass('disabled');
+                $('#submit i').removeClass('glyphicon-lock')
+                        .removeClass('loading')
+                        .addClass('glyphicon-lock');
             }
+
+            $('#form').on('submit', function() {
+                if($('#form').find('button.disabled')) {
+                    alert("{{ 'login.geolocalisation' | trans }}");
+                    return false;
+                }
+            });
         })
     </script>
 {% endblock %}
