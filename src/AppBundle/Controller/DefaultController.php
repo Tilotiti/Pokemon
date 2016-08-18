@@ -210,7 +210,7 @@ class DefaultController extends Controller
             $user->setLatitude($request->get('latitude'));
             $user->setLongitude($request->get('longitude'));
 
-            $user = $this->get('player')->refresh($user, $request->get('password'), $request->get('latitude'), $request->get('longitude'));
+            $user = $this->get('player')->refresh($user, $request->get('password'));
 
             if(!$user) {
                 // Erreur de connexion
