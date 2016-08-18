@@ -6,7 +6,7 @@ parameters:
 services:
     player:
         class: AppBundle\Service\Player
-        arguments: ["@doctrine.orm.entity_manager", "%node%""]
+        arguments: ["@doctrine.orm.entity_manager", "%node%"]
     local:
         class: AppBundle\Service\Locale
         arguments: ["@service_container", "%kernel.default_locale%"]
