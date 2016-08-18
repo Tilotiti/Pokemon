@@ -14,8 +14,8 @@ if(process.argv[2].indexOf('@') != -1) {
 
 var username = process.argv[2];
 var password = process.argv[3];
-var lat      = process.argv[4] || 48.856614;
-var lng      = process.argv[5] || 2.3522219000000177;
+var lat      = parseFloat(process.argv[4]) || 48.856614;
+var lng      = parseFloat(process.argv[5]) || 2.3522219000000177;
 
 var client = new pogobuf.Client();
 var login;
