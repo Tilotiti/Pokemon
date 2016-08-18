@@ -176,9 +176,10 @@ a {
 
 #refresh {
   cursor: pointer; }
-  #refresh.loading {
-    animation: spin 4s infinite linear;
-    cursor: progress; }
+
+.loading {
+  animation: spin 4s infinite linear;
+  cursor: progress; }
 
 @keyframes spin {
   from {
