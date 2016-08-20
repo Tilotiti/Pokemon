@@ -272,7 +272,7 @@
                         <tbody>
                         {% for player in listUser %}
                             {% set player = player[0] %}
-                            <tr class="team_{{ player.team }} {% if app.user == player %}active{% endif %}">
+                            <tr class="team_{{ player.team }} {% if app.user == player %}active{% endif %}" data-toggle="tooltip" data-placement="top" data-title="{{ 'player.lastUpdate' | trans }} :<br><strong>{{ player.lastUpdate | localizeddate("full", "medium") }}</strong>">
                                 <td>
                                     {{ loop.index + (( app.request.get('page', 1) - 1) * 20) }}
                                 </td>
@@ -330,8 +330,14 @@
 
 {% block javascript %}
     <script>
-        $('#remove').on('click', function() {
-            return confirm('{{ 'cluster.deleteConfirm' | trans }}');
-        })
+        $(function() {
+            $('#remove').on('click', function() {
+                return confirm('{{ 'cluster.deleteConfirm' | trans }}');
+            });
+
+            $('[data-toggle="tooltip"]').tooltip({
+                html: true
+            });
+        });
     </script>
 {% endblock %}

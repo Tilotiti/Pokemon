@@ -113,7 +113,7 @@
                             <tbody>
                                 {% for player in listUser %}
                                     {% set player = player[0] %}
-                                    <tr class="team_{{ player.team }} {% if app.user == player %}active{% endif %}" data-hover="Dernière mise à jour : {{ player.lastUpdate | localizeddate("full", "medium") }}">
+                                    <tr class="team_{{ player.team }} {% if app.user == player %}active{% endif %}" data-toggle="tooltip" data-placement="top" data-title="{{ 'player.lastUpdate' | trans }} :<br><strong>{{ player.lastUpdate | localizeddate("full", "medium") }}</strong>">
                                         <th>
                                             {{ loop.index + (( app.request.get('page', 1) - 1) * 20) }}
                                         </th>
@@ -277,6 +277,10 @@
                     chart.draw(data, options);
                 {% endfor %}
             }
+
+            $('[data-toggle="tooltip"]').tooltip({
+                html: true
+            })
         });
     </script>
 {% endblock %}
