@@ -99,12 +99,6 @@
                     </div>
                 </div>
             {% endif %}
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <i class="glyphicon glyphicon-map-marker"></i> {{ 'title.geo' | trans }}
-                </div>
-                <div id="map"></div>
-            </div>
         </div>
         <div class="col-sm-6">
             <div class="panel panel-default">
@@ -340,6 +334,13 @@
                 <div class="panel-footer">
                     {{ pagination(listUser) }}
                 </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="glyphicon glyphicon-map-marker"></i> {{ 'title.geo' | trans }}
+                </div>
+                <div id="map"></div>
             </div>
         </div>
     </div>
