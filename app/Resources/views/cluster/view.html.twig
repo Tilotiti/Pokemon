@@ -267,6 +267,7 @@
                                     {{ "player.sign" | trans }}
                                 </a>
                             </th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -299,10 +300,30 @@
                                 <td class="text-center {{ app.request.query.get('order', 'xp') == 'sign' ? 'order' }}">
                                     {{ player.sign | localizeddate('short', 'none') }}
                                 </td>
+                                <td class="text-right">
+                                    {% if cluster.admin == app.user and player != app.user %}
+                                        <a href="{{ path('cluster_remove_user', {
+                                            'cluster': cluster.id,
+                                            'user': player.id
+                                        }) }}" title="{{ 'cluster.reject' | trans }}">
+                                            <i class="glyphicon glyphicon-remove"></i>
+                                        </a>
+                                        <a href="{{ path('cluster_ownership', {
+                                            'cluster': cluster.id,
+                                            'user': player.id
+                                        }) }}" title="{{ 'cluster.transfert' | trans }}">
+                                            <i class="glyphicon glyphicon-tower"></i>
+                                        </a>
+                                    {% else %}
+                                        {% if cluster.admin == player %}
+                                            <i class="glyphicon glyphicon-tower"></i>
+                                        {% endif %}
+                                    {% endif %}
+                                </td>
                             </tr>
                         {% else %}
                             <tr>
-                                <td class="text-center" colspan="12">
+                                <td class="text-center" colspan="13">
                                     <em>{{ "any.player" | trans }}</em>
                                 </td>
                             </tr>
