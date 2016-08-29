@@ -138,6 +138,7 @@ class User implements UserInterface {
 
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Historic", mappedBy="user")
+     * @ORM\OrderBy({"date" = "ASC"})
      */
     private $historic;
 
