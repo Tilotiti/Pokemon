@@ -131,3 +131,4 @@ news:
     title: "Titre"
     content: "Contenu"
     seeAll: "Voir toutes les actualités"
+date_format: 'd/M/yyyy'

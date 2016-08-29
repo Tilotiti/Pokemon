@@ -26,7 +26,7 @@ class Historic
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="historic")
      * @ORM\JoinColumn(name="user")
      */
     private $user;

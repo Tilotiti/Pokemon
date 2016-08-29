@@ -136,6 +136,11 @@ class User implements UserInterface {
      */
     private $longitude;
 
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Historic", mappedBy="user")
+     */
+    private $historic;
+
     private $hash = '6ca0c2dee967a67805509a247486f8527a592277';
 
     private $lvl = array(
@@ -552,6 +557,22 @@ class User implements UserInterface {
     public function setLongitude($longitude)
     {
         $this->longitude = $longitude;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHistoric()
+    {
+        return $this->historic;
+    }
+
+    /**
+     * @param mixed $historic
+     */
+    public function setHistoric($historic)
+    {
+        $this->historic = $historic;
     }
 
     public function getPassword() {

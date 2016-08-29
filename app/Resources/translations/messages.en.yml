@@ -131,3 +131,4 @@ news:
     title: "Title"
     content: "Content"
     seeAll: "See all the news"
+date_format: 'M/d/yyyy'

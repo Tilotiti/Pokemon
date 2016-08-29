@@ -129,6 +129,14 @@
                     </table>
                 </div>
             </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ 'player.xp' | trans }}
+                </div>
+                <div class="panel-body">
+                    <div id="statsXP"></div>
+                </div>
+            </div>
         </div>
 
         <div class="col-md-6">
@@ -203,14 +211,17 @@
                     </div>
                 {% endfor %}
             </div>
-
         </div>
     </div>
 {% endblock %}
 
 {% block javascript %}
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script>
         $(function() {
+            google.charts.load('current', {'packages':['corechart']});
+            google.charts.setOnLoadCallback(drawChart);
+
             $('#selectOrder').on('change', function() {
                 document.location.href = "{{ path(app.request.get('_route'), app.request.attributes.get('_route_params')) }}?order="+$(this).val();
             });
@@ -236,6 +247,40 @@
                     return false;
                 }
             });
+
+            function drawChart() {
+                var data = google.visualization.arrayToDataTable([
+                    ['Date', 'XP']
+                    {% for histo in user.historic %}
+                        , [new Date({{ histo.date | date('U') }}000),  {{ histo.xp }}]
+                    {% endfor %}
+                ]);
+
+                var options = {
+                    curveType: 'linear',
+                    legend: {
+                        position: 'none'
+                    },
+                    chartArea: {
+                        right: 0,
+                        top: 10,
+                        width: '85%',
+                        height: '80%'
+                    },
+                    hAxis: {
+                        format: '{{ 'date_format' | trans }}',
+                        gridlines: {count: 15},
+                        viewWindow: {
+                            min: new Date({{ user.sign | date('U') }}000),
+                            max: new Date()
+                        },
+                    },
+                };
+
+                var chart = new google.visualization.LineChart(document.getElementById('statsXP'));
+
+                chart.draw(data, options);
+            }
         });
     </script>
 {% endblock %}
