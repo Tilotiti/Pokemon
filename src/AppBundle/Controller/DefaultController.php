@@ -78,7 +78,7 @@ class DefaultController extends Controller
         ), array('datetime' => 'DESC'), 5);
 
         $listTotalUser = $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->findGeolocalised();
-
+				
         return $this->render('default/index.html.twig', array(
             'listUser' => $listUser,
             'statsTeam' => $statsTeam,
