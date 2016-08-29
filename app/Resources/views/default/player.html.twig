@@ -131,10 +131,58 @@
             </div>
             <div class="panel panel-default">
                 <div class="panel-heading">
+                    {{ 'player.level' | trans }}
+                </div>
+                <div class="panel-body">
+                    <div id="stats_level"></div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
                     {{ 'player.xp' | trans }}
                 </div>
                 <div class="panel-body">
-                    <div id="statsXP"></div>
+                    <div id="stats_xp"></div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ 'player.km' | trans }}
+                </div>
+                <div class="panel-body">
+                    <div id="stats_km"></div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ 'player.discovered' | trans }}
+                </div>
+                <div class="panel-body">
+                    <div id="stats_discovered"></div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ 'player.catched' | trans }}
+                </div>
+                <div class="panel-body">
+                    <div id="stats_catched"></div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ 'player.evolved' | trans }}
+                </div>
+                <div class="panel-body">
+                    <div id="stats_evolved"></div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ 'player.pokedex' | trans }}
+                </div>
+                <div class="panel-body">
+                    <div id="stats_pokedex"></div>
                 </div>
             </div>
         </div>
@@ -248,38 +296,40 @@
                 }
             });
 
+            var options = {
+                curveType: 'linear',
+                legend: {
+                    position: 'none'
+                },
+                chartArea: {
+                    right: 0,
+                    top: 10,
+                    width: '85%',
+                    height: '80%'
+                },
+                hAxis: {
+                    format: '{{ 'date_format' | trans }}',
+                    gridlines: {count: 15},
+                    viewWindow: {
+                        min: new Date({{ user.sign | date('U') }}000),
+                        max: new Date()
+                    }
+                }
+            };
+
             function drawChart() {
-                var data = google.visualization.arrayToDataTable([
-                    ['Date', 'XP']
-                    {% for histo in user.historic %}
-                        , [new Date({{ histo.date | date('U') }}000),  {{ histo.xp }}]
-                    {% endfor %}
-                ]);
+                {% for type in ['level', 'xp', 'km', 'discovered', 'catched', 'evolved', 'pokedex'] %}
+                    var data = google.visualization.arrayToDataTable([
+                        ['Date', '{{ 'player.' ~ type | trans }}']
+                        {% for histo in user.historic %}
+                            , [new Date({{ histo.date | date('U') }}000),  {{ histo.get(type) }}]
+                        {% endfor %}
+                    ]);
 
-                var options = {
-                    curveType: 'linear',
-                    legend: {
-                        position: 'none'
-                    },
-                    chartArea: {
-                        right: 0,
-                        top: 10,
-                        width: '85%',
-                        height: '80%'
-                    },
-                    hAxis: {
-                        format: '{{ 'date_format' | trans }}',
-                        gridlines: {count: 15},
-                        viewWindow: {
-                            min: new Date({{ user.sign | date('U') }}000),
-                            max: new Date()
-                        },
-                    },
-                };
+                    var chart = new google.visualization.LineChart(document.getElementById('stats_{{ type }}'));
 
-                var chart = new google.visualization.LineChart(document.getElementById('statsXP'));
-
-                chart.draw(data, options);
+                    chart.draw(data, options);
+                {% endfor %}
             }
         });
     </script>

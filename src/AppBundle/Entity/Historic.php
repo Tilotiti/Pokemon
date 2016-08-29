@@ -235,4 +235,12 @@ class Historic
     {
         $this->pokedex = $pokedex;
     }
+
+    public function get($key) {
+        if(isset($this->$key)) {
+            return $this->$key;
+        }
+
+        return null;
+    }
 }
