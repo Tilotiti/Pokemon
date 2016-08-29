@@ -163,4 +163,14 @@ class User extends EntityRepository
 
         return $query->getResult();
     }
+
+    public function findGeolocalised() {
+        $dql = $this->createQueryBuilder('user');
+        $dql->andWhere('user.latitude != 0');
+        $dql->andWhere('user.longitude != 0');
+
+        $query = $dql->getQuery();
+
+        return $query->getResult();
+    }
 }

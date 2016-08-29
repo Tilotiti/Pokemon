@@ -77,10 +77,15 @@ class DefaultController extends Controller
             'locale' => $request->getLocale()
         ), array('datetime' => 'DESC'), 5);
 
+        $listTotalUser = $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->findGeolocalised();
+
+        dump($listTotalUser);
+
         return $this->render('default/index.html.twig', array(
             'listUser' => $listUser,
             'statsTeam' => $statsTeam,
-            'listNews' => $listNews
+            'listNews' => $listNews,
+            'listTotalUser' => $listTotalUser
         ));
     }
 

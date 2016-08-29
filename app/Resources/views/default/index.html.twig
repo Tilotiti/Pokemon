@@ -180,6 +180,12 @@
                     <a href="{{ path('news') }}">{{ 'news.seeAll' | trans }}</a>
                 </div>
             </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="glyphicon glyphicon-map-marker"></i> {{ 'title.geo' | trans }}
+                </div>
+                <div id="map"></div>
+            </div>
         </div>
         <div class="col-sm-6">
             <div class="row">
@@ -222,11 +228,13 @@
 
 {% block javascript %}
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtY5leXhBHp64QGd4Tqd8tGl3ZljlK6nY"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.googlemap.js') }}"></script>
     <script>
         $(function() {
             $('.stats').css('height', function() {
                 return $(this).width();
-            })
+            });
 
             google.charts.load('current', {'packages':['corechart']});
             google.charts.setOnLoadCallback(drawChart);
@@ -280,7 +288,18 @@
 
             $('[data-toggle="tooltip"]').tooltip({
                 html: true
-            })
+            });
+
+            $('#map').height(300);
+            $('#map').googleMap();
+
+            {% for user in listTotalUser %}
+                $('#map').addMarker({
+                    title: user.username,
+                    coords: [user.latitude, user.longitude],
+                    url: "{{ path('player', {user: user.username}) }}"
+                });
+            {% endfor %}
         });
     </script>
 {% endblock %}
