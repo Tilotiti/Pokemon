@@ -79,8 +79,6 @@ class DefaultController extends Controller
 
         $listTotalUser = $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->findGeolocalised();
 
-        dump($listTotalUser);
-
         return $this->render('default/index.html.twig', array(
             'listUser' => $listUser,
             'statsTeam' => $statsTeam,

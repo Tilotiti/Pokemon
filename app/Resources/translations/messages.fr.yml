@@ -4,6 +4,7 @@ title:
     notification: "Toutes les notifications"
     login: "Se connecter"
     bot: "Classement des robots"
+    geo: "Carte des joueurs"
     cluster:
         index: "Classement des groupes"
         add: "Créer un groupe"

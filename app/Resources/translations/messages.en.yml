@@ -4,6 +4,7 @@ title:
     notification: "All the notifications"
     login: "Login"
     bot: "Bot ranking"
+    geo: "Palyer map"
     cluster:
         index: "Groups ranking"
         add: "Create a group"
