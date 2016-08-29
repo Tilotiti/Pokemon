@@ -99,6 +99,12 @@
                     </div>
                 </div>
             {% endif %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="glyphicon glyphicon-map-marker"></i> {{ 'title.geo' | trans }}
+                </div>
+                <div id="map"></div>
+            </div>
         </div>
         <div class="col-sm-6">
             <div class="panel panel-default">
@@ -350,6 +356,8 @@
 {% endblock %}
 
 {% block javascript %}
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtY5leXhBHp64QGd4Tqd8tGl3ZljlK6nY"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.googlemap.js') }}"></script>
     <script>
         $(function() {
             $('#remove').on('click', function() {
@@ -359,6 +367,19 @@
             $('[data-toggle="tooltip"]').tooltip({
                 html: true
             });
+
+            $('#map').height(300);
+            $('#map').googleMap();
+
+            {% for user in cluster.users %}
+                {% if user.latitude != 0 and user.longitude != 0 %}
+                    $('#map').addMarker({
+                        title: "{{ user.username }}",
+                        coords: ["{{ user.latitude }}", "{{ user.longitude }}"],
+                        url: "{{ path('player', {username: user.username}) }}"
+                    });
+                {% endif %}
+            {% endfor %}
         });
     </script>
 {% endblock %}
