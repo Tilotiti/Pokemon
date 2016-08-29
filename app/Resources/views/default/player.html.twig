@@ -186,7 +186,6 @@
                 </div>
             </div>
         </div>
-
         <div class="col-md-6">
             <div class="row" id="listPokemon">
                 <div class="col-xs-12">
@@ -320,7 +319,7 @@
             function drawChart() {
                 {% for type in ['level', 'xp', 'km', 'discovered', 'catched', 'evolved', 'pokedex'] %}
                     var data = google.visualization.arrayToDataTable([
-                        ['Date', '{{ 'player.' ~ type | trans }}']
+                        ['Date', '{{ ('player.' ~ type) | trans }}']
                         {% for histo in user.historic %}
                             , [new Date({{ histo.date | date('U') }}000),  {{ histo.get(type) }}]
                         {% endfor %}
