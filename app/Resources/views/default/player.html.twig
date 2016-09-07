@@ -185,6 +185,12 @@
                     <div id="stats_pokedex"></div>
                 </div>
             </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="glyphicon glyphicon-map-marker"></i> {{ 'title.geo' | trans }}
+                </div>
+                <div id="map"></div>
+            </div>
         </div>
         <div class="col-md-6">
             <div class="row" id="listPokemon">
@@ -264,6 +270,8 @@
 
 {% block javascript %}
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtY5leXhBHp64QGd4Tqd8tGl3ZljlK6nY"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.googlemap.js') }}"></script>
     <script>
         $(function() {
             google.charts.load('current', {'packages':['corechart']});
@@ -330,6 +338,17 @@
                     chart.draw(data, options);
                 {% endfor %}
             }
+
+            {% if user.latitude != 0 and user.longitude != 0 %}
+                $('#map')
+                    .height(300)
+                    .googleMap()
+                    .addMarker({
+                        title: "{{ user.username }}",
+                        coords: ["{{ user.latitude | round(3) }}", "{{ user.longitude | round(3) }}"],
+                        url: "{{ path('player', {username: user.username}) }}"
+                    });
+            {% endif %}
         });
     </script>
 {% endblock %}

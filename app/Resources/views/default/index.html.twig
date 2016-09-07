@@ -296,7 +296,7 @@
             {% for user in listTotalUser %}
                 $('#map').addMarker({
                     title: "{{ user.username }}",
-                    coords: ["{{ user.latitude }}", "{{ user.longitude }}"],
+                    coords: ["{{ user.latitude | round(3) }}", "{{ user.longitude | round(3) }}"],
                     url: "{{ path('player', {username: user.username}) }}"
                 });
             {% endfor %}
